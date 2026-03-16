@@ -13,9 +13,10 @@ const EPSOM_SO4 = 390.4;
 const BAKING_SODA_NA = 273.8;
 const BAKING_SODA_HCO3 = 726.2;
 
-// Acid Addition Constants
-const LACTIC_ACID_FACTOR = 11.8; // mEq of alkalinity destroyed per mL of 88% lactic acid
-const PHOSPHORIC_ACID_FACTOR = 5.0; // Approximation for 10% phosphoric acid
+// Acid Addition Constants representing 100% pure acid
+// This allows the strengthMultiplier (concentration / 100) to scale correctly
+const LACTIC_ACID_FACTOR = 13.4; // mEq of alkalinity destroyed per mL of 100% lactic acid
+const PHOSPHORIC_ACID_FACTOR = 13.2; // mEq of alkalinity destroyed per mL of 100% phosphoric acid
 const RA_CONVERSION_FACTOR = 50; // Convert mEq/L to ppm as CaCO3 equivalent
 
 /**
@@ -327,7 +328,6 @@ export const calculateProfileFromSalts = (
 
 /**
  * Predicts Room Temperature Mash pH based on water chemistry and grain bill color.
- * Uses a simplified model of Kolbach / Residual Alkalinity.
  */
 export const predictMashPH = (
   waterProfile: WaterProfile,
@@ -338,7 +338,6 @@ export const predictMashPH = (
   if (fermentables.length === 0 || mashVolumeLiters === 0) return 5.8;
 
   // Residual Alkalinity (RA) = Alkalinity - ((Calcium / 1.4) + (Magnesium / 1.7))
-  // Alkalinity is roughly Bicarbonate * 0.82
   const alkalinity = waterProfile.bicarbonate * 0.82;
   let ra = alkalinity - ((waterProfile.calcium / 1.4) + (waterProfile.magnesium / 1.7));
 
@@ -360,8 +359,8 @@ export const predictMashPH = (
   // Weighted average color
   const avgColor = fermentables.reduce((acc, f) => acc + (f.color * f.weight), 0) / totalWeightKg;
 
-  // Standard Model: Base pH of pale malt is roughly 5.6 - 5.7 at room temp.
-  const raShift = (ra / 100) * 0.1;
+  // Standard Model: 50ppm of RA shifts pH by 0.1 at room temp.
+  const raShift = (ra / 50) * 0.1; 
   
   // Color shift: Each Lovibond adds acidity. 
   // Logarithmic curve for dark malts to prevent unrealistic sub-5.0 pH.

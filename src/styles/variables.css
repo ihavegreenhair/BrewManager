@@ -1,26 +1,26 @@
 :root {
-  /* Color Palette - Dark Lab Aesthetic */
-  --bg-main: #121212;
-  --bg-surface: #1E1E1E;
-  --bg-surface-hover: #2A2A2A;
+  /* Color Palette - "Brewprint" Blueprint Aesthetic */
+  --bg-main: #0A192F; /* Deep blueprint blue */
+  --bg-surface: #112240; /* Slightly lighter technical blue */
+  --bg-surface-hover: #233554;
   
-  --text-primary: #E0E0E0;
-  --text-secondary: #9E9E9E;
-  --text-muted: #616161;
+  --text-primary: #E6F1FF; /* Crisp technical white */
+  --text-secondary: #8892B0;
+  --text-muted: #495670;
 
-  --accent-primary: #FFB300; /* Amber for beer */
-  --accent-hover: #FFA000;
+  --accent-primary: #64FFDA; /* Blueprint Cyan/Teal */
+  --accent-hover: #52D1B2;
   
-  --status-success: #4CAF50;
-  --status-warning: #FF9800;
+  --status-success: #64FFDA;
+  --status-warning: #FFD700;
   --status-danger: #F44336;
-  --status-info: #2196F3;
+  --status-info: #00BFFF;
 
   /* Borders & Shadows */
-  --border-color: #333333;
-  --border-radius: 6px;
+  --border-color: #233554;
+  --border-radius: 4px; /* Sharper technical edges */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 12px rgba(2, 12, 27, 0.7);
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

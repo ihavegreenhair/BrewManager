@@ -9,9 +9,15 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
+  /* Subtle Blueprint Grid */
+  background-image: 
+    linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 a {
@@ -24,33 +30,39 @@ a:hover {
 }
 
 button {
-  font-family: inherit;
+  font-family: var(--font-mono); /* Technical feel */
   cursor: pointer;
-  border: none;
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 0.5rem 1rem;
-  background-color: var(--bg-surface-hover);
+  background-color: var(--bg-surface);
   color: var(--text-primary);
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: var(--border-color);
-}
-
-button.primary {
-  background-color: var(--accent-primary);
-  color: #000;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 
+button:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
+}
+
+button.primary {
+  background-color: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+}
+
 button.primary:hover {
-  background-color: var(--accent-hover);
+  background-color: rgba(100, 255, 218, 0.1);
 }
 
 input, select, textarea {
-  font-family: inherit;
-  background-color: var(--bg-main);
+  font-family: var(--font-mono);
+  background-color: rgba(2, 12, 27, 0.5); /* Semi-transparent dark */
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -60,6 +72,7 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent-primary);
+  box-shadow: 0 0 5px rgba(100, 255, 218, 0.2);
 }
 
 /* Number inputs use monospace for readability */
@@ -78,4 +91,23 @@ input[type="number"] {
 
 .hover-bg:hover {
   background-color: var(--bg-surface-hover);
+}
+
+/* Technical Detail Styles */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.card-header {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-primary);
+  text-transform: uppercase;
 }

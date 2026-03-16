@@ -6,8 +6,8 @@ export const Dashboard = () => {
   return (
     <div>
       <h2>Dashboard</h2>
-      <p style={{ color: 'var(--text-secondary)', marginTop: '1rem' }}>
-        Welcome to BrewManager. Your command center for crafting the perfect brew.
+      <p style={{ color: 'var(--text-secondary)', marginTop: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Welcome to Brewprint. Your engineering command center for technical brewing.
       </p>
       <div style={{ 
         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginTop: '2rem' 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Beaker, Book, Calculator, LayoutDashboard, History, Package } from 'lucide-react';
+import { Zap, Book, Calculator, LayoutDashboard, History, Package } from 'lucide-react';
 import styles from './AppLayout.module.css';
 
 const AppLayout: React.FC = () => {
@@ -8,8 +8,8 @@ const AppLayout: React.FC = () => {
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
-          <Beaker size={24} />
-          <span>BrewManager</span>
+          <Zap size={24} />
+          <span>Brewprint</span>
         </div>
         
         <nav className={styles.nav}>

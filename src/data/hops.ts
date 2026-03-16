@@ -1,0 +1,22599 @@
+
+import type { HopVariety } from '../types/brewing';
+
+export const hops: HopVariety[] = [
+  {
+    "name": "Astra",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "AST",
+    "cultivarId": "",
+    "ownership": "™ Ellerslie Hop Estate",
+    "alphaAcid": {
+      "range": [
+        7,
+        10
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        28
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        1,
+        3
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "humulene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          3
+        ],
+        "avg": 2.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 90.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "sweet",
+      "peach",
+      "white_wine",
+      "melon",
+      "grassy",
+      "grapefruit",
+      "honey"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Eclipse",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "HPA 016",
+    "ownership": "® HPA",
+    "alphaAcid": {
+      "range": [
+        15.7,
+        19
+      ],
+      "avg": 17.4
+    },
+    "betaAcid": {
+      "range": [
+        5.9,
+        9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        37
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        2.7
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          49
+        ],
+        "avg": 42
+      },
+      "humulene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          12
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 47.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "pine",
+      "mandarin"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ella",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "ELL",
+    "cultivarId": "01-220-060",
+    "ownership": "™ Hop Products Australia (HPA)",
+    "alphaAcid": {
+      "range": [
+        13.3,
+        16.3
+      ],
+      "avg": 14.8
+    },
+    "betaAcid": {
+      "range": [
+        4.8,
+        7.8
+      ],
+      "avg": 6.3
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        38
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        2.4,
+        3.4
+      ],
+      "avg": 2.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          16,
+          22
+        ],
+        "avg": 19
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          18
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "geraniol": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "Imparts strong tropical fruit flavors in larger additions, reminiscent of a noble variety in lower doses.",
+    "tags": [
+      "floral",
+      "noble",
+      "spicy",
+      "star_anise",
+      "grapefruit",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Enigma",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "ENI",
+    "cultivarId": "02-016-008",
+    "ownership": "™ Hop Products Australia (HPA)",
+    "alphaAcid": {
+      "range": [
+        13.5,
+        19.4
+      ],
+      "avg": 16.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        7.1
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        37,
+        43
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        3
+      ],
+      "avg": 2.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          23,
+          30
+        ],
+        "avg": 26.5
+      },
+      "humulene": {
+        "range": [
+          12,
+          19
+        ],
+        "avg": 15.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "other": 40.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "berry",
+      "stone_fruit",
+      "raspberry",
+      "redcurrant",
+      "white_wine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Feux-Coeur Francais",
+    "purpose": "Bittering",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        16
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        3.1,
+        6
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Galaxy",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "GXY",
+    "cultivarId": "94-203-008",
+    "ownership": "™ HPA",
+    "alphaAcid": {
+      "range": [
+        11.6,
+        16
+      ],
+      "avg": 13.8
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6.9
+      ],
+      "avg": 5.95
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        42
+      ],
+      "avg": 37
+    },
+    "totalOils": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          33,
+          69
+        ],
+        "avg": 51
+      },
+      "humulene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          9
+        ],
+        "avg": 8
+      },
+      "selinene": {
+        "range": [
+          4,
+          8
+        ],
+        "avg": 6
+      },
+      "other": 33.5
+    },
+    "flavorProfile": "Most internationally recognized Australian hop variety. Lineage includes high alpha Australian hops and European cultivars, specifically German Perle.",
+    "tags": [
+      "passion_fruit",
+      "peach",
+      "citrus",
+      "pineapple",
+      "tropical_fruit",
+      "cannabis",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Helga",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "A-86-29",
+    "ownership": "™ Hop Products Australia (HPA)",
+    "alphaAcid": {
+      "range": [
+        5.4,
+        7.3
+      ],
+      "avg": 6.35
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        23
+      ],
+      "avg": 21.5
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1
+      ],
+      "avg": 0.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          1,
+          13
+        ],
+        "avg": 7
+      },
+      "humulene": {
+        "range": [
+          35,
+          55
+        ],
+        "avg": 45
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          45
+        ],
+        "avg": 27.5
+      },
+      "selinene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "Descendant of Hallertau Mittelfrüh. It demonstrates a forgiving and refined character in a variety of beer styles and hop applications.",
+    "tags": [
+      "pleasant",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HPA-016",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "HPA-016",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        15.7,
+        18.7
+      ],
+      "avg": 17.2
+    },
+    "betaAcid": {
+      "range": [
+        5.9,
+        9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        37
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        1.7,
+        1.9
+      ],
+      "avg": 1.7999999999999998
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          49
+        ],
+        "avg": 42
+      },
+      "humulene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          12
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 47.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mandarin",
+      "citrus",
+      "pine",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Melba",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "MEL",
+    "cultivarId": "",
+    "ownership": "™ Ellerslie Hop Estate",
+    "alphaAcid": {
+      "range": [
+        7,
+        10
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        35
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        2,
+        4
+      ],
+      "avg": 3
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "passion_fruit",
+      "grapefruit",
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pride of Ringwood",
+    "purpose": "Bittering",
+    "country": "Australia (AUS)",
+    "internationalCode": "POR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.6,
+        10.5
+      ],
+      "avg": 9.55
+    },
+    "betaAcid": {
+      "range": [
+        4.4,
+        7
+      ],
+      "avg": 5.7
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        34
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        1.8
+      ],
+      "avg": 1.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          24,
+          41
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "selinene": {
+        "range": [
+          19,
+          30
+        ],
+        "avg": 24.5
+      },
+      "other": 28.5
+    },
+    "flavorProfile": "One of Australia's most known and utilized hop varieties. Predominantly used for early kettle additions.",
+    "tags": [
+      "cedar",
+      "oak"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Summer",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Hop Products Australia (HPA)",
+    "alphaAcid": {
+      "range": [
+        5.6,
+        6.4
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        4.8,
+        6.1
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        2
+      ],
+      "avg": 1.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          29,
+          38
+        ],
+        "avg": 33.5
+      },
+      "humulene": {
+        "range": [
+          28,
+          50
+        ],
+        "avg": 39
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "apricot",
+      "melon",
+      "grassy",
+      "citrus",
+      "stone_fruit",
+      "passion_fruit",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Super Pride",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "SUP",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12.5,
+        16.3
+      ],
+      "avg": 14.4
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        8
+      ],
+      "avg": 6.3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        50
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          34,
+          42
+        ],
+        "avg": 38
+      },
+      "humulene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 53
+    },
+    "flavorProfile": "",
+    "tags": [
+      "resin",
+      "fruity",
+      "mild"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sylva",
+    "purpose": "Aroma",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        7.3
+      ],
+      "avg": 5.7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        7
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        28
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.4
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          26,
+          36
+        ],
+        "avg": 31
+      },
+      "humulene": {
+        "range": [
+          18,
+          27
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          22,
+          28
+        ],
+        "avg": 25
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "bohemian",
+      "hoppy",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Topaz",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "TOP",
+    "cultivarId": "TC-85-70",
+    "ownership": "™ Hop Products Australia (HPA)",
+    "alphaAcid": {
+      "range": [
+        13.7,
+        20.1
+      ],
+      "avg": 16.9
+    },
+    "betaAcid": {
+      "range": [
+        4.9,
+        7.9
+      ],
+      "avg": 6.4
+    },
+    "coHumulone": {
+      "range": [
+        47,
+        53
+      ],
+      "avg": 50
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        2.2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          18,
+          56
+        ],
+        "avg": 37
+      },
+      "humulene": {
+        "range": [
+          8,
+          16
+        ],
+        "avg": 12
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          13
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 41
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lychee",
+      "clove",
+      "resin",
+      "grassy",
+      "tropical_fruit",
+      "pine",
+      "passion_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Vic Secret",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "VIS",
+    "cultivarId": "00-207-013",
+    "ownership": "™ HPA",
+    "alphaAcid": {
+      "range": [
+        14,
+        21.8
+      ],
+      "avg": 17.9
+    },
+    "betaAcid": {
+      "range": [
+        5.7,
+        8.7
+      ],
+      "avg": 7.2
+    },
+    "coHumulone": {
+      "range": [
+        51,
+        57
+      ],
+      "avg": 54
+    },
+    "totalOils": {
+      "range": [
+        1.9,
+        2.8
+      ],
+      "avg": 2.3499999999999996
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          31,
+          46
+        ],
+        "avg": 38.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          21
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          15
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 34
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "pineapple",
+      "pine",
+      "passion_fruit",
+      "herbal",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Vienna Gold",
+    "purpose": "Dual",
+    "country": "Australia (AUS)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        10
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "fruity",
+      "passion_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Canadian Redvine",
+    "purpose": "Aroma",
+    "country": "Canada (CAN)",
+    "internationalCode": "21679",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 47
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          69,
+          71
+        ],
+        "avg": 70
+      },
+      "humulene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "caryophyllene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cherry",
+      "berry",
+      "pine",
+      "grapefruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Lumberjack",
+    "purpose": "Dual",
+    "country": "Canada (CAN)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BC Hop Co.",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "melon",
+      "citrus",
+      "spices",
+      "clove",
+      "allspice",
+      "bitter",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sasquatch",
+    "purpose": "Dual",
+    "country": "Canada (CAN)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "® Hops Connect",
+    "alphaAcid": {
+      "range": [
+        6.6,
+        9
+      ],
+      "avg": 7.8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 8.2
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        35
+      ],
+      "avg": 34.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          60,
+          61
+        ],
+        "avg": 60.5
+      },
+      "humulene": {
+        "range": [
+          13,
+          14
+        ],
+        "avg": 13.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "other": 12
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tangerine",
+      "lemon",
+      "floral",
+      "orange",
+      "mint",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Wild Loyalist",
+    "purpose": "Aroma",
+    "country": "Canada (CAN)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.7,
+        5.6
+      ],
+      "avg": 4.7
+    },
+    "betaAcid": {
+      "range": [
+        4.7,
+        6.7
+      ],
+      "avg": 5.7
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "spicy",
+      "earthy",
+      "floral",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Marco Polo",
+    "purpose": "Dual",
+    "country": "China (CN)",
+    "internationalCode": "MCP",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        13
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        35
+      ],
+      "avg": 32.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "gooseberry",
+      "oregano",
+      "elderflower"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tsingdao Flower",
+    "purpose": "Dual",
+    "country": "China (CN)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        8
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.2
+      ],
+      "avg": 3.6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.8
+      ],
+      "avg": 0.6000000000000001
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "lemon",
+      "melon",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Agnus",
+    "purpose": "Bittering",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "AGN",
+    "cultivarId": "4587",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        14
+      ],
+      "avg": 11.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        38
+      ],
+      "avg": 33.5
+    },
+    "totalOils": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          55
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 34.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lavender",
+      "leather",
+      "tobacco",
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Amethyst",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        6
+      ],
+      "avg": 4.8
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        8
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        28
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          41,
+          43
+        ],
+        "avg": 42
+      },
+      "humulene": {
+        "range": [
+          18,
+          20
+        ],
+        "avg": 19
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 32.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "earthy",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bohemie",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "BOH",
+    "cultivarId": "4837",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        26
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          17,
+          23
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 32
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "floral",
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Boomerang",
+    "purpose": "Dual",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "BOO",
+    "cultivarId": "4914",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        14
+      ],
+      "avg": 12
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        10
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        32
+      ],
+      "avg": 29.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          53
+        ],
+        "avg": 41.5
+      },
+      "humulene": {
+        "range": [
+          17,
+          24
+        ],
+        "avg": 20.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 28.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bor",
+    "purpose": "Dual",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        26
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Gaia",
+    "purpose": "Bittering",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "GAA",
+    "cultivarId": "4849",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        15
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        10
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        29
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          23,
+          37
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "other": 50.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "hoppy",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Harmonie",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "HRM",
+    "cultivarId": "4353",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        8
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        19,
+        22
+      ],
+      "avg": 20.5
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.4
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          11
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 41
+    },
+    "flavorProfile": "",
+    "tags": [
+      "banana",
+      "caramel",
+      "green_tea",
+      "apricot"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Kazbek",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "KAZ",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        40
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.8
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          55
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 12
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mimosa",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "MIM",
+    "cultivarId": "5227",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        1.9,
+        4.8
+      ],
+      "avg": 3.4
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        8.4
+      ],
+      "avg": 6.4
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        34
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.2
+      ],
+      "avg": 0.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          16,
+          42
+        ],
+        "avg": 29
+      },
+      "humulene": {
+        "range": [
+          3,
+          12
+        ],
+        "avg": 7.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          3.5
+        ],
+        "avg": 1.8
+      },
+      "other": 55.2
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Premiant",
+    "purpose": "Bittering",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "PRE",
+    "cultivarId": "Sm 73/3060",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        6.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        18,
+        23
+      ],
+      "avg": 20.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          50
+        ],
+        "avg": 42.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          40
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "neutral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Saaz (CZ)",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "SAZ",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2,
+        5
+      ],
+      "avg": 3.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        8
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        26
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          40
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          30
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          14,
+          20
+        ],
+        "avg": 17
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "herbal",
+      "floral",
+      "mild",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Saaz Late",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "SAL",
+    "cultivarId": "4237",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        6
+      ],
+      "avg": 4.8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1
+      ],
+      "avg": 0.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          35
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "herbal",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sládek",
+    "purpose": "Aroma",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "SLD",
+    "cultivarId": "VÚCH-71",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        9
+      ],
+      "avg": 6.8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        11
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        40
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          50
+        ],
+        "avg": 42.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          40
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "fruity",
+      "peach",
+      "passion_fruit",
+      "grapefruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Vital",
+    "purpose": "Dual",
+    "country": "Czech Replublic (CZH)",
+    "internationalCode": "VIT",
+    "cultivarId": "4715",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        16
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        11
+      ],
+      "avg": 8.5
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        26
+      ],
+      "avg": 23.5
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        2.5
+      ],
+      "avg": 1.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          60
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          2,
+          5
+        ],
+        "avg": 3.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 38
+    },
+    "flavorProfile": "",
+    "tags": [
+      "plum",
+      "lavender",
+      "spicy",
+      "licorice"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Aramis",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "ARS",
+    "cultivarId": "P 05-9",
+    "ownership": "™ Hops France",
+    "alphaAcid": {
+      "range": [
+        5.5,
+        8.5
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        42
+      ],
+      "avg": 31
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        1.6
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          38,
+          41
+        ],
+        "avg": 39.5
+      },
+      "humulene": {
+        "range": [
+          19,
+          22
+        ],
+        "avg": 20.5
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          8
+        ],
+        "avg": 5
+      },
+      "farnesene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "other": 32
+    },
+    "flavorProfile": "",
+    "tags": [
+      "green",
+      "herbal",
+      "spicy",
+      "citrus",
+      "grassy",
+      "black_pepper",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Barbe Rouge",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "BBR",
+    "cultivarId": "P 09-2",
+    "ownership": "™ Hops France",
+    "alphaAcid": {
+      "range": [
+        3.8,
+        10
+      ],
+      "avg": 6.9
+    },
+    "betaAcid": {
+      "range": [
+        3.3,
+        4.6
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        28
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        3
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          60
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "farnesene": {
+        "range": [
+          0,
+          4
+        ],
+        "avg": 2
+      },
+      "other": 27.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "kumquat",
+      "orange",
+      "lime",
+      "redcurrant",
+      "strawberry",
+      "raspberry",
+      "floral",
+      "berry",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bouclier",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "BCL",
+    "cultivarId": "P 08-6",
+    "ownership": "™ Hops France",
+    "alphaAcid": {
+      "range": [
+        3.8,
+        8.5
+      ],
+      "avg": 6.2
+    },
+    "betaAcid": {
+      "range": [
+        2.4,
+        3.3
+      ],
+      "avg": 2.9
+    },
+    "coHumulone": {
+      "range": [
+        42,
+        47
+      ],
+      "avg": 44.5
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        1.6
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          37,
+          39
+        ],
+        "avg": 38
+      },
+      "humulene": {
+        "range": [
+          33,
+          35
+        ],
+        "avg": 34
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "grassy",
+      "spicy",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Elixir",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "EXR",
+    "cultivarId": "P 13-13",
+    "ownership": "™ Hop France",
+    "alphaAcid": {
+      "range": [
+        4.6,
+        7
+      ],
+      "avg": 5.8
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6.6
+      ],
+      "avg": 5.6
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        30
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        2.2
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          65,
+          75
+        ],
+        "avg": 70
+      },
+      "humulene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          26,
+          27
+        ],
+        "avg": 26.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 1.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "rose",
+      "cognac",
+      "leather",
+      "tobacco",
+      "citrus",
+      "tropical_fruit",
+      "tangerine",
+      "orange",
+      "floral",
+      "sandalwood",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mistral",
+    "purpose": "Dual",
+    "country": "France (FR)",
+    "internationalCode": "MTL",
+    "cultivarId": "GS 26",
+    "ownership": "™ Hops France",
+    "alphaAcid": {
+      "range": [
+        6.5,
+        8.5
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        3.1,
+        3.8
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        39
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          59,
+          65
+        ],
+        "avg": 62
+      },
+      "humulene": {
+        "range": [
+          9,
+          13
+        ],
+        "avg": 11
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "farnesene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "floral",
+      "melon",
+      "grapes",
+      "wine",
+      "pear",
+      "passion_fruit",
+      "kumquat",
+      "mango"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Petit Blanc",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "PBC",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2,
+        4
+      ],
+      "avg": 3
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 15
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.8
+      ],
+      "avg": 0.65
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cherry",
+      "melon",
+      "papaya",
+      "green_tea",
+      "lilac"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Strisselspalt",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "FSP",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        1,
+        4
+      ],
+      "avg": 2.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        6
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        27
+      ],
+      "avg": 23.5
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        0.8
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          52
+        ],
+        "avg": 43.5
+      },
+      "humulene": {
+        "range": [
+          13,
+          21
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "floral",
+      "citrus",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tardif de Bourgogne",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "TDB",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.2,
+        5.3
+      ],
+      "avg": 3.8
+    },
+    "betaAcid": {
+      "range": [
+        3.1,
+        5.8
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 20
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.9
+      ],
+      "avg": 0.65
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "redberry",
+      "green_tea",
+      "noble",
+      "incense",
+      "pine",
+      "rose",
+      "lavender"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Triskel",
+    "purpose": "Aroma",
+    "country": "France (FR)",
+    "internationalCode": "TKL",
+    "cultivarId": "P 09-18",
+    "ownership": "™ Hops France",
+    "alphaAcid": {
+      "range": [
+        3,
+        9
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        23
+      ],
+      "avg": 21.5
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        2
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          61
+        ],
+        "avg": 58
+      },
+      "humulene": {
+        "range": [
+          10,
+          16
+        ],
+        "avg": 13
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          3
+        ],
+        "avg": 2.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "sweet_fruit",
+      "caramel",
+      "fruity",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Akoya",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "AKO",
+    "cultivarId": "#99/268",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        9,
+        10
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        30
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "green_fruit",
+      "pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ariana",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "ANA",
+    "cultivarId": "2010/72/20",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        13
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        40,
+        42
+      ],
+      "avg": 41
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        2.4
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          57,
+          59
+        ],
+        "avg": 58
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 42
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "tangerine",
+      "passion_fruit",
+      "pineapple",
+      "jasmine",
+      "herbal",
+      "fruity",
+      "gooseberry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Aurum",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "AUR",
+    "cultivarId": "96/1/24",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        5.7
+      ],
+      "avg": 4.6
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.1
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        23
+      ],
+      "avg": 21.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.7
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "fruity",
+      "floral",
+      "mild",
+      "herbal",
+      "earthy",
+      "citrus",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Brewer's Gold (GR)",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "BGO",
+    "cultivarId": "C9a",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        7.8
+      ],
+      "avg": 6.2
+    },
+    "betaAcid": {
+      "range": [
+        2.9,
+        3.7
+      ],
+      "avg": 3.3
+    },
+    "coHumulone": {
+      "range": [
+        39,
+        48
+      ],
+      "avg": 43.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Callista",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "CAL",
+    "cultivarId": "2010/8/33",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2,
+        5
+      ],
+      "avg": 3.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        10
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        15,
+        22
+      ],
+      "avg": 18.5
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        2.1
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          63,
+          64
+        ],
+        "avg": 63.5
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 36.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pear",
+      "caramel",
+      "passion_fruit",
+      "orange",
+      "apricot",
+      "peach",
+      "pine",
+      "blackberry",
+      "strawberry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Diamant",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "DNT",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        7.5
+      ],
+      "avg": 7.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        18,
+        20
+      ],
+      "avg": 19
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        1.7
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fennel",
+      "lavender",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau Blanc",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HBC",
+    "cultivarId": "2007/19/8",
+    "ownership": "™ Hop Research Center Hüll",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        7
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        35
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          75
+        ],
+        "avg": 62.5
+      },
+      "humulene": {
+        "range": [
+          0,
+          3
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 34.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "gooseberry",
+      "white_wine",
+      "grapes",
+      "lemongrass",
+      "passion_fruit",
+      "clean",
+      "sauvignon_blanc"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau Gold",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HGO",
+    "cultivarId": "64/14/235",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        10
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 20
+    },
+    "totalOils": {
+      "range": [
+        1.7,
+        1.8
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          62,
+          64
+        ],
+        "avg": 63
+      },
+      "humulene": {
+        "range": [
+          16,
+          18
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau Mittelfrüh",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HAL",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        18,
+        28
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.3
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          16
+        ],
+        "avg": 15.5
+      },
+      "humulene": {
+        "range": [
+          55,
+          56
+        ],
+        "avg": 55.5
+      },
+      "caryophyllene": {
+        "range": [
+          14,
+          15
+        ],
+        "avg": 14.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 14
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "floral",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau Tradition",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HTR",
+    "cultivarId": "78/28/16",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.6,
+        7
+      ],
+      "avg": 5.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        6
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        30
+      ],
+      "avg": 26.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.9
+      ],
+      "avg": 1.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          17,
+          32
+        ],
+        "avg": 24.5
+      },
+      "humulene": {
+        "range": [
+          35,
+          50
+        ],
+        "avg": 42.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "grassy",
+      "nectar",
+      "fruity",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Herkules",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "HKS",
+    "cultivarId": "95/94/816",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        17
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        38
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        2.4
+      ],
+      "avg": 1.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          12
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 12.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "melon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hersbrucker",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HEB",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        1.5,
+        5
+      ],
+      "avg": 3.3
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        6
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        17,
+        25
+      ],
+      "avg": 21
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.3
+      ],
+      "avg": 0.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          30
+        ],
+        "avg": 22.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 41.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "hay",
+      "orange",
+      "tobacco"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Huell Melon",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "HMN",
+    "cultivarId": "2009/2/706",
+    "ownership": "Hop Research Center in Hüll (EU-PVR)",
+    "alphaAcid": {
+      "range": [
+        6.9,
+        8
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        8
+      ],
+      "avg": 7
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        30
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.2
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          37
+        ],
+        "avg": 36
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          10
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 41
+    },
+    "flavorProfile": "",
+    "tags": [
+      "melon",
+      "strawberry",
+      "honeydew",
+      "fruity",
+      "sweet",
+      "orange",
+      "vanilla"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hüller Bitterer",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "HUB",
+    "cultivarId": "58/56/11",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        7
+      ],
+      "avg": 5.8
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        31
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          28,
+          51
+        ],
+        "avg": 39.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          21
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 38.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "bitter"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Magnum (GR)",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "HMG",
+    "cultivarId": "85/59/3",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        16
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        7
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        29
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        2.6
+      ],
+      "avg": 2.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 14.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "apple",
+      "black_pepper",
+      "clean",
+      "citrus",
+      "floral",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mandarina Bavaria",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "MBA",
+    "cultivarId": "2007/18/13",
+    "ownership": "Hop Research Center in Hüll (EU-PVR)",
+    "alphaAcid": {
+      "range": [
+        7,
+        10.5
+      ],
+      "avg": 8.8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        8
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        31,
+        35
+      ],
+      "avg": 33
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 38
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tangerine",
+      "lemon",
+      "citrus",
+      "resin",
+      "herbal",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Merkur",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "HMR",
+    "cultivarId": "93/10/12",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        16.2
+      ],
+      "avg": 14.1
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        7.3
+      ],
+      "avg": 5.9
+    },
+    "coHumulone": {
+      "range": [
+        17,
+        20
+      ],
+      "avg": 18.5
+    },
+    "totalOils": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          50
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          28,
+          32
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 13
+    },
+    "flavorProfile": "",
+    "tags": [
+      "sugar",
+      "pineapple",
+      "mint",
+      "citrus",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Monroe",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "MON",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.5,
+        2.9
+      ],
+      "avg": 2.7
+    },
+    "betaAcid": {
+      "range": [
+        6.5,
+        7.5
+      ],
+      "avg": 7
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0.95,
+        1
+      ],
+      "avg": 0.975
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mild",
+      "smooth",
+      "strawberry",
+      "cherry",
+      "plum",
+      "passion_fruit",
+      "raspberry",
+      "orange"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Northern Brewer (GR)",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "NBR",
+    "cultivarId": "WFB 135",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        10
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        33
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.1
+      ],
+      "avg": 1.55
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          45
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          35,
+          50
+        ],
+        "avg": 42.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 7
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mint",
+      "grassy",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Opal",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "OPL",
+    "cultivarId": "87/24/56",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        14
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        13,
+        34
+      ],
+      "avg": 23.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.3
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          45
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          15
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_pepper",
+      "citrus",
+      "spicy",
+      "floral",
+      "herbal",
+      "anise"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Orion",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        5.75
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        30
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.1
+      ],
+      "avg": 1.4500000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          41,
+          56
+        ],
+        "avg": 48.5
+      },
+      "humulene": {
+        "range": [
+          16,
+          26
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          13
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Perle (GR)",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "PER",
+    "cultivarId": "66/13/13",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        9
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        35
+      ],
+      "avg": 32
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        2.5
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "humulene": {
+        "range": [
+          35,
+          55
+        ],
+        "avg": 45
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 12
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "fruity",
+      "mint",
+      "stone_fruit",
+      "herbal",
+      "earthy",
+      "slightly_spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Polaris",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "PLA",
+    "cultivarId": "2000/109/728",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        18,
+        23
+      ],
+      "avg": 20.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6.5
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        29
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          49,
+          51
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 11.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mint",
+      "menthol",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Relax",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "RLX",
+    "cultivarId": "97/25/7",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0.3,
+        4
+      ],
+      "avg": 2.2
+    },
+    "betaAcid": {
+      "range": [
+        10,
+        15
+      ],
+      "avg": 12.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.3
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          17,
+          30
+        ],
+        "avg": 23.5
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 76.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "honeydew",
+      "melon",
+      "cognac",
+      "lychee",
+      "lavender",
+      "leather",
+      "hibiscus",
+      "lemongrass"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Saphir",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "SIR",
+    "cultivarId": "85/27/20",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2,
+        4.5
+      ],
+      "avg": 3.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        7
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        12,
+        17
+      ],
+      "avg": 14.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.4
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          40
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "fruity",
+      "floral",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Smaragd",
+    "purpose": "Bittering",
+    "country": "Germany (GER)",
+    "internationalCode": "SGD",
+    "cultivarId": "87/24/55",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        13,
+        18
+      ],
+      "avg": 15.5
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.8
+      ],
+      "avg": 0.6000000000000001
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          40
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "fruity",
+      "spicy",
+      "tobacco",
+      "anise",
+      "clove",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Solero",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "SOL",
+    "cultivarId": "#243/42",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        9,
+        11.2
+      ],
+      "avg": 10.1
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        45
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "mango",
+      "passion_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Spalt",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "SPA",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.5,
+        5.7
+      ],
+      "avg": 4.1
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        29
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.9
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          12,
+          18
+        ],
+        "avg": 15
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "earthy",
+      "herbal",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Spalter Select",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "SSE",
+    "cultivarId": "78/3/34",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        6.5
+      ],
+      "avg": 4.8
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        27
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.9
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          40
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          10,
+          22
+        ],
+        "avg": 16
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          10
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          15,
+          22
+        ],
+        "avg": 18.5
+      },
+      "other": 28.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "grassy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tango",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "GfH",
+    "alphaAcid": {
+      "range": [
+        7.5,
+        11
+      ],
+      "avg": 9.3
+    },
+    "betaAcid": {
+      "range": [
+        7.5,
+        10
+      ],
+      "avg": 8.8
+    },
+    "coHumulone": {
+      "range": [
+        19,
+        25
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        2.4,
+        4
+      ],
+      "avg": 3.2
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "passion_fruit",
+      "pineapple",
+      "spicy",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tettnanger",
+    "purpose": "Dual",
+    "country": "Germany (GER)",
+    "internationalCode": "TET",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.5,
+        5.8
+      ],
+      "avg": 4.2
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        5.3
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        28
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1.1
+      ],
+      "avg": 0.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          41
+        ],
+        "avg": 40.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          21
+        ],
+        "avg": 20.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "floral",
+      "pepper",
+      "black_tea"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Wurttemberg",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.1
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1
+      ],
+      "avg": 0.75
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lime",
+      "citrus",
+      "floral",
+      "pine",
+      "oregano",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Yellow Sub",
+    "purpose": "Aroma",
+    "country": "Germany (GER)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "BarthHaas Hop Creation",
+    "alphaAcid": {
+      "range": [
+        6.2,
+        7.2
+      ],
+      "avg": 6.7
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "sweet",
+      "citrus",
+      "red_berry",
+      "apricot",
+      "orange",
+      "blackberry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Golden Star",
+    "purpose": "Aroma",
+    "country": "Japan (JP)",
+    "internationalCode": "GST",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 5.4
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 50
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Sorachi Ace",
+    "purpose": "Dual",
+    "country": "Japan (JP)",
+    "internationalCode": "SOR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        16
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        8
+      ],
+      "avg": 7
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        28
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        3
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          20,
+          26
+        ],
+        "avg": 23
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          2,
+          5
+        ],
+        "avg": 3.5
+      },
+      "other": 14.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "dill",
+      "woody",
+      "tobacco",
+      "citrus",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Toyomidori",
+    "purpose": "Bittering",
+    "country": "Japan (JP)",
+    "internationalCode": "JTY",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        13
+      ],
+      "avg": 12
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.2
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          58,
+          60
+        ],
+        "avg": 59
+      },
+      "humulene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mild",
+      "fruity",
+      "tobacco",
+      "green_tea"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Brooklyn",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        17.5,
+        19.5
+      ],
+      "avg": 18.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        10
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "tropical_fruit",
+      "passion_fruit",
+      "spicy",
+      "hay"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Dr. Rudi",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "DRU",
+    "cultivarId": "",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        10,
+        12
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        8.5
+      ],
+      "avg": 7.8
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        39
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        1.6
+      ],
+      "avg": 1.4500000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          28,
+          30
+        ],
+        "avg": 29
+      },
+      "humulene": {
+        "range": [
+          33,
+          34
+        ],
+        "avg": 33.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 27
+    },
+    "flavorProfile": "",
+    "tags": [
+      "resin",
+      "pine",
+      "lemongrass"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Green Bullet",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "GBU",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        15
+      ],
+      "avg": 13
+    },
+    "betaAcid": {
+      "range": [
+        6.5,
+        7
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        38,
+        43
+      ],
+      "avg": 40.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.4
+      ],
+      "avg": 1.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          37,
+          39
+        ],
+        "avg": 38
+      },
+      "humulene": {
+        "range": [
+          28,
+          29
+        ],
+        "avg": 28.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "black_pepper",
+      "plum",
+      "resin",
+      "dried_fruit",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HORT9909",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "",
+    "cultivarId": "HORT9909",
+    "ownership": "New Zealand Hops Ltd.",
+    "alphaAcid": {
+      "range": [
+        6,
+        10
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        29
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          49,
+          51
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          11,
+          13
+        ],
+        "avg": 12
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 33
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lime",
+      "hay",
+      "sweet",
+      "spicy",
+      "citrus",
+      "lemon",
+      "noble",
+      "black_pepper",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Kohatu",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "KHT",
+    "cultivarId": "HORT3829",
+    "ownership": "® New Zealand Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        6,
+        7
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          30
+        ],
+        "avg": 27.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          16
+        ],
+        "avg": 13.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Motueka",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "MKA",
+    "cultivarId": "87.14-20",
+    "ownership": "™ NZ Hops Ltd.",
+    "alphaAcid": {
+      "range": [
+        5,
+        8.5
+      ],
+      "avg": 6.8
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        5.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1
+      ],
+      "avg": 0.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          47,
+          48
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "caryophyllene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "farnesene": {
+        "range": [
+          12,
+          13
+        ],
+        "avg": 12.5
+      },
+      "other": 34.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "mojito",
+      "lime",
+      "lemon",
+      "tropical_fruit",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Moutere",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "MTE",
+    "cultivarId": "HORT0605",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        17.5,
+        19.5
+      ],
+      "avg": 18.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        10
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        28
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        1.9
+      ],
+      "avg": 1.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          22,
+          23
+        ],
+        "avg": 22.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          16
+        ],
+        "avg": 15.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 56
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "grapefruit",
+      "passion_fruit",
+      "hay",
+      "earthy",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Nectaron",
+    "purpose": "Aroma",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "NRN",
+    "cultivarId": "HORT4337",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        9.5,
+        12
+      ],
+      "avg": 10.8
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        28
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.7
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          59,
+          65
+        ],
+        "avg": 62
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "citrus",
+      "pineapple",
+      "passion_fruit",
+      "peach",
+      "grapefruit",
+      "nectar"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Nelson Sauvin",
+    "purpose": "Aroma",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "NSN",
+    "cultivarId": "85-03-06",
+    "ownership": "™ NZ Hops Ltd.",
+    "alphaAcid": {
+      "range": [
+        10,
+        13
+      ],
+      "avg": 11.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.5
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          45
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          25,
+          37
+        ],
+        "avg": 31
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          11
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 27.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "white_wine",
+      "fruity",
+      "gooseberry",
+      "grapes",
+      "sauvignon_blanc"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "NZH-107",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "NZ1",
+    "cultivarId": "",
+    "ownership": "NZ Hops Ltd & BSG",
+    "alphaAcid": {
+      "range": [
+        8,
+        11
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        31
+      ],
+      "avg": 29
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        2.2
+      ],
+      "avg": 1.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          65
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          8
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [
+      "passion_fruit",
+      "citrus",
+      "grapefruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pacific Gem",
+    "purpose": "Bittering",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "PGE",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        13,
+        15
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        40
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.6
+      ],
+      "avg": 1.2000000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          12
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_pepper",
+      "berry",
+      "blackberry",
+      "floral",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pacific Jade",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "PJA",
+    "cultivarId": "HORT1524",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        12,
+        14
+      ],
+      "avg": 13
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        8
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        25
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        1.5
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          33,
+          34
+        ],
+        "avg": 33.5
+      },
+      "humulene": {
+        "range": [
+          32,
+          33
+        ],
+        "avg": 32.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          11
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "spicy",
+      "herbal",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pacific Sunrise",
+    "purpose": "Bittering",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ NZ Hops Ltd.",
+    "alphaAcid": {
+      "range": [
+        12.5,
+        14.5
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        30
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          20,
+          24
+        ],
+        "avg": 22
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "woody",
+      "pine",
+      "lemon",
+      "orange",
+      "mango",
+      "melon",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pacifica",
+    "purpose": "Aroma",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "PCA",
+    "cultivarId": "77-01",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        26
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.2
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "humulene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "caryophyllene": {
+        "range": [
+          14,
+          18
+        ],
+        "avg": 16
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "orange",
+      "floral",
+      "marmalade",
+      "hay",
+      "honey",
+      "tangy",
+      "zest"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Rakau",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "RKU",
+    "cultivarId": "70-4-9",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        25
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        2.2
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          57
+        ],
+        "avg": 56
+      },
+      "humulene": {
+        "range": [
+          16,
+          17
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "stone_fruit",
+      "fruity",
+      "apricot",
+      "pine",
+      "resin"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Riwaka",
+    "purpose": "Aroma",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "RWA",
+    "cultivarId": "SaazD or 85.6-23",
+    "ownership": "™ NZ Hops Ltd.",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        6.5
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        38
+      ],
+      "avg": 33.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.5
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          67,
+          70
+        ],
+        "avg": 68.5
+      },
+      "humulene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          6
+        ],
+        "avg": 4
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "passion_fruit",
+      "grapefruit",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Smooth Cone",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        9.5
+      ],
+      "avg": 8.3
+    },
+    "betaAcid": {
+      "range": [
+        3.4,
+        5.2
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 31
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1.14
+      ],
+      "avg": 0.77
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          54,
+          56
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          20,
+          22
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Cross",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "SOX",
+    "cultivarId": "77-60",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        14
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        28
+      ],
+      "avg": 26.5
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        2
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          31,
+          55
+        ],
+        "avg": 43
+      },
+      "humulene": {
+        "range": [
+          13,
+          21
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "other": 26.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "lime",
+      "pine",
+      "spicy",
+      "citrus",
+      "tropical_fruit",
+      "zest"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sticklebract",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "SBR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        15
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        8.5
+      ],
+      "avg": 7.3
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        45
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        0.75,
+        1.8
+      ],
+      "avg": 1.275
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          14,
+          64
+        ],
+        "avg": 39
+      },
+      "humulene": {
+        "range": [
+          7,
+          26
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          13
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Taiheke",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "",
+    "cultivarId": "USDA 56013",
+    "ownership": "® NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        5,
+        9
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        5.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        40
+      ],
+      "avg": 36.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          60
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          10
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          5
+        ],
+        "avg": 2.5
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "tropical_fruit",
+      "grapefruit",
+      "lemon",
+      "lime",
+      "floral",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Wai-iti",
+    "purpose": "Aroma",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "WTI",
+    "cultivarId": "HORT7709",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        2.5,
+        3.5
+      ],
+      "avg": 3
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        24
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        1.8
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "humulene": {
+        "range": [
+          27,
+          29
+        ],
+        "avg": 28
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          12,
+          14
+        ],
+        "avg": 13
+      },
+      "other": 47
+    },
+    "flavorProfile": "",
+    "tags": [
+      "stone_fruit",
+      "peach",
+      "apricot",
+      "citrus",
+      "lime",
+      "mandarin",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Waimea",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "WAI",
+    "cultivarId": "HORT3953",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        14.5,
+        19
+      ],
+      "avg": 16.8
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        24
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        2.3
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          59,
+          61
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          3
+        ],
+        "avg": 2.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "citrus",
+      "mandarin",
+      "herbal",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Wakatu",
+    "purpose": "Dual",
+    "country": "New Zealand (NZ)",
+    "internationalCode": "WKT",
+    "cultivarId": "77-05",
+    "ownership": "™ NZ Hops, Ltd.",
+    "alphaAcid": {
+      "range": [
+        6.5,
+        8.5
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        8.5
+      ],
+      "avg": 8.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        30
+      ],
+      "avg": 29
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.2
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          36
+        ],
+        "avg": 35.5
+      },
+      "humulene": {
+        "range": [
+          16,
+          17
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "other": 33
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "lime",
+      "tropical_fruit",
+      "zest"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Junga",
+    "purpose": "Bittering",
+    "country": "Poland (POL)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        14
+      ],
+      "avg": 12
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        34
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.6
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "spicy",
+      "fruity",
+      "grapefruit",
+      "black_currant"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Limbus",
+    "purpose": "Aroma",
+    "country": "Poland (POL)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        3.5
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        35
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        1.5
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Lubelska",
+    "purpose": "Aroma",
+    "country": "Poland (POL)",
+    "internationalCode": "LUB",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        4
+      ],
+      "avg": 3.3
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        28
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.2
+      ],
+      "avg": 0.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          22,
+          35
+        ],
+        "avg": 28.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          11
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          10,
+          14
+        ],
+        "avg": 12
+      },
+      "other": 16
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "floral",
+      "magnolia",
+      "lavender"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Magnat",
+    "purpose": "Dual",
+    "country": "Poland (POL)",
+    "internationalCode": "MGN",
+    "cultivarId": "4/34",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        16
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        7
+      ],
+      "avg": 4.9
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        25
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          59
+        ],
+        "avg": 44.5
+      },
+      "humulene": {
+        "range": [
+          16,
+          20
+        ],
+        "avg": 18
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lilac",
+      "floral",
+      "chamomile",
+      "woody",
+      "citrus",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Marynka",
+    "purpose": "Dual",
+    "country": "Poland (POL)",
+    "internationalCode": "MAR",
+    "cultivarId": "PCU 480",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7.5,
+        12
+      ],
+      "avg": 9.8
+    },
+    "betaAcid": {
+      "range": [
+        10,
+        13
+      ],
+      "avg": 11.5
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        33
+      ],
+      "avg": 29.5
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        3.3
+      ],
+      "avg": 2.55
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          28,
+          31
+        ],
+        "avg": 29.5
+      },
+      "humulene": {
+        "range": [
+          33,
+          36
+        ],
+        "avg": 34.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          13
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "hay",
+      "licorice",
+      "lemon",
+      "grapefruit",
+      "anise",
+      "earthy",
+      "herbal",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pulawski",
+    "purpose": "Dual",
+    "country": "Poland (POL)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "IUNG Institute",
+    "alphaAcid": {
+      "range": [
+        8,
+        11
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        30
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          38,
+          39
+        ],
+        "avg": 38.5
+      },
+      "humulene": {
+        "range": [
+          24,
+          25
+        ],
+        "avg": 24.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          13
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "white_grape",
+      "spice",
+      "clove",
+      "papaya",
+      "lemon",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sybilla",
+    "purpose": "Aroma",
+    "country": "Poland (POL)",
+    "internationalCode": "SYB",
+    "cultivarId": "PCU 688",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        8
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        12
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        31
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        2.2
+      ],
+      "avg": 1.7000000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          28,
+          50
+        ],
+        "avg": 39
+      },
+      "humulene": {
+        "range": [
+          40,
+          45
+        ],
+        "avg": 42.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "other": 11
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "lemon",
+      "pine",
+      "citrus",
+      "orange",
+      "ginger",
+      "chocolate",
+      "tobacco"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zula",
+    "purpose": "Dual",
+    "country": "Poland (POL)",
+    "internationalCode": "ZUL",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        14
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        3.8,
+        7
+      ],
+      "avg": 5.4
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        2
+      ],
+      "avg": 1.55
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "clean",
+      "citrus",
+      "tropical_fruit",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Apolon",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        12
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 2.3
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        1.6
+      ],
+      "avg": 1.4500000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          62,
+          64
+        ],
+        "avg": 63
+      },
+      "humulene": {
+        "range": [
+          25,
+          27
+        ],
+        "avg": 26
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "farnesene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "other": 0
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Atlas",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        11
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        4
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        38
+      ],
+      "avg": 37
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        1.6
+      ],
+      "avg": 1.4500000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          58,
+          59
+        ],
+        "avg": 58.5
+      },
+      "humulene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "farnesene": {
+        "range": [
+          13,
+          14
+        ],
+        "avg": 13.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "lime",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Aurora",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "SSA",
+    "cultivarId": "12/61,HUL005",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6.5,
+        13
+      ],
+      "avg": 9.8
+    },
+    "betaAcid": {
+      "range": [
+        2.7,
+        5.5
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        26
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.8
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          25
+        ],
+        "avg": 22.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          25
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          10
+        ],
+        "avg": 7.5
+      },
+      "other": 40
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "spicy",
+      "lemongrass",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bobek",
+    "purpose": "Bittering",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "SGB",
+    "cultivarId": "HUL007",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        9.3
+      ],
+      "avg": 6.4
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        31
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        4
+      ],
+      "avg": 2.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          13,
+          19
+        ],
+        "avg": 16
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 36
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Cekin",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        8
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        27
+      ],
+      "avg": 23.5
+    },
+    "totalOils": {
+      "range": [
+        0.65,
+        1.5
+      ],
+      "avg": 1.075
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          47,
+          48
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          16,
+          17
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mild"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Celeia",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "SGC",
+    "cultivarId": "HUL010",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        6
+      ],
+      "avg": 4.5
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        4
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        29
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        3.6
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          26,
+          35
+        ],
+        "avg": 30.5
+      },
+      "humulene": {
+        "range": [
+          18,
+          23
+        ],
+        "avg": 20.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          3,
+          7
+        ],
+        "avg": 5
+      },
+      "other": 35.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "floral",
+      "lavender",
+      "spicy",
+      "earthy",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Dana",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "DAN",
+    "cultivarId": "279/112",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7.2,
+        13
+      ],
+      "avg": 10.1
+    },
+    "betaAcid": {
+      "range": [
+        2.7,
+        6
+      ],
+      "avg": 4.4
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        31
+      ],
+      "avg": 26.5
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.6
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          53
+        ],
+        "avg": 44
+      },
+      "humulene": {
+        "range": [
+          20,
+          27
+        ],
+        "avg": 23.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          8
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "other": 19
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Cardinal",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "CAR",
+    "cultivarId": "30/96,HUL034",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        15
+      ],
+      "avg": 11.5
+    },
+    "betaAcid": {
+      "range": [
+        3.2,
+        4.6
+      ],
+      "avg": 3.9
+    },
+    "coHumulone": {
+      "range": [
+        31,
+        37
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          22
+        ],
+        "avg": 18.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "gooseberry",
+      "pineapple",
+      "orange",
+      "lime",
+      "jasmine",
+      "guava"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Dragon",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        11
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        7.5,
+        8.5
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        24
+      ],
+      "avg": 23.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.1
+      ],
+      "avg": 1.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          58,
+          63
+        ],
+        "avg": 60.5
+      },
+      "humulene": {
+        "range": [
+          22,
+          33
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          16
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 0
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "grapefruit",
+      "lemon",
+      "berry",
+      "rose",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Eagle",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "",
+    "cultivarId": "HUL030",
+    "ownership": "™ Slovenian Institute of Hop Research",
+    "alphaAcid": {
+      "range": [
+        12.5,
+        17.5
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        23
+      ],
+      "avg": 21.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.6
+      ],
+      "avg": 3.55
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          52,
+          60
+        ],
+        "avg": 56
+      },
+      "humulene": {
+        "range": [
+          0,
+          2.5
+        ],
+        "avg": 1.3
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "other": 29.2
+    },
+    "flavorProfile": "",
+    "tags": [
+      "berry",
+      "banana",
+      "pine",
+      "black_pepper",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Fox",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "FOX",
+    "cultivarId": "102/44",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.7,
+        12
+      ],
+      "avg": 8.9
+    },
+    "betaAcid": {
+      "range": [
+        2.1,
+        4
+      ],
+      "avg": 3.1
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        30
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1.7
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          60
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          12,
+          14
+        ],
+        "avg": 13
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "lemongrass",
+      "marjoram",
+      "elderflower",
+      "tropical_fruit",
+      "pineapple",
+      "pine",
+      "citrus",
+      "honey"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Golding",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "SSG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        6.5
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        3.5
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        30
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1
+      ],
+      "avg": 0.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          27,
+          33
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          34,
+          38
+        ],
+        "avg": 36
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          2,
+          5
+        ],
+        "avg": 3.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "spicy",
+      "resin",
+      "sweet",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Kolibri",
+    "purpose": "Aroma",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "KOL",
+    "cultivarId": "214/61",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        5.4
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        25
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          31,
+          38
+        ],
+        "avg": 34.5
+      },
+      "humulene": {
+        "range": [
+          16,
+          21
+        ],
+        "avg": 18.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          25,
+          27
+        ],
+        "avg": 26
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "elderflower",
+      "black_currant",
+      "green_tea",
+      "grass",
+      "cannabis",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Styrian Wolf",
+    "purpose": "Dual",
+    "country": "Slovenia (SLO)",
+    "internationalCode": "WLF",
+    "cultivarId": "74/134, HUL035",
+    "ownership": "™ Slovenian Institute for Hop Research",
+    "alphaAcid": {
+      "range": [
+        10,
+        18.5
+      ],
+      "avg": 14.3
+    },
+    "betaAcid": {
+      "range": [
+        2.1,
+        6
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        23
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        4.5
+      ],
+      "avg": 2.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          60,
+          70
+        ],
+        "avg": 65
+      },
+      "humulene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          3
+        ],
+        "avg": 2.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mango",
+      "passion_fruit",
+      "lemongrass",
+      "elderflower",
+      "violet",
+      "floral",
+      "fruity",
+      "coconut"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "African Queen",
+    "purpose": "Dual",
+    "country": "South Africa (SA)",
+    "internationalCode": "AFQ",
+    "cultivarId": "J17 or J-17-63",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        17
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        3.9,
+        6.2
+      ],
+      "avg": 5.1
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        30
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.5
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          29
+        ],
+        "avg": 24.5
+      },
+      "humulene": {
+        "range": [
+          21,
+          30
+        ],
+        "avg": 25.5
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          17
+        ],
+        "avg": 13.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "other": 30.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "dank",
+      "blueberry",
+      "stone_fruit",
+      "black_currant",
+      "gooseberry",
+      "bubblegum",
+      "cassis",
+      "lemongrass",
+      "chilies",
+      "gazpacho"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Aroma",
+    "purpose": "Aroma",
+    "country": "South Africa (SA)",
+    "internationalCode": "SAR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.6,
+        7.3
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        5.4,
+        6
+      ],
+      "avg": 5.7
+    },
+    "coHumulone": {
+      "range": [
+        19,
+        25
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        0.8
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          17,
+          28
+        ],
+        "avg": 22.5
+      },
+      "humulene": {
+        "range": [
+          22,
+          23
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          15
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 40.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "hay",
+      "herbal",
+      "straw",
+      "noble",
+      "black_currant"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Brewer",
+    "purpose": "Bittering",
+    "country": "South Africa (SA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        12
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        38,
+        41
+      ],
+      "avg": 39.5
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1.5
+      ],
+      "avg": 0.95
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Dawn",
+    "purpose": "Dual",
+    "country": "South Africa (SA)",
+    "internationalCode": "SDA",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11.2,
+        13.5
+      ],
+      "avg": 12.4
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        5.9
+      ],
+      "avg": 5.1
+    },
+    "coHumulone": {
+      "range": [
+        31,
+        33
+      ],
+      "avg": 32
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          22,
+          45
+        ],
+        "avg": 33.5
+      },
+      "humulene": {
+        "range": [
+          17,
+          25
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          10
+        ],
+        "avg": 7
+      },
+      "other": 29
+    },
+    "flavorProfile": "",
+    "tags": [
+      "quince",
+      "lemongrass",
+      "ginger",
+      "chamomile",
+      "strawberry",
+      "citrus",
+      "fruity",
+      "herbal",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Passion",
+    "purpose": "Aroma",
+    "country": "South Africa (SA)",
+    "internationalCode": "SPN",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11,
+        14.2
+      ],
+      "avg": 12.6
+    },
+    "betaAcid": {
+      "range": [
+        4.9,
+        8
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        16,
+        26
+      ],
+      "avg": 21
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.3
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          55
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          14,
+          36
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "passion_fruit",
+      "guava",
+      "floral",
+      "coconut",
+      "redberry",
+      "melon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Promise",
+    "purpose": "Dual",
+    "country": "South Africa (SA)",
+    "internationalCode": "SPR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9.5,
+        14.5
+      ],
+      "avg": 12
+    },
+    "betaAcid": {
+      "range": [
+        3.6,
+        5.8
+      ],
+      "avg": 4.7
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        22
+      ],
+      "avg": 21
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.1
+      ],
+      "avg": 0.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          21,
+          25
+        ],
+        "avg": 23
+      },
+      "humulene": {
+        "range": [
+          23,
+          27
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 42.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "fruity",
+      "woody",
+      "berry",
+      "citrus",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Star",
+    "purpose": "Dual",
+    "country": "South Africa (SA)",
+    "internationalCode": "SST",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        18.6
+      ],
+      "avg": 15.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        7.5
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        31
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        1.7
+      ],
+      "avg": 1.5499999999999998
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          32,
+          38
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          23,
+          27
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          14
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "quince",
+      "berry",
+      "floral",
+      "citrus",
+      "pineapple",
+      "tangerine",
+      "tropical_fruit",
+      "passion_fruit",
+      "pear",
+      "cassis",
+      "rose",
+      "orange",
+      "coffee"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Sublime",
+    "purpose": "Aroma",
+    "country": "South Africa (SA)",
+    "internationalCode": "SSU",
+    "cultivarId": "N1/69",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10.8,
+        13.4
+      ],
+      "avg": 12.1
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          49,
+          51
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 40.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "plum",
+      "mango",
+      "dank",
+      "pungent",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Southern Tropic",
+    "purpose": "Bittering",
+    "country": "South Africa (SA)",
+    "internationalCode": "STC",
+    "cultivarId": "U1/108",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12.6,
+        18.1
+      ],
+      "avg": 15.4
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6.5
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        30
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          19,
+          46
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          14,
+          40
+        ],
+        "avg": 27
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          14
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "melon",
+      "troical_fruit",
+      "guava",
+      "butterscotch",
+      "lemongrass",
+      "coconut",
+      "pungent",
+      "pineapple",
+      "bubblegum",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "XJA2/436",
+    "purpose": "Bittering",
+    "country": "South Africa (SA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11.5,
+        16.4
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        7.8,
+        8.4
+      ],
+      "avg": 8.1
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        30
+      ],
+      "avg": 29.5
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        1.7
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          18,
+          30
+        ],
+        "avg": 24
+      },
+      "humulene": {
+        "range": [
+          21,
+          35
+        ],
+        "avg": 28
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          13
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          8,
+          18
+        ],
+        "avg": 13
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "zest",
+      "papaya",
+      "cataloupe",
+      "gooseberry",
+      "resin",
+      "citrus",
+      "blueberry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zagrava",
+    "purpose": "Dual",
+    "country": "Ukraine (UA)",
+    "internationalCode": "ZAG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        7
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        12
+      ],
+      "avg": 10
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        28
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          14,
+          16
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          12,
+          18
+        ],
+        "avg": 15
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "spicy",
+      "fruity",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Admiral",
+    "purpose": "Bittering",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "ADM",
+    "cultivarId": "RH40",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        13,
+        16.2
+      ],
+      "avg": 14.6
+    },
+    "betaAcid": {
+      "range": [
+        4.8,
+        6.1
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        37,
+        45
+      ],
+      "avg": 41
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.7
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          48
+        ],
+        "avg": 43.5
+      },
+      "humulene": {
+        "range": [
+          23,
+          26
+        ],
+        "avg": 24.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "other": 24
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "fresh",
+      "pine",
+      "citrus",
+      "resin",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Archer",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "ARC",
+    "cultivarId": "",
+    "ownership": "® Charles Faram",
+    "alphaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        38
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        0.8
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          25
+        ],
+        "avg": 22.5
+      },
+      "humulene": {
+        "range": [
+          26,
+          30
+        ],
+        "avg": 28
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 49
+    },
+    "flavorProfile": "",
+    "tags": [
+      "apricot",
+      "lime",
+      "floral",
+      "citrus",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Beata",
+    "purpose": "Bittering",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        9,
+        11
+      ],
+      "avg": 10
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        28
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          27,
+          29
+        ],
+        "avg": 28
+      },
+      "humulene": {
+        "range": [
+          4,
+          8
+        ],
+        "avg": 6
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 65.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "almond",
+      "apricot",
+      "honey"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Boadicea",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "BOA",
+    "cultivarId": "OR423",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7.5,
+        10
+      ],
+      "avg": 8.8
+    },
+    "betaAcid": {
+      "range": [
+        3.2,
+        4.5
+      ],
+      "avg": 3.9
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        29
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        2.2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          19,
+          21
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          15,
+          19
+        ],
+        "avg": 17
+      },
+      "farnesene": {
+        "range": [
+          0,
+          5
+        ],
+        "avg": 2.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "blossom",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bramling Cross",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "BRX",
+    "cultivarId": "OT 48",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        2.3,
+        3.2
+      ],
+      "avg": 2.8
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        35
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.2
+      ],
+      "avg": 0.95
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          37
+        ],
+        "avg": 36
+      },
+      "humulene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          14,
+          16
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "loganberry",
+      "vanilla",
+      "lemon",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Challenger",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "CHA",
+    "cultivarId": "4/63/25",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6.5,
+        9
+      ],
+      "avg": 7.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.7
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          42
+        ],
+        "avg": 36
+      },
+      "humulene": {
+        "range": [
+          24,
+          26
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 29
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cedar",
+      "green_tea",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Defender",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "62053",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.3,
+        6
+      ],
+      "avg": 4.7
+    },
+    "betaAcid": {
+      "range": [
+        1.1,
+        2.5
+      ],
+      "avg": 1.8
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        32
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.28,
+        0.98
+      ],
+      "avg": 0.63
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          32
+        ],
+        "avg": 31
+      },
+      "humulene": {
+        "range": [
+          34,
+          36
+        ],
+        "avg": 35
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          15
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "other": 16.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pleasant"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "East Kent Goldings",
+    "purpose": "Bittering",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "EKG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "betaAcid": {
+      "range": [
+        1.9,
+        3.5
+      ],
+      "avg": 2.7
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        32
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          38,
+          44
+        ],
+        "avg": 41
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          16
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 14.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lavender",
+      "honey",
+      "lemon",
+      "thyme",
+      "orange",
+      "grapefruit",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Endeavour",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "END",
+    "cultivarId": "15/2",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        10.6
+      ],
+      "avg": 7.8
+    },
+    "betaAcid": {
+      "range": [
+        3.8,
+        5.3
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        36
+      ],
+      "avg": 33
+    },
+    "totalOils": {
+      "range": [
+        1.1,
+        1.8
+      ],
+      "avg": 1.4500000000000002
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          27,
+          37
+        ],
+        "avg": 32
+      },
+      "humulene": {
+        "range": [
+          3,
+          10
+        ],
+        "avg": 6.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "other": 55
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "loganberry",
+      "spicy",
+      "grapefruit",
+      "lime"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Epic",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        1.7,
+        2.5
+      ],
+      "avg": 2.1
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        33
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.8
+      ],
+      "avg": 0.6000000000000001
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "humulene": {
+        "range": [
+          41,
+          43
+        ],
+        "avg": 42
+      },
+      "caryophyllene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 43.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "berry",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ernest",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.4,
+        6.3
+      ],
+      "avg": 5.4
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        50,
+        55
+      ],
+      "avg": 52.5
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.1
+      ],
+      "avg": 0.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          60
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 34
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grassy",
+      "herbal",
+      "spicy",
+      "stone_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "First Gold",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "FGO",
+    "cultivarId": "S4",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.6,
+        10
+      ],
+      "avg": 7.8
+    },
+    "betaAcid": {
+      "range": [
+        2.3,
+        4.1
+      ],
+      "avg": 3.2
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        35
+      ],
+      "avg": 32
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.5
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          24,
+          28
+        ],
+        "avg": 26
+      },
+      "humulene": {
+        "range": [
+          20,
+          24
+        ],
+        "avg": 22
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "other": 42.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tangerine",
+      "apricot",
+      "magnolia",
+      "redberry",
+      "herbal",
+      "orange",
+      "spicy",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Flyer",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "FLY",
+    "cultivarId": "29/02/10",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.3,
+        14.5
+      ],
+      "avg": 11.4
+    },
+    "betaAcid": {
+      "range": [
+        4.1,
+        6
+      ],
+      "avg": 5.1
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        35
+      ],
+      "avg": 30.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          17,
+          25
+        ],
+        "avg": 21
+      },
+      "humulene": {
+        "range": [
+          22,
+          23
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 55.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "citrus",
+      "licorice",
+      "resin",
+      "caramel"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Fuggle",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "FUG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.4,
+        6.1
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        2.1,
+        3.5
+      ],
+      "avg": 2.8
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        32
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        0.44,
+        1
+      ],
+      "avg": 0.72
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "humulene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          15
+        ],
+        "avg": 13
+      },
+      "farnesene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "woody",
+      "grassy",
+      "mint",
+      "mild"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Godiva",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Charles Faram",
+    "alphaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        1.9,
+        3
+      ],
+      "avg": 2.5
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        29
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.8
+      ],
+      "avg": 0.6000000000000001
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "tangerine",
+      "gooseberry",
+      "white_wine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau Taurus",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "HTU",
+    "cultivarId": "88/55/13",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        17.9
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        25
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.5
+      ],
+      "avg": 1.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          30,
+          31
+        ],
+        "avg": 30.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          9
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "chocolate",
+      "banana",
+      "spicy",
+      "pepper",
+      "curry",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Harlequin",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "®  Charles Faram & Co",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        31
+      ],
+      "avg": 29
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.6
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          59,
+          61
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "passion_fruit",
+      "peach",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Herald",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        13
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        37
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.9
+      ],
+      "avg": 1.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          41
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          14,
+          16
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 37.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "grapefruit",
+      "citrus",
+      "clean"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Jester",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        28
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1.2
+      ],
+      "avg": 0.8999999999999999
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Minstrel",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "MIN",
+    "cultivarId": "",
+    "ownership": "® Charles Faram & Co Ltd.",
+    "alphaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        3.5
+      ],
+      "avg": 3.3
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        26
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.7
+      ],
+      "avg": 0.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          22,
+          25
+        ],
+        "avg": 23.5
+      },
+      "humulene": {
+        "range": [
+          1,
+          4
+        ],
+        "avg": 2.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          7,
+          9
+        ],
+        "avg": 8
+      },
+      "other": 66
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "spicy",
+      "berry",
+      "orange"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mystic",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "Charles Faram",
+    "alphaAcid": {
+      "range": [
+        4,
+        7
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        4
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        40
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.5
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 29.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "citrus",
+      "passion_fruit",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Olicana",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "OLA",
+    "cultivarId": "",
+    "ownership": "®  Charles Faram & Co",
+    "alphaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        32
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          19,
+          20
+        ],
+        "avg": 19.5
+      },
+      "humulene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 71.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "mango",
+      "passion_fruit",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Omega",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        10
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 29
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          52,
+          54
+        ],
+        "avg": 53
+      },
+      "humulene": {
+        "range": [
+          16,
+          18
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Phoenix",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "PHX",
+    "cultivarId": "TC105",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        13.5
+      ],
+      "avg": 10.8
+    },
+    "betaAcid": {
+      "range": [
+        3.3,
+        5.5
+      ],
+      "avg": 4.4
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        33
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        3
+      ],
+      "avg": 2.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          23,
+          25
+        ],
+        "avg": 24
+      },
+      "humulene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          12
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 33.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "molasses",
+      "chocolate",
+      "spicy",
+      "floral",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pilgrim",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "PGM",
+    "cultivarId": "P38",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        13
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        4.2,
+        5.5
+      ],
+      "avg": 4.9
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        38
+      ],
+      "avg": 37
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.8
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          35
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          21,
+          25
+        ],
+        "avg": 23
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 44
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "spicy",
+      "lemon",
+      "grapefruit",
+      "citrus",
+      "pear",
+      "berry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pilot",
+    "purpose": "Bittering",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "PLT",
+    "cultivarId": "S24",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        11.5
+      ],
+      "avg": 9.8
+    },
+    "betaAcid": {
+      "range": [
+        3.3,
+        5
+      ],
+      "avg": 4.2
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        37
+      ],
+      "avg": 32.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.5
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          40
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          3,
+          6
+        ],
+        "avg": 4.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 57.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "spicy",
+      "marmalade"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pioneer",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "PIR",
+    "cultivarId": "W10",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        10.5
+      ],
+      "avg": 9.3
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        4.5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        40
+      ],
+      "avg": 38
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.8
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          34,
+          36
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          18,
+          25
+        ],
+        "avg": 21.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 43
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cedar",
+      "grapefruit",
+      "herbal",
+      "lemon",
+      "crisp",
+      "clean"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Progress",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "PRO",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        7.5
+      ],
+      "avg": 6.3
+    },
+    "betaAcid": {
+      "range": [
+        1.8,
+        2.7
+      ],
+      "avg": 2.3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        27
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.8
+      ],
+      "avg": 0.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          30
+        ],
+        "avg": 27.5
+      },
+      "humulene": {
+        "range": [
+          40,
+          47
+        ],
+        "avg": 43.5
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          15
+        ],
+        "avg": 13.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grassy",
+      "mint",
+      "sweet",
+      "honey",
+      "black_currant",
+      "fruity",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sovereign",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "SOV",
+    "cultivarId": "50/95/33",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        6.5
+      ],
+      "avg": 5.5
+    },
+    "betaAcid": {
+      "range": [
+        2.1,
+        3.1
+      ],
+      "avg": 2.6
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        30
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1
+      ],
+      "avg": 0.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          31
+        ],
+        "avg": 25.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          27
+        ],
+        "avg": 23.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          9
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "other": 39.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mint",
+      "fruity",
+      "floral",
+      "grassy",
+      "herbal",
+      "pear"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sussex",
+    "purpose": "Aroma",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "SXH",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.3,
+        5.8
+      ],
+      "avg": 5.1
+    },
+    "betaAcid": {
+      "range": [
+        2.4,
+        3.2
+      ],
+      "avg": 2.8
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        32
+      ],
+      "avg": 30.5
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.6
+      ],
+      "avg": 0.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          41,
+          43
+        ],
+        "avg": 42
+      },
+      "humulene": {
+        "range": [
+          22,
+          24
+        ],
+        "avg": 23
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 34.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "grassy",
+      "mint",
+      "vanilla",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Target",
+    "purpose": "Bittering",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "TRG",
+    "cultivarId": "11/65/92",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.5,
+        13.5
+      ],
+      "avg": 11
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        5.7
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        40
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.4
+      ],
+      "avg": 1.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          17,
+          23
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "marmalade",
+      "sage",
+      "spicy",
+      "pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Whitbread Golding Variety (WGV)",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "WGV",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.4,
+        7.7
+      ],
+      "avg": 6.6
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3.5
+      ],
+      "avg": 2.8
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        43
+      ],
+      "avg": 39
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.2
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          19,
+          27
+        ],
+        "avg": 23
+      },
+      "humulene": {
+        "range": [
+          35,
+          42
+        ],
+        "avg": 38.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          15
+        ],
+        "avg": 13
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 24
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "floral",
+      "sweet_fruit",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Yeoman",
+    "purpose": "Dual",
+    "country": "United Kingdom (UK)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        16
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        1.7,
+        2.4
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          47,
+          49
+        ],
+        "avg": 48
+      },
+      "humulene": {
+        "range": [
+          19,
+          21
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Adeena",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "ADHA-1940",
+    "ownership": "™ ADHA",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        5
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        38
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.1
+      ],
+      "avg": 0.9500000000000001
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          27,
+          30
+        ],
+        "avg": 28.5
+      },
+      "humulene": {
+        "range": [
+          31,
+          45
+        ],
+        "avg": 38
+      },
+      "caryophyllene": {
+        "range": [
+          15,
+          22
+        ],
+        "avg": 18.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          7
+        ],
+        "avg": 5.5
+      },
+      "other": 9.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "spicy",
+      "floral",
+      "lemon",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ahhhroma",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "AHH",
+    "cultivarId": "",
+    "ownership": "™ Glacier Hops Ranch",
+    "alphaAcid": {
+      "range": [
+        15.4,
+        18.8
+      ],
+      "avg": 17.1
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        35
+      ],
+      "avg": 34.5
+    },
+    "totalOils": {
+      "range": [
+        2.1,
+        4
+      ],
+      "avg": 3.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          56
+        ],
+        "avg": 55.5
+      },
+      "humulene": {
+        "range": [
+          12,
+          13
+        ],
+        "avg": 12.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tangerine",
+      "pineapple",
+      "lime",
+      "mango",
+      "cinnamon",
+      "pear"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ahtanum",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "AHT",
+    "cultivarId": "YCR 1 CV",
+    "ownership": "® Yakima Chief Ranches",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        6.5
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        35
+      ],
+      "avg": 32.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.7
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          15,
+          22
+        ],
+        "avg": 18.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "grapefruit",
+      "geranium",
+      "pine",
+      "earthy",
+      "floral",
+      "cedar",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Aloha Blend",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BarthHaas",
+    "alphaAcid": {
+      "range": [
+        8.8,
+        10.3
+      ],
+      "avg": 9.6
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.2
+      ],
+      "avg": 1.85
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "berry",
+      "black_currant",
+      "sweet_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Altus",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "07270",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        15,
+        18.5
+      ],
+      "avg": 16.8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.2
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        29
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        3,
+        4.4
+      ],
+      "avg": 3.7
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "resin",
+      "spicy",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Amarillo",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "VG1",
+    "cultivarId": "VGXP01",
+    "ownership": "® Virgil Gamache Farms, Inc.",
+    "alphaAcid": {
+      "range": [
+        7,
+        11
+      ],
+      "avg": 9
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        8
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        24
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.3
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          70
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          19,
+          24
+        ],
+        "avg": 21.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "other": 7.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "spicy",
+      "tropical_fruit",
+      "citrus",
+      "orange",
+      "lemon",
+      "melon",
+      "apricot",
+      "peach",
+      "grapefruit",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Apollo",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "APO",
+    "cultivarId": "01051",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        15,
+        20.5
+      ],
+      "avg": 17.8
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        8
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        28
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.5
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          14,
+          20
+        ],
+        "avg": 17
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "grapefruit",
+      "orange",
+      "pine",
+      "resin",
+      "cannabis",
+      "lime",
+      "lemon",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Aquila",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "AQU",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6.5,
+        8.9
+      ],
+      "avg": 7.7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.9
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 46
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          61,
+          63
+        ],
+        "avg": 62
+      },
+      "humulene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "farnesene": {
+        "range": [
+          2,
+          3
+        ],
+        "avg": 2.5
+      },
+      "other": 28.5
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Arcadian",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 9.8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "orange",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Azacca",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "AZA",
+    "cultivarId": "ADHA-483",
+    "ownership": "® American Dwarf Hop Association",
+    "alphaAcid": {
+      "range": [
+        14,
+        16
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        38,
+        45
+      ],
+      "avg": 41.5
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        2.5
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          46,
+          55
+        ],
+        "avg": 50.5
+      },
+      "humulene": {
+        "range": [
+          14,
+          18
+        ],
+        "avg": 16
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mango",
+      "papaya",
+      "orange",
+      "grapefruit",
+      "lemon",
+      "spicy",
+      "pineapple",
+      "grassy",
+      "tropical_fruit",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Banner",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "BAN",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.4,
+        13.1
+      ],
+      "avg": 10.8
+    },
+    "betaAcid": {
+      "range": [
+        5.3,
+        8
+      ],
+      "avg": 6.7
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Belma",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "BEL",
+    "cultivarId": "",
+    "ownership": "® Puterbaugh Farms, Hops Direct, LLC.",
+    "alphaAcid": {
+      "range": [
+        8.5,
+        12.1
+      ],
+      "avg": 10.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        8
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.5
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          65,
+          68
+        ],
+        "avg": 66.5
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 33.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "melon",
+      "strawberry",
+      "pineapple",
+      "grapefruit",
+      "berry",
+      "citrus",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bergamot",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "GLH-7588",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        8,
+        10.7
+      ],
+      "avg": 9.4
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        8.9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        39,
+        40
+      ],
+      "avg": 39.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          44,
+          45
+        ],
+        "avg": 44.5
+      },
+      "humulene": {
+        "range": [
+          14,
+          15
+        ],
+        "avg": 14.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "mango",
+      "dank",
+      "cherry",
+      "zest",
+      "lemongrass",
+      "lime",
+      "juniper",
+      "tropical_fruit",
+      "pepper",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bianca",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        8
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.4
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        28
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1
+      ],
+      "avg": 0.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Bitter Gold",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "BIG",
+    "cultivarId": "7313-083",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        18.8
+      ],
+      "avg": 15.4
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        8
+      ],
+      "avg": 6.3
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        41
+      ],
+      "avg": 38.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        3.9
+      ],
+      "avg": 2.35
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          68
+        ],
+        "avg": 56.5
+      },
+      "humulene": {
+        "range": [
+          7,
+          18
+        ],
+        "avg": 12.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          2
+        ],
+        "avg": 1
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "stone_fruit",
+      "tropical_fruit",
+      "pear",
+      "watermelon",
+      "grassy",
+      "grapefruit",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bravo",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "BRO",
+    "cultivarId": "01046",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        13,
+        18
+      ],
+      "avg": 15.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        3.5
+      ],
+      "avg": 2.55
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          60
+        ],
+        "avg": 42.5
+      },
+      "humulene": {
+        "range": [
+          8,
+          20
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 36
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "vanilla",
+      "floral",
+      "lime",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Brewer's Gold (US)",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "BGO",
+    "cultivarId": "C9a",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        11
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        40,
+        48
+      ],
+      "avg": 44
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          60
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          12,
+          18
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "BRU-1",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "BR1",
+    "cultivarId": "BRU-1",
+    "ownership": "™ Haas",
+    "alphaAcid": {
+      "range": [
+        13,
+        15
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        10
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        37
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          55
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 29.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "green_fruit",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Bullion",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "BUL",
+    "cultivarId": "Q43",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.3,
+        12.5
+      ],
+      "avg": 8.9
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6.5
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        47,
+        50
+      ],
+      "avg": 48.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          55
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Buzz Bullets",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        10
+      ],
+      "avg": 9
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Caliente",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        14,
+        16
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "peach",
+      "pine",
+      "stone_fruit",
+      "mandarin",
+      "lemon",
+      "zest"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Calypso",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CPO",
+    "cultivarId": "#03129",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        12,
+        16
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        38,
+        42
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          35
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          15
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "apple",
+      "pear",
+      "stone_fruit",
+      "lime",
+      "citrus",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Cascade",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CAS",
+    "cultivarId": "USDA 56013",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.5,
+        9
+      ],
+      "avg": 6.8
+    },
+    "betaAcid": {
+      "range": [
+        4.8,
+        7.5
+      ],
+      "avg": 6.2
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        40
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        2.5
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          60
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          8,
+          20
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          9
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          3,
+          9
+        ],
+        "avg": 6
+      },
+      "other": 21.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "floral",
+      "spicy",
+      "citrus",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Cashmere",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CMR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7.7,
+        9.1
+      ],
+      "avg": 8.4
+    },
+    "betaAcid": {
+      "range": [
+        3.3,
+        7.1
+      ],
+      "avg": 5.2
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        24
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        1.4
+      ],
+      "avg": 1.2999999999999998
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          42
+        ],
+        "avg": 40.5
+      },
+      "humulene": {
+        "range": [
+          26,
+          29
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          13
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 19.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "lemon",
+      "lime",
+      "peach",
+      "melon",
+      "coconut",
+      "lemongrass",
+      "candy",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Centennial",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CEN",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        12
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        23,
+        30
+      ],
+      "avg": 26.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        3
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          65
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "citrus",
+      "floral",
+      "grapefruit",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Chelan",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "CHE",
+    "cultivarId": "H87203-1",
+    "ownership": "™ John I Haas, Inc.",
+    "alphaAcid": {
+      "range": [
+        12,
+        15
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        8.5,
+        10
+      ],
+      "avg": 9.3
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        35
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        1.9
+      ],
+      "avg": 1.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          12,
+          15
+        ],
+        "avg": 13.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "fruity",
+      "mild"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Chinook",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CHI",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        11.5,
+        15
+      ],
+      "avg": 13.3
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        35
+      ],
+      "avg": 31
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.7
+      ],
+      "avg": 1.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "humulene": {
+        "range": [
+          18,
+          24
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 43.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "resin",
+      "grapefruit",
+      "spicy",
+      "dank",
+      "cannabis"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Citra",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CIT",
+    "cultivarId": "HBC 394",
+    "ownership": "® Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        10,
+        15
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        35
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          60,
+          70
+        ],
+        "avg": 65
+      },
+      "humulene": {
+        "range": [
+          7,
+          13
+        ],
+        "avg": 10
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "grapefruit",
+      "peach",
+      "melon",
+      "lime",
+      "floral",
+      "gooseberry",
+      "passion_fruit",
+      "lychee"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Cluster",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CLU",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.5,
+        9
+      ],
+      "avg": 7.3
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        43
+      ],
+      "avg": 38
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          38,
+          46
+        ],
+        "avg": 42
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "earthy",
+      "sweet_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Cluster Fugget Blend",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ YCH",
+    "alphaAcid": {
+      "range": [
+        8,
+        8.2
+      ],
+      "avg": 8.1
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        4.2
+      ],
+      "avg": 4.1
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        37
+      ],
+      "avg": 33.5
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1
+      ],
+      "avg": 0.95
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          26,
+          27
+        ],
+        "avg": 26.5
+      },
+      "humulene": {
+        "range": [
+          27,
+          28
+        ],
+        "avg": 27.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 33
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "woody",
+      "grassy",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Columbia",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CBA",
+    "cultivarId": "6761-61",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        9
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          15,
+          19
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          12
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "other": 18.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "lemon",
+      "citrus",
+      "noble",
+      "pungent"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Columbus",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CBS",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        14,
+        18
+      ],
+      "avg": 16
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "black_pepper",
+      "licorice",
+      "curry",
+      "spicy",
+      "citrus",
+      "floral",
+      "pungent",
+      "dank",
+      "cannabis"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Comet",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "COM",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        12.4
+      ],
+      "avg": 10.2
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        6.1
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        45
+      ],
+      "avg": 39.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        3.3
+      ],
+      "avg": 2.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          65
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          15
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 35.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grassy",
+      "grapefruit",
+      "wild"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Contessa",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "04190",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7.4
+      ],
+      "avg": 6.2
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        32
+      ],
+      "avg": 30.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.9
+      ],
+      "avg": 1.35
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "green_tea",
+      "floral",
+      "lemongrass",
+      "pear"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Crystal",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "CRY",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.8,
+        6
+      ],
+      "avg": 4.4
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        8.5
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        26
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.3
+      ],
+      "avg": 1.5499999999999998
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          55
+        ],
+        "avg": 42.5
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          12
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "woody",
+      "floral",
+      "green",
+      "fruity",
+      "spicy",
+      "cinnamon",
+      "nutmeg",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "CTZ",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "CTZ",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        14.5,
+        17
+      ],
+      "avg": 15.8
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_pepper",
+      "licorice",
+      "curry",
+      "citrus",
+      "cannabis",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Delta",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "DEL",
+    "cultivarId": "04188",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        5.5,
+        7
+      ],
+      "avg": 6.3
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        7
+      ],
+      "avg": 6.3
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        24
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.1
+      ],
+      "avg": 0.8
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          40
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          25,
+          35
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          15
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "melon",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Diamond Springs",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.2
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "lemon",
+      "mint"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ekuanot",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "EKU",
+    "cultivarId": "HBC 366",
+    "ownership": "® Yakima Chief Hops",
+    "alphaAcid": {
+      "range": [
+        13,
+        15.5
+      ],
+      "avg": 14.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        31,
+        38
+      ],
+      "avg": 34.5
+    },
+    "totalOils": {
+      "range": [
+        2,
+        4.5
+      ],
+      "avg": 3.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          12,
+          20
+        ],
+        "avg": 16
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 36
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "lime",
+      "orange",
+      "tropical_fruit",
+      "berry",
+      "papaya",
+      "apple",
+      "sage",
+      "eucalyptus",
+      "herbal",
+      "melon",
+      "citrus",
+      "guava"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "El Dorado",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "ELD",
+    "cultivarId": "",
+    "ownership": "® CLS Farms, LLC",
+    "alphaAcid": {
+      "range": [
+        13,
+        17
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        6.4,
+        8
+      ],
+      "avg": 7.2
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        33
+      ],
+      "avg": 30.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        3.3
+      ],
+      "avg": 2.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          60
+        ],
+        "avg": 57.5
+      },
+      "humulene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "tropical_fruit",
+      "pear",
+      "watermelon",
+      "candy",
+      "stone_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Emerald Spire",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "GLH-8732",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        8.6,
+        13
+      ],
+      "avg": 10.8
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        4.5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        38,
+        39
+      ],
+      "avg": 38.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          36,
+          37
+        ],
+        "avg": 36.5
+      },
+      "humulene": {
+        "range": [
+          10,
+          11
+        ],
+        "avg": 10.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 45
+    },
+    "flavorProfile": "",
+    "tags": [
+      "peach",
+      "fruity",
+      "white_wine",
+      "grapes",
+      "watermelon",
+      "bubble_gum",
+      "melon",
+      "honeydew"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Equinox",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        14.5,
+        15.5
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        5.5
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        38
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Eroica",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "ERO",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7.3,
+        14.9
+      ],
+      "avg": 11.1
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.3
+      ],
+      "avg": 4.2
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 40
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.3
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          65
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          13
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 29
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Eureka",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "EUE",
+    "cultivarId": "05256",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        17,
+        20
+      ],
+      "avg": 18.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        30
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.4
+      ],
+      "avg": 3.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          42,
+          44
+        ],
+        "avg": 43
+      },
+      "humulene": {
+        "range": [
+          29,
+          30
+        ],
+        "avg": 29.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "dark_fruit",
+      "mint",
+      "citrus",
+      "peach",
+      "pine",
+      "stone_fruit",
+      "black_currant",
+      "mandarin",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Evergreen Blend",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BSG",
+    "alphaAcid": {
+      "range": [
+        7,
+        7.5
+      ],
+      "avg": 7.3
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        4.5
+      ],
+      "avg": 4.4
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          32
+        ],
+        "avg": 31
+      },
+      "humulene": {
+        "range": [
+          20,
+          22
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          12
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 35
+    },
+    "flavorProfile": "",
+    "tags": [
+      "peach",
+      "apricot",
+      "lemon",
+      "green_tea",
+      "watermelon",
+      "tangerine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Falconer's Flight",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "® Hopunion, LLC.",
+    "alphaAcid": {
+      "range": [
+        9.5,
+        12
+      ],
+      "avg": 10.8
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        29
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        1.4,
+        3
+      ],
+      "avg": 2.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          43,
+          62
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          11,
+          17
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "floral",
+      "grapefruit",
+      "lemon",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Falconer's Flight 7CS",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "® Hopunion, LLC.",
+    "alphaAcid": {
+      "range": [
+        9,
+        10.5
+      ],
+      "avg": 9.8
+    },
+    "betaAcid": {
+      "range": [
+        4.7,
+        5.1
+      ],
+      "avg": 4.9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 48
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        2
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          55
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          13,
+          18
+        ],
+        "avg": 15.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 28
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "citrus",
+      "spicy",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Fantasia Blend",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BarthHaas",
+    "alphaAcid": {
+      "range": [
+        4.3,
+        6.5
+      ],
+      "avg": 5.4
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        1.25
+      ],
+      "avg": 1.075
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "caramel",
+      "cream",
+      "noble",
+      "stone_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Galena",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "GAL",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        12,
+        15.5
+      ],
+      "avg": 13.8
+    },
+    "betaAcid": {
+      "range": [
+        7.2,
+        8.7
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        40
+      ],
+      "avg": 38
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        2.1
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          11,
+          17
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 33.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "pear",
+      "pineapple",
+      "black_currant",
+      "grapefruit",
+      "lime",
+      "gooseberry",
+      "spicy",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Gemini",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "GLH-8582",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        6,
+        10.4
+      ],
+      "avg": 8.2
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.28
+      ],
+      "avg": 3.6
+    },
+    "coHumulone": {
+      "range": [
+        31,
+        32
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          32,
+          33
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 51
+    },
+    "flavorProfile": "",
+    "tags": [
+      "honeydew",
+      "strawberry",
+      "eucalyptus",
+      "rosemary",
+      "fruit_punch",
+      "candy",
+      "mandarin",
+      "hay",
+      "black_tea"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Glacier",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "GLC",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.3,
+        9.7
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        5.4,
+        10
+      ],
+      "avg": 7.7
+    },
+    "coHumulone": {
+      "range": [
+        11,
+        16
+      ],
+      "avg": 13.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.5
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          25,
+          35
+        ],
+        "avg": 30
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          13
+        ],
+        "avg": 10.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 19
+    },
+    "flavorProfile": "",
+    "tags": [
+      "plum",
+      "blackberry",
+      "woody",
+      "cedar"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Golding",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "GOL",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 20
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          35
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          16
+        ],
+        "avg": 14.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "delicate",
+      "sweet"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Grungeist",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 2.9
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 19.2
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "kiwi",
+      "peach",
+      "passion_fruit",
+      "lemon",
+      "floral",
+      "lavender",
+      "zest"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hallertau (US)",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "HAL",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        6.5
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        6.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        18,
+        26
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1.5
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          44
+        ],
+        "avg": 39.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          38
+        ],
+        "avg": 34
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          12
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "slightly_spicy",
+      "floral",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hartwick",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 12.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HBC 472",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        12
+      ],
+      "avg": 9.5
+    },
+    "betaAcid": {
+      "range": [
+        7,
+        9
+      ],
+      "avg": 8
+    },
+    "coHumulone": {
+      "range": [
+        40,
+        45
+      ],
+      "avg": 42.5
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        3
+      ],
+      "avg": 2.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          0.5,
+          2
+        ],
+        "avg": 1.3
+      },
+      "caryophyllene": {
+        "range": [
+          26,
+          32
+        ],
+        "avg": 29
+      },
+      "farnesene": {
+        "range": [
+          3,
+          6
+        ],
+        "avg": 4.5
+      },
+      "other": 25.2
+    },
+    "flavorProfile": "",
+    "tags": [
+      "woody",
+      "earthy",
+      "floral",
+      "coconut",
+      "fruity",
+      "citrus",
+      "grapefruit",
+      "whiskey"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HBC 586",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "HBC 586",
+    "cultivarId": "",
+    "ownership": "HBC",
+    "alphaAcid": {
+      "range": [
+        18,
+        22
+      ],
+      "avg": 20
+    },
+    "betaAcid": {
+      "range": [
+        11,
+        14
+      ],
+      "avg": 12.5
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        40
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          65
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mango",
+      "lychee",
+      "citrus",
+      "herbal",
+      "guava",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HBC 630",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        12,
+        15
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        26
+      ],
+      "avg": 23
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          15
+        ],
+        "avg": 13
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 24
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cherry",
+      "floral",
+      "herbal",
+      "citrus",
+      "raspberry",
+      "tropical_fruit",
+      "candy",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "HBC 692",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.9,
+        9.5
+      ],
+      "avg": 9.2
+    },
+    "betaAcid": {
+      "range": [
+        8.3,
+        10.2
+      ],
+      "avg": 9.3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.2
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "floral",
+      "stone_fruit",
+      "potpourri",
+      "woody",
+      "cream",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Helios",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "HLO",
+    "cultivarId": "HS15619",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        16.8,
+        21
+      ],
+      "avg": 18.9
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        4.5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        29
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          70
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          19,
+          24
+        ],
+        "avg": 21.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          4,
+          6
+        ],
+        "avg": 5
+      },
+      "other": 10
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Horizon",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "HOR",
+    "cultivarId": "7006-398",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8.8,
+        12
+      ],
+      "avg": 10.4
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        7.5
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        16,
+        19
+      ],
+      "avg": 17.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.5
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          14
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Hydra",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "GLH-74582",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        10.5,
+        13.7
+      ],
+      "avg": 12.1
+    },
+    "betaAcid": {
+      "range": [
+        6.4,
+        7.9
+      ],
+      "avg": 7.2
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        28
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          54,
+          55
+        ],
+        "avg": 54.5
+      },
+      "humulene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "tangerine",
+      "mandarin",
+      "zest",
+      "resin",
+      "lime",
+      "berry",
+      "peach",
+      "watermelon",
+      "rose",
+      "apricot",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Idaho 7",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "ID7",
+    "cultivarId": "",
+    "ownership": "™ Jackson Hop Farm",
+    "alphaAcid": {
+      "range": [
+        9.5,
+        14.9
+      ],
+      "avg": 12.2
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        40
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_currant",
+      "tropical_fruit",
+      "citrus",
+      "apricot",
+      "orange",
+      "grapefruit",
+      "papaya",
+      "resin",
+      "pine",
+      "floral",
+      "black_tea",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Idaho Gem",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "IDG",
+    "cultivarId": "",
+    "ownership": "™ Gooding Farms",
+    "alphaAcid": {
+      "range": [
+        11,
+        14
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        40,
+        45
+      ],
+      "avg": 42.5
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        2.3
+      ],
+      "avg": 1.7999999999999998
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "cherry",
+      "candied_fruit",
+      "herbal",
+      "spicy",
+      "mint",
+      "citrus",
+      "stone_fruit",
+      "redberry",
+      "mojito",
+      "sweet"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Independence",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "Yakima Chief Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.7
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 1.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        21
+      ],
+      "avg": 20.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "stone_fruit",
+      "herbal",
+      "tobacco",
+      "earthy",
+      "pine",
+      "grassy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Jarrylo",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "JAR",
+    "cultivarId": "ADHA-881",
+    "ownership": "® American Dwarf Hop Association",
+    "alphaAcid": {
+      "range": [
+        15,
+        17
+      ],
+      "avg": 16
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        7.5
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        37
+      ],
+      "avg": 35.5
+    },
+    "totalOils": {
+      "range": [
+        3.6,
+        4.3
+      ],
+      "avg": 3.95
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          55
+        ],
+        "avg": 47.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          18
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "lime",
+      "orange",
+      "pear",
+      "spicy",
+      "banana",
+      "white_wine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Lambic",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        5
+      ],
+      "avg": 3.9
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        35
+      ],
+      "avg": 32
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.2
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grassy",
+      "spicy",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Lawton",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        4
+      ],
+      "avg": 3.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        3.2
+      ],
+      "avg": 3.1
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pungent",
+      "woody",
+      "earthy",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Lemondrop",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "LDP",
+    "cultivarId": "01210",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        34
+      ],
+      "avg": 31
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          47
+        ],
+        "avg": 46
+      },
+      "humulene": {
+        "range": [
+          56,
+          58
+        ],
+        "avg": 57
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "other": 0
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "lemon",
+      "floral",
+      "mint",
+      "green_tea",
+      "melon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Liberty",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "LIB",
+    "cultivarId": "8303-117",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        6.5
+      ],
+      "avg": 4.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        30
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1.8
+      ],
+      "avg": 1.2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "humulene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 27
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "floral",
+      "herbal",
+      "spicy",
+      "delicate",
+      "citrus",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Loral",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "LOR",
+    "cultivarId": "HBC 291",
+    "ownership": "® Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        10,
+        17
+      ],
+      "avg": 13.5
+    },
+    "betaAcid": {
+      "range": [
+        1.5,
+        6.5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        24
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3.4
+      ],
+      "avg": 2.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          52,
+          58
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          17,
+          18
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 21.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "black_pepper",
+      "citrus",
+      "dark_fruit",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Lotus",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "LOT",
+    "cultivarId": "06297",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        13,
+        17
+      ],
+      "avg": 15
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        33,
+        39
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          35
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          35,
+          40
+        ],
+        "avg": 37.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 32
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "vanilla",
+      "berry",
+      "tropical_fruit",
+      "cream"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mackinac",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        9,
+        14
+      ],
+      "avg": 11.5
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        4
+      ],
+      "avg": 3.4
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.2
+      ],
+      "avg": 1.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          17
+        ],
+        "avg": 16
+      },
+      "humulene": {
+        "range": [
+          11,
+          12
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 66.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "citrus",
+      "melon",
+      "papaya",
+      "spicy",
+      "floral",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Magnum (US)",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "HMG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        16
+      ],
+      "avg": 13
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        7
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        30
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        3
+      ],
+      "avg": 2.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 14.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "spicy",
+      "nutmeg",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "McKenzie",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "MKZ",
+    "cultivarId": "C-148",
+    "ownership": "West Coast Hop Breeding (WCHB)",
+    "alphaAcid": {
+      "range": [
+        9,
+        11
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        9
+      ],
+      "avg": 8.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        2,
+        3
+      ],
+      "avg": 2.5
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "lemon",
+      "nectarine",
+      "melon",
+      "pine_resin",
+      "thyme",
+      "stone_fruit",
+      "dank",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Medusa",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "MED",
+    "cultivarId": "",
+    "ownership": "™ CLS Farms",
+    "alphaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        6.5
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        49
+      ],
+      "avg": 42
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        0.7
+      ],
+      "avg": 0.55
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          54,
+          55
+        ],
+        "avg": 54.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          14
+        ],
+        "avg": 13.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "guava",
+      "melon",
+      "citrus",
+      "apricot",
+      "lemon",
+      "lime",
+      "alfalfa",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Meridian",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "MER",
+    "cultivarId": "w12244",
+    "ownership": "™ Indie Hops",
+    "alphaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "coHumulone": {
+      "range": [
+        45,
+        50
+      ],
+      "avg": 47.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.6
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          29,
+          31
+        ],
+        "avg": 30
+      },
+      "humulene": {
+        "range": [
+          7,
+          9
+        ],
+        "avg": 8
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 58
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "lemon",
+      "berry",
+      "tropical_fruit",
+      "mint",
+      "spearmint"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Michigan Copper",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        8.8,
+        11
+      ],
+      "avg": 9.9
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3.5
+      ],
+      "avg": 2.8
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        36
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        1.15,
+        2.7
+      ],
+      "avg": 1.925
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          42,
+          44
+        ],
+        "avg": 43
+      },
+      "humulene": {
+        "range": [
+          17,
+          18
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 31.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "hibiscus",
+      "floral",
+      "tropical_fruit",
+      "black_cherry",
+      "candy",
+      "resin",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Millennium",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "MLM",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        14.5,
+        18.5
+      ],
+      "avg": 16.5
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        6.5
+      ],
+      "avg": 5.4
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          55
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pear",
+      "toffee",
+      "floral",
+      "resin",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mosaic",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "MOS",
+    "cultivarId": "HBC 369",
+    "ownership": "® Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        11.5,
+        13.5
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        3.2,
+        3.9
+      ],
+      "avg": 3.6
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        26
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        1,
+        1.5
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          47,
+          55
+        ],
+        "avg": 51
+      },
+      "humulene": {
+        "range": [
+          10,
+          16
+        ],
+        "avg": 13
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          8
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30
+    },
+    "flavorProfile": "",
+    "tags": [
+      "blueberry",
+      "tropical_fruit",
+      "citrus",
+      "grassy",
+      "pine",
+      "spicy",
+      "tangerine",
+      "papaya",
+      "rose",
+      "earthy",
+      "blossom",
+      "bubblegum",
+      "grapefruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mount Hood",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "MTH",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.9,
+        8
+      ],
+      "avg": 6
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        8
+      ],
+      "avg": 6.5
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        23
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        1.7
+      ],
+      "avg": 1.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          12,
+          38
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          16
+        ],
+        "avg": 11.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 28
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "herbal",
+      "pungent",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Mount Rainier",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "MTR",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        9.4
+      ],
+      "avg": 7.2
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        9.2
+      ],
+      "avg": 7.1
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        34
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0.2,
+        3.9
+      ],
+      "avg": 2.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          58,
+          59
+        ],
+        "avg": 58.5
+      },
+      "humulene": {
+        "range": [
+          17,
+          18
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 16
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "licorice",
+      "floral",
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Multihead",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3.5,
+        4.5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        8
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 45
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.5
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          47,
+          49
+        ],
+        "avg": 48
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 52
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "tropical_fruit",
+      "peach"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Newport",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "NWP",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10.5,
+        17
+      ],
+      "avg": 13.8
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        9.1
+      ],
+      "avg": 7.3
+    },
+    "coHumulone": {
+      "range": [
+        36,
+        38
+      ],
+      "avg": 37
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        3.6
+      ],
+      "avg": 2.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "wine",
+      "balsamic",
+      "citrus",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Nobility Blend",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BSG",
+    "alphaAcid": {
+      "range": [
+        4.2,
+        4.5
+      ],
+      "avg": 4.4
+    },
+    "betaAcid": {
+      "range": [
+        4.9,
+        5.3
+      ],
+      "avg": 5.1
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          34,
+          38
+        ],
+        "avg": 36
+      },
+      "humulene": {
+        "range": [
+          22,
+          23
+        ],
+        "avg": 22.5
+      },
+      "caryophyllene": {
+        "range": [
+          26,
+          28
+        ],
+        "avg": 27
+      },
+      "farnesene": {
+        "range": [
+          6,
+          8
+        ],
+        "avg": 7
+      },
+      "other": 7.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "orange",
+      "lemongrass",
+      "green_tea",
+      "floral",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Northdown",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "NOR",
+    "cultivarId": "1/61/55",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        10
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5.5
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        32
+      ],
+      "avg": 28
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        2.5
+      ],
+      "avg": 1.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          23,
+          29
+        ],
+        "avg": 26
+      },
+      "humulene": {
+        "range": [
+          40,
+          45
+        ],
+        "avg": 42.5
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          17
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 16
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "pine",
+      "cedar",
+      "berry",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Northern Brewer (US)",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "NBR",
+    "cultivarId": "WFB 135",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        10
+      ],
+      "avg": 8.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        34
+      ],
+      "avg": 30.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          27,
+          31
+        ],
+        "avg": 29
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          15
+        ],
+        "avg": 13
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "woody",
+      "mint",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Nugget",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "NUG",
+    "cultivarId": "7005-194",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9.5,
+        16
+      ],
+      "avg": 12.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5.8
+      ],
+      "avg": 4.4
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        30
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.9,
+        3.3
+      ],
+      "avg": 2.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          48,
+          59
+        ],
+        "avg": 53.5
+      },
+      "humulene": {
+        "range": [
+          12,
+          22
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "citrus",
+      "ginger",
+      "pineapple",
+      "geranium",
+      "lychee",
+      "earthy",
+      "coconut"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Old Mission",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.7
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "pine",
+      "spicy",
+      "herbal",
+      "black_pepper",
+      "tart"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Olympic",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "OLC",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10.6,
+        13.8
+      ],
+      "avg": 12.2
+    },
+    "betaAcid": {
+      "range": [
+        3.8,
+        6.1
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 31
+    },
+    "totalOils": {
+      "range": [
+        0.86,
+        2.55
+      ],
+      "avg": 1.7049999999999998
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          9,
+          13
+        ],
+        "avg": 11
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          12
+        ],
+        "avg": 9.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 29
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "spicy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pacific Crest",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "TRI2302 BLEND",
+    "ownership": "™ Yakima Chief Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.9
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 27
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          19,
+          21
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 21.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "tobacco",
+      "earthy",
+      "grassy",
+      "floral",
+      "spicy",
+      "herbal",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pahto",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "PAH",
+    "cultivarId": "HBC 682",
+    "ownership": "™ Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        17,
+        20
+      ],
+      "avg": 18.5
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        32
+      ],
+      "avg": 29
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.5
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          58,
+          72
+        ],
+        "avg": 65
+      },
+      "humulene": {
+        "range": [
+          8,
+          11
+        ],
+        "avg": 9.5
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          6
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 20.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "neutral",
+      "herbal",
+      "earthy",
+      "clean",
+      "smooth"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Palisade",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "PAL",
+    "cultivarId": "YCR 4",
+    "ownership": "® Yakima Chief Ranches",
+    "alphaAcid": {
+      "range": [
+        5.5,
+        10
+      ],
+      "avg": 7.8
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        8
+      ],
+      "avg": 6.8
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        29
+      ],
+      "avg": 26.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          10,
+          20
+        ],
+        "avg": 15
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          16
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "yogurt",
+      "honey",
+      "passion_fruit",
+      "apricot",
+      "floral",
+      "clean"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Paradigm",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "GLH-49584",
+    "ownership": "™ Great Lakes Hops",
+    "alphaAcid": {
+      "range": [
+        8,
+        11.7
+      ],
+      "avg": 9.9
+    },
+    "betaAcid": {
+      "range": [
+        3.9,
+        6.3
+      ],
+      "avg": 5.1
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        35
+      ],
+      "avg": 34.5
+    },
+    "totalOils": {
+      "range": [
+        1.2,
+        2.17
+      ],
+      "avg": 1.685
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          40
+        ],
+        "avg": 39.5
+      },
+      "humulene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          4
+        ],
+        "avg": 3.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 52
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "stone_fruit",
+      "tropical_fruit",
+      "spicy",
+      "melon",
+      "candy",
+      "dank",
+      "papaya",
+      "mint",
+      "pear",
+      "chamomile"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Pekko",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "PEK",
+    "cultivarId": "ADHA-871",
+    "ownership": "® American Dwarf Hop Association",
+    "alphaAcid": {
+      "range": [
+        13,
+        16
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        30
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        3
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "humulene": {
+        "range": [
+          20,
+          28
+        ],
+        "avg": 24
+      },
+      "caryophyllene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 33
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pleasant",
+      "floral",
+      "citrus",
+      "mint",
+      "herbal",
+      "mellow",
+      "pineapple",
+      "thyme",
+      "cucumber",
+      "sage",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Perle (US)",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "PER",
+    "cultivarId": "66/13/13",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        9
+      ],
+      "avg": 6.5
+    },
+    "betaAcid": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        2
+      ],
+      "avg": 1.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          28,
+          34
+        ],
+        "avg": 31
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          16
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17
+    },
+    "flavorProfile": "",
+    "tags": [
+      "slightly_spicy",
+      "herbal",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Petoskey",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 12.1
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 6.2
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "pungent",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Prussian",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 2.7
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lemon",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Saaz (US)",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "SAZ",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        4.5
+      ],
+      "avg": 3.8
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        24,
+        28
+      ],
+      "avg": 26
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1
+      ],
+      "avg": 0.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          30
+        ],
+        "avg": 27.5
+      },
+      "humulene": {
+        "range": [
+          35,
+          40
+        ],
+        "avg": 37.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "farnesene": {
+        "range": [
+          9,
+          13
+        ],
+        "avg": 11
+      },
+      "other": 14
+    },
+    "flavorProfile": "",
+    "tags": [
+      "slightly_spicy",
+      "earthy",
+      "noble"
+    ],
+    "substitutes": []
+  },
+  {
+    "totalOil": [
+  2,
+  4
+],
+    "beta": [
+  5,
+  7
+],
+    "alpha": [
+  14,
+  17
+],
+    "name": "Sabro",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "SAB",
+    "cultivarId": "HBC-438",
+    "ownership": "™ Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        12,
+        17
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        7
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        24
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        3.5
+      ],
+      "avg": 2.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          68
+        ],
+        "avg": 59
+      },
+      "humulene": {
+        "range": [
+          7,
+          14
+        ],
+        "avg": 10.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 21
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "tangerine",
+      "coconut",
+      "tropical_fruit",
+      "stone_fruit",
+      "cedar",
+      "mint",
+      "cream",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Samba",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        12
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        32
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "pineapple",
+      "mango",
+      "stone_fruit",
+      "candy",
+      "orange"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Santiam",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "SNT",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5,
+        8.5
+      ],
+      "avg": 6.8
+    },
+    "betaAcid": {
+      "range": [
+        5.3,
+        8.5
+      ],
+      "avg": 6.9
+    },
+    "coHumulone": {
+      "range": [
+        18,
+        24
+      ],
+      "avg": 21
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.2
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          15,
+          25
+        ],
+        "avg": 20
+      },
+      "humulene": {
+        "range": [
+          20,
+          30
+        ],
+        "avg": 25
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          14,
+          18
+        ],
+        "avg": 16
+      },
+      "other": 31.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "spicy",
+      "black_pepper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Satus",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "SAT",
+    "cultivarId": "YCR 7",
+    "ownership": "® Yakima Chief Ranches",
+    "alphaAcid": {
+      "range": [
+        12,
+        14.5
+      ],
+      "avg": 13.3
+    },
+    "betaAcid": {
+      "range": [
+        8.5,
+        9
+      ],
+      "avg": 8.8
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        35
+      ],
+      "avg": 33.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.8
+      ],
+      "avg": 2.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          45
+        ],
+        "avg": 42.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "clean"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Saugatuck",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 5.4
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Sequoia Blend",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "HS-1228",
+    "ownership": "™ BSG",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        32
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          65
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          12,
+          20
+        ],
+        "avg": 16
+      },
+      "other": 17
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mango",
+      "pineapple",
+      "pine"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Shaddock",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3.6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "lime",
+      "grapefruit",
+      "onion",
+      "garlic"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Simcoe",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "SIM",
+    "cultivarId": "YCR 14",
+    "ownership": "® Yakima Valley Ranches",
+    "alphaAcid": {
+      "range": [
+        11,
+        15
+      ],
+      "avg": 13
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        17,
+        21
+      ],
+      "avg": 18
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        3.2
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          20
+        ],
+        "avg": 17.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          14
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "earthy",
+      "grapefruit",
+      "passion_fruit",
+      "pine",
+      "berry",
+      "apricot",
+      "bubblegum",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sitiva Blend",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BSG",
+    "alphaAcid": {
+      "range": [
+        7.2,
+        7.6
+      ],
+      "avg": 7.4
+    },
+    "betaAcid": {
+      "range": [
+        4.2,
+        4.5
+      ],
+      "avg": 4.4
+    },
+    "coHumulone": {
+      "range": [
+        27,
+        28
+      ],
+      "avg": 27.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          58
+        ],
+        "avg": 54
+      },
+      "humulene": {
+        "range": [
+          10,
+          11
+        ],
+        "avg": 10.5
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "other": 26
+    },
+    "flavorProfile": "",
+    "tags": [
+      "stone_fruit",
+      "floral",
+      "peach",
+      "lime"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sonnet",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "SON",
+    "cultivarId": "",
+    "ownership": "® Virgil Gamache Farms, Inc.",
+    "alphaAcid": {
+      "range": [
+        2.6,
+        7.4
+      ],
+      "avg": 5
+    },
+    "betaAcid": {
+      "range": [
+        2,
+        3.7
+      ],
+      "avg": 2.9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0.2,
+        1
+      ],
+      "avg": 0.6
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "honeysuckle",
+      "citrus",
+      "sweet",
+      "lemon",
+      "floral",
+      "earthy",
+      "grass",
+      "honey"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sterling",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "STR",
+    "cultivarId": "9043-52",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.5,
+        8.5
+      ],
+      "avg": 7
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        28
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          16,
+          18
+        ],
+        "avg": 17
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          15,
+          19
+        ],
+        "avg": 17
+      },
+      "other": 19.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "herbal",
+      "spicy",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sticky Fingers Blend",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 11.9
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        29
+      ],
+      "avg": 28.5
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "earthy",
+      "spicy",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Stirling",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        6,
+        12
+      ],
+      "avg": 9
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        28
+      ],
+      "avg": 24.5
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        1.9
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          44,
+          48
+        ],
+        "avg": 46
+      },
+      "humulene": {
+        "range": [
+          19,
+          23
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          11,
+          17
+        ],
+        "avg": 14
+      },
+      "other": 13
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal",
+      "citus",
+      "spicy",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Strata",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "STT",
+    "cultivarId": "X-331, OR91331",
+    "ownership": "™ Indie Hops",
+    "alphaAcid": {
+      "range": [
+        11,
+        12.5
+      ],
+      "avg": 11.8
+    },
+    "betaAcid": {
+      "range": [
+        5,
+        7
+      ],
+      "avg": 6
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 21
+    },
+    "totalOils": {
+      "range": [
+        2.3,
+        3.5
+      ],
+      "avg": 2.9
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          52,
+          65
+        ],
+        "avg": 58.5
+      },
+      "humulene": {
+        "range": [
+          22,
+          30
+        ],
+        "avg": 26
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          13
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 6
+    },
+    "flavorProfile": "",
+    "tags": [
+      "cannabis",
+      "grapefruit",
+      "passion_fruit",
+      "strawberry",
+      "dank",
+      "musty"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sultana (Denali)",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "SUL",
+    "cultivarId": "06277",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        13,
+        16
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        7
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        26
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          54,
+          55
+        ],
+        "avg": 54.5
+      },
+      "humulene": {
+        "range": [
+          15,
+          17
+        ],
+        "avg": 16
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 23
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "citrus",
+      "pine",
+      "spicy",
+      "lemon",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Summit",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "SUM",
+    "cultivarId": "AD24-002",
+    "ownership": "™ American Dwarf Hop Association",
+    "alphaAcid": {
+      "range": [
+        15,
+        17.5
+      ],
+      "avg": 16.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        26,
+        33
+      ],
+      "avg": 29.5
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          18,
+          22
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          12,
+          16
+        ],
+        "avg": 14
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_pepper",
+      "anise",
+      "incense",
+      "orange",
+      "grapefruit",
+      "tangerine",
+      "earthy",
+      "citrus",
+      "onion",
+      "garlic",
+      "dank",
+      "cannabis"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sun",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        12,
+        16
+      ],
+      "avg": 14
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        7
+      ],
+      "avg": 5.8
+    },
+    "coHumulone": {
+      "range": [
+        30,
+        40
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Sunbeam",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 2.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 36
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.3
+      ],
+      "avg": 1.05
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          55,
+          57
+        ],
+        "avg": 56
+      },
+      "humulene": {
+        "range": [
+          13,
+          15
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "farnesene": {
+        "range": [
+          5,
+          7
+        ],
+        "avg": 6
+      },
+      "other": 20
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "name": "Super Galena",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "SGA",
+    "cultivarId": "99008",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        13,
+        16
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        10
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        35,
+        40
+      ],
+      "avg": 37.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.5
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          60
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "caryophyllene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "farnesene": {
+        "range": [
+          0,
+          0
+        ],
+        "avg": 0
+      },
+      "other": 47.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grassy",
+      "spicy",
+      "pear",
+      "pineapple",
+      "grapefruit",
+      "gooseberry",
+      "honey",
+      "juniper"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tahoma",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "TAH",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        8.2
+      ],
+      "avg": 7.6
+    },
+    "betaAcid": {
+      "range": [
+        8.5,
+        9.5
+      ],
+      "avg": 9
+    },
+    "coHumulone": {
+      "range": [
+        15,
+        17
+      ],
+      "avg": 16
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          67,
+          72
+        ],
+        "avg": 69.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          11
+        ],
+        "avg": 10
+      },
+      "caryophyllene": {
+        "range": [
+          2,
+          4
+        ],
+        "avg": 3
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 17
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "lemon",
+      "grapefruit",
+      "cedar",
+      "pine",
+      "spicy",
+      "orange",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Talisman",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "TLN",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        5.7,
+        8
+      ],
+      "avg": 6.9
+    },
+    "betaAcid": {
+      "range": [
+        2.8,
+        3.6
+      ],
+      "avg": 3.2
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 53
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          67,
+          69
+        ],
+        "avg": 68
+      },
+      "humulene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [],
+    "substitutes": []
+  },
+  {
+    "totalOil": [
+  2,
+  2.7
+],
+    "beta": [
+  8.3,
+  10.2
+],
+    "alpha": [
+  8.1,
+  9.5
+],
+    "name": "Talus",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "HBC 692",
+    "ownership": "™ Hop Breeding Company",
+    "alphaAcid": {
+      "range": [
+        8.1,
+        9.5
+      ],
+      "avg": 8.8
+    },
+    "betaAcid": {
+      "range": [
+        8.3,
+        10.2
+      ],
+      "avg": 9.3
+    },
+    "coHumulone": {
+      "range": [
+        34,
+        39
+      ],
+      "avg": 36.5
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.7
+      ],
+      "avg": 1.85
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          16,
+          21
+        ],
+        "avg": 18.5
+      },
+      "caryophyllene": {
+        "range": [
+          9,
+          13
+        ],
+        "avg": 11
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "grapefruit",
+      "citrus",
+      "rose",
+      "pine",
+      "resin",
+      "tropical_fruit",
+      "sage",
+      "potpourri",
+      "floral",
+      "cream",
+      "stone_fruit",
+      "woody"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Teamaker",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0.6,
+        1.8
+      ],
+      "avg": 1.2
+    },
+    "betaAcid": {
+      "range": [
+        5.4,
+        13.2
+      ],
+      "avg": 9.3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          59,
+          61
+        ],
+        "avg": 60
+      },
+      "humulene": {
+        "range": [
+          1,
+          2
+        ],
+        "avg": 1.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          13
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 26
+    },
+    "flavorProfile": "",
+    "tags": [
+      "subtle",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tettnang (US)",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "TET",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        2.5,
+        5.5
+      ],
+      "avg": 4
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        28
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        0.9
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          45
+        ],
+        "avg": 37.5
+      },
+      "humulene": {
+        "range": [
+          18,
+          23
+        ],
+        "avg": 20.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "other": 29
+    },
+    "flavorProfile": "",
+    "tags": [
+      "noble",
+      "spicy",
+      "grassy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tillicum",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "TIL",
+    "cultivarId": "H87207-2",
+    "ownership": "® John I. Haas, Inc.",
+    "alphaAcid": {
+      "range": [
+        13.5,
+        15.5
+      ],
+      "avg": 14.5
+    },
+    "betaAcid": {
+      "range": [
+        9.5,
+        11.5
+      ],
+      "avg": 10.5
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 35
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          41
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          13,
+          15
+        ],
+        "avg": 14
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 38
+    },
+    "flavorProfile": "",
+    "tags": [
+      "stone_fruit",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "TNT Blend",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ BarthHaas",
+    "alphaAcid": {
+      "range": [
+        11.5,
+        13
+      ],
+      "avg": 12.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        1.5
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "citrus",
+      "green_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tomahawk",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "TOM",
+    "cultivarId": "F10 CV",
+    "ownership": "® Yakima Chief Hops",
+    "alphaAcid": {
+      "range": [
+        15,
+        17.5
+      ],
+      "avg": 16.3
+    },
+    "betaAcid": {
+      "range": [
+        4.5,
+        6
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        2.5,
+        4.5
+      ],
+      "avg": 3.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          9,
+          14
+        ],
+        "avg": 11.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          10
+        ],
+        "avg": 8
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 30
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "black_pepper",
+      "licorice",
+      "curry",
+      "onion"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Trident",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        11,
+        14
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        20,
+        30
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        3
+      ],
+      "avg": 2.25
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "citrus",
+      "tropical_fruit",
+      "passion_fruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "TriplePearl",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "TRP",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10,
+        11.2
+      ],
+      "avg": 10.6
+    },
+    "betaAcid": {
+      "range": [
+        3.3,
+        4.2
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        55
+      ],
+      "avg": 38
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.8
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          39,
+          55
+        ],
+        "avg": 47
+      },
+      "humulene": {
+        "range": [
+          7,
+          11
+        ],
+        "avg": 9
+      },
+      "caryophyllene": {
+        "range": [
+          3,
+          5
+        ],
+        "avg": 4
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 39.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "orange",
+      "citrus",
+      "zest",
+      "melon",
+      "resin",
+      "spicy",
+      "black_pepper",
+      "sandalwood",
+      "cedar",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Triumph",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "TRI",
+    "cultivarId": "USDA NUG-033",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        12
+      ],
+      "avg": 10.5
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        26
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.8
+      ],
+      "avg": 1.3
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          25,
+          40
+        ],
+        "avg": 32.5
+      },
+      "humulene": {
+        "range": [
+          28,
+          34
+        ],
+        "avg": 31
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          10
+        ],
+        "avg": 9
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 27
+    },
+    "flavorProfile": "",
+    "tags": [
+      "spicy",
+      "pine",
+      "orange",
+      "peach",
+      "lime",
+      "fruity",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Tropica",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 8.8
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "mandarin",
+      "orange",
+      "tropical_fruit",
+      "dank"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Ultra",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "ULT",
+    "cultivarId": "8305-17",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        3,
+        9.7
+      ],
+      "avg": 6.4
+    },
+    "betaAcid": {
+      "range": [
+        3.6,
+        5
+      ],
+      "avg": 4.3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        35
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        1.5
+      ],
+      "avg": 1.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          50,
+          60
+        ],
+        "avg": 55
+      },
+      "humulene": {
+        "range": [
+          10,
+          15
+        ],
+        "avg": 12.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          9
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 24.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mild",
+      "pleasant",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "USDA 008",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        10.1,
+        11.1
+      ],
+      "avg": 10.6
+    },
+    "betaAcid": {
+      "range": [
+        2.7,
+        3.3
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        25,
+        26
+      ],
+      "avg": 25.5
+    },
+    "totalOils": {
+      "range": [
+        1.6,
+        1.7
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "humulene": {
+        "range": [
+          48,
+          49
+        ],
+        "avg": 48.5
+      },
+      "caryophyllene": {
+        "range": [
+          16,
+          17
+        ],
+        "avg": 16.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 28
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus",
+      "sweet_fruit",
+      "peach",
+      "mango",
+      "stonefruit"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Vanguard",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "VAN",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "betaAcid": {
+      "range": [
+        5.5,
+        7
+      ],
+      "avg": 6.3
+    },
+    "coHumulone": {
+      "range": [
+        14,
+        20
+      ],
+      "avg": 17
+    },
+    "totalOils": {
+      "range": [
+        0.4,
+        1
+      ],
+      "avg": 0.7
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          5,
+          15
+        ],
+        "avg": 10
+      },
+      "humulene": {
+        "range": [
+          49,
+          55
+        ],
+        "avg": 52
+      },
+      "caryophyllene": {
+        "range": [
+          13,
+          17
+        ],
+        "avg": 15
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "woody",
+      "tobacco",
+      "pleasant",
+      "grassy",
+      "cedar"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Vista",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "VTA",
+    "cultivarId": "USDA 2006009-074",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        8,
+        12
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        5.5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        29,
+        31
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2.2
+      ],
+      "avg": 1.5
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          18,
+          22
+        ],
+        "avg": 20
+      },
+      "caryophyllene": {
+        "range": [
+          10,
+          14
+        ],
+        "avg": 12
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 32.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tropical_fruit",
+      "tangerine",
+      "melon",
+      "pear",
+      "green_tea",
+      "citrus",
+      "sweet",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Walhalla",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "™ Great Lake Hops",
+    "alphaAcid": {
+      "range": [
+        5.97,
+        10
+      ],
+      "avg": 8
+    },
+    "betaAcid": {
+      "range": [
+        3.75,
+        6
+      ],
+      "avg": 4.9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "garlic",
+      "grassy",
+      "herbal"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Warrior",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "WAR",
+    "cultivarId": "YCR 5",
+    "ownership": "® Yakima Chief Ranches",
+    "alphaAcid": {
+      "range": [
+        14.5,
+        18
+      ],
+      "avg": 16.3
+    },
+    "betaAcid": {
+      "range": [
+        4.3,
+        6
+      ],
+      "avg": 5.2
+    },
+    "coHumulone": {
+      "range": [
+        22,
+        26
+      ],
+      "avg": 24
+    },
+    "totalOils": {
+      "range": [
+        1,
+        2.5
+      ],
+      "avg": 1.75
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          40,
+          50
+        ],
+        "avg": 45
+      },
+      "humulene": {
+        "range": [
+          15,
+          18
+        ],
+        "avg": 16.5
+      },
+      "caryophyllene": {
+        "range": [
+          11,
+          14
+        ],
+        "avg": 12.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pine",
+      "mild",
+      "resin"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Wild Wolf",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 8.3
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 5.9
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "fruity",
+      "herbal",
+      "earthy"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Willamette",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "WIL",
+    "cultivarId": "6761-117",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4,
+        7.2
+      ],
+      "avg": 5.6
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        4.5
+      ],
+      "avg": 3.8
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        35
+      ],
+      "avg": 31.5
+    },
+    "totalOils": {
+      "range": [
+        0.6,
+        1.6
+      ],
+      "avg": 1.1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          40
+        ],
+        "avg": 35
+      },
+      "humulene": {
+        "range": [
+          20,
+          27
+        ],
+        "avg": 23.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          8
+        ],
+        "avg": 7.5
+      },
+      "farnesene": {
+        "range": [
+          5,
+          6
+        ],
+        "avg": 5.5
+      },
+      "other": 28.5
+    },
+    "flavorProfile": "",
+    "tags": [
+      "citrus",
+      "incense",
+      "elderberry",
+      "caramel",
+      "curry",
+      "floral"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "X13459",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "X13459",
+    "ownership": "™ Hopsteiner",
+    "alphaAcid": {
+      "range": [
+        3,
+        5.5
+      ],
+      "avg": 4.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        5
+      ],
+      "avg": 4.5
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        24
+      ],
+      "avg": 22.5
+    },
+    "totalOils": {
+      "range": [
+        0.8,
+        2
+      ],
+      "avg": 1.4
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "tropical_fruit",
+      "peach",
+      "citrus",
+      "strawberry"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Yakima Cluster",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "USDA 65102",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        4.4,
+        9.8
+      ],
+      "avg": 7.1
+    },
+    "betaAcid": {
+      "range": [
+        3,
+        6.1
+      ],
+      "avg": 4.6
+    },
+    "coHumulone": {
+      "range": [
+        39,
+        42
+      ],
+      "avg": 40.5
+    },
+    "totalOils": {
+      "range": [
+        0.24,
+        0.9
+      ],
+      "avg": 0.5700000000000001
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          55
+        ],
+        "avg": 50
+      },
+      "humulene": {
+        "range": [
+          17,
+          19
+        ],
+        "avg": 18
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "earthy",
+      "floral",
+      "sweet",
+      "fruity"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Yakima Gold",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "YKG",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        7,
+        8
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        3.5,
+        4.5
+      ],
+      "avg": 4
+    },
+    "coHumulone": {
+      "range": [
+        21,
+        23
+      ],
+      "avg": 22
+    },
+    "totalOils": {
+      "range": [
+        0.5,
+        1.5
+      ],
+      "avg": 1
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          35,
+          45
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          18,
+          24
+        ],
+        "avg": 21
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          9
+        ],
+        "avg": 7
+      },
+      "farnesene": {
+        "range": [
+          8,
+          12
+        ],
+        "avg": 10
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "smooth",
+      "grapefruit",
+      "lemon"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "YQH-1380",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "Y20",
+    "cultivarId": "YQH-1320",
+    "ownership": "YQH",
+    "alphaAcid": {
+      "range": [
+        9.3,
+        11
+      ],
+      "avg": 10.2
+    },
+    "betaAcid": {
+      "range": [
+        6.8,
+        7
+      ],
+      "avg": 6.9
+    },
+    "coHumulone": {
+      "range": [
+        32,
+        33
+      ],
+      "avg": 32.5
+    },
+    "totalOils": {
+      "range": [
+        1.3,
+        2
+      ],
+      "avg": 1.65
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          67,
+          68
+        ],
+        "avg": 67.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          10
+        ],
+        "avg": 9.5
+      },
+      "caryophyllene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 18
+    },
+    "flavorProfile": "",
+    "tags": [
+      "pineapple",
+      "guava",
+      "lime",
+      "peach",
+      "orange"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zamba Blend",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "HS-1214",
+    "ownership": "™ BSG",
+    "alphaAcid": {
+      "range": [
+        8,
+        12
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6
+      ],
+      "avg": 5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        32
+      ],
+      "avg": 30
+    },
+    "totalOils": {
+      "range": [
+        1.5,
+        2.5
+      ],
+      "avg": 2
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          60,
+          70
+        ],
+        "avg": 65
+      },
+      "humulene": {
+        "range": [
+          9,
+          13
+        ],
+        "avg": 11
+      },
+      "caryophyllene": {
+        "range": [
+          5,
+          8
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          4
+        ],
+        "avg": 2.5
+      },
+      "other": 15
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mango",
+      "stone_fruit",
+      "orange",
+      "tangerine",
+      "pineapple"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zappa",
+    "purpose": "Aroma",
+    "country": "United States of America (USA)",
+    "internationalCode": "ZAP",
+    "cultivarId": "FZMR2",
+    "ownership": "™ CLS Farms",
+    "alphaAcid": {
+      "range": [
+        6,
+        9
+      ],
+      "avg": 7.5
+    },
+    "betaAcid": {
+      "range": [
+        8,
+        9
+      ],
+      "avg": 8.5
+    },
+    "coHumulone": {
+      "range": [
+        40,
+        45
+      ],
+      "avg": 42.5
+    },
+    "totalOils": {
+      "range": [
+        1.8,
+        2.5
+      ],
+      "avg": 2.15
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          64,
+          65
+        ],
+        "avg": 64.5
+      },
+      "humulene": {
+        "range": [
+          4,
+          5
+        ],
+        "avg": 4.5
+      },
+      "caryophyllene": {
+        "range": [
+          8,
+          9
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "mint",
+      "savory",
+      "fruity",
+      "mango",
+      "passion_fruit",
+      "tropical_fruit",
+      "citrus",
+      "pine",
+      "spicy",
+      "fresh"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zenia",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "Mighty Axe Hops",
+    "alphaAcid": {
+      "range": [
+        11,
+        14
+      ],
+      "avg": 12.5
+    },
+    "betaAcid": {
+      "range": [
+        4.4,
+        5.1
+      ],
+      "avg": 4.8
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        2.5
+      ],
+      "avg": 1.6
+    },
+    "oilBreakdown": {
+      "other": 100
+    },
+    "flavorProfile": "",
+    "tags": [
+      "dank",
+      "resin",
+      "orange",
+      "onion",
+      "citrus",
+      "fruity",
+      "pine",
+      "marmalade",
+      "garlic"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zenith",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        9,
+        11
+      ],
+      "avg": 10
+    },
+    "betaAcid": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 3
+    },
+    "coHumulone": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 25
+    },
+    "totalOils": {
+      "range": [
+        0,
+        0
+      ],
+      "avg": 0
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          51,
+          53
+        ],
+        "avg": 52
+      },
+      "humulene": {
+        "range": [
+          18,
+          20
+        ],
+        "avg": 19
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          7
+        ],
+        "avg": 6.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 22
+    },
+    "flavorProfile": "",
+    "tags": [
+      "floral",
+      "citrus"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zeus",
+    "purpose": "Bittering",
+    "country": "United States of America (USA)",
+    "internationalCode": "ZEU",
+    "cultivarId": "",
+    "ownership": "",
+    "alphaAcid": {
+      "range": [
+        13,
+        17.5
+      ],
+      "avg": 15.3
+    },
+    "betaAcid": {
+      "range": [
+        4,
+        6.5
+      ],
+      "avg": 5.3
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        40
+      ],
+      "avg": 34
+    },
+    "totalOils": {
+      "range": [
+        2.4,
+        4.5
+      ],
+      "avg": 3.45
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          45,
+          60
+        ],
+        "avg": 52.5
+      },
+      "humulene": {
+        "range": [
+          9,
+          18
+        ],
+        "avg": 13.5
+      },
+      "caryophyllene": {
+        "range": [
+          6,
+          11
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          0,
+          1
+        ],
+        "avg": 0.5
+      },
+      "other": 25
+    },
+    "flavorProfile": "",
+    "tags": [
+      "black_pepper",
+      "licorice",
+      "curry",
+      "pungent"
+    ],
+    "substitutes": []
+  },
+  {
+    "name": "Zythos",
+    "purpose": "Dual",
+    "country": "United States of America (USA)",
+    "internationalCode": "",
+    "cultivarId": "",
+    "ownership": "® Hopunion",
+    "alphaAcid": {
+      "range": [
+        10,
+        12.5
+      ],
+      "avg": 11.3
+    },
+    "betaAcid": {
+      "range": [
+        4.7,
+        6.2
+      ],
+      "avg": 5.5
+    },
+    "coHumulone": {
+      "range": [
+        28,
+        31
+      ],
+      "avg": 29.5
+    },
+    "totalOils": {
+      "range": [
+        0.7,
+        1.2
+      ],
+      "avg": 0.95
+    },
+    "oilBreakdown": {
+      "myrcene": {
+        "range": [
+          30,
+          50
+        ],
+        "avg": 40
+      },
+      "humulene": {
+        "range": [
+          14,
+          23
+        ],
+        "avg": 18.5
+      },
+      "caryophyllene": {
+        "range": [
+          7,
+          10
+        ],
+        "avg": 8.5
+      },
+      "farnesene": {
+        "range": [
+          1,
+          3
+        ],
+        "avg": 2
+      },
+      "other": 31
+    },
+    "flavorProfile": "",
+    "tags": [
+      "tangerine",
+      "citrus",
+      "floral",
+      "pine",
+      "grapefruit",
+      "tropical_fruit"
+    ],
+    "substitutes": []
+  }
+];

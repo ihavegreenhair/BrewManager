@@ -1,0 +1,28 @@
+:root {
+  /* Color Palette - Dark Lab Aesthetic */
+  --bg-main: #121212;
+  --bg-surface: #1E1E1E;
+  --bg-surface-hover: #2A2A2A;
+  
+  --text-primary: #E0E0E0;
+  --text-secondary: #9E9E9E;
+  --text-muted: #616161;
+
+  --accent-primary: #FFB300; /* Amber for beer */
+  --accent-hover: #FFA000;
+  
+  --status-success: #4CAF50;
+  --status-warning: #FF9800;
+  --status-danger: #F44336;
+  --status-info: #2196F3;
+
+  /* Borders & Shadows */
+  --border-color: #333333;
+  --border-radius: 6px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.5);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+}

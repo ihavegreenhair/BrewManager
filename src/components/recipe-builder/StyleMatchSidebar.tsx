@@ -1,0 +1,266 @@
+import { StyleGauge } from './StyleGauge';
+import { RadarChart } from './RadarChart';
+import { BalanceBar } from './BalanceBar';
+import type { Fermentable, Hop, FermenterEntity, WaterProfile, MeasurementSystem, BeerStyle, MashStep } from '../types/brewing';
+import { calculateHopProfile } from '../../utils/brewingMath';
+import { generateOverallTastingNotes, analyzeMash } from '../../utils/tastingNotes';
+import type { TastingInput } from '../../utils/tastingNotes';
+import { hops as allHopVarieties } from '../../data/hops';
+import { yeasts as allYeastVarieties } from '../../data/yeasts';
+import { getWaterNarrative } from '../../utils/waterChemistry';
+import { useMemo } from 'react';
+
+interface StyleMatchSidebarProps {
+  activeStyle: BeerStyle | null;
+  sharedTargets: { targetOG: number; targetSRM: number; targetIBU: number };
+  primaryFermenter: FermenterEntity;
+  fermentables: Fermentable[];
+  kettleHops: Hop[];
+  mashSteps: MashStep[];
+  activeTargetWater: WaterProfile;
+  measurementSystem: MeasurementSystem;
+  co2Volumes?: number;
+  predictedPH?: number;
+}
+
+export const StyleMatchSidebar = ({
+  activeStyle, sharedTargets, primaryFermenter, fermentables, kettleHops, mashSteps, activeTargetWater,
+  co2Volumes = 2.5, predictedPH = 5.4
+}: StyleMatchSidebarProps) => {
+
+  const yeastInfo = useMemo(() => {
+    const yeast = primaryFermenter.yeast[0];
+    if (!yeast) return null;
+    return yeast.customVariety || allYeastVarieties.find(v => v.name.toLowerCase() === yeast.name.toLowerCase());
+  }, [primaryFermenter.yeast]);
+
+  const hopProfile = useMemo(() => {
+    return calculateHopProfile(kettleHops, allHopVarieties);
+  }, [kettleHops]);
+
+  // Get advanced water descriptors
+  const waterNarrative = useMemo(() => getWaterNarrative(activeTargetWater), [activeTargetWater]);
+
+  // Transform current state into TastingInput structure
+  const tastingInput: TastingInput = useMemo(() => {
+    const formattedFermentables = fermentables.map(f => {
+      let category: 'base' | 'crystal' | 'roasted' | 'adjunct' | 'fruit' | 'spice' | 'sugar' = 'base';
+      const name = f.name.toLowerCase();
+      
+      let fermentability = 0.75;
+      let proteinLevel: 'low' | 'med' | 'high' = 'med';
+
+      if (name.includes('hull')) {
+        category = 'adjunct';
+        fermentability = 0; // Mash aid, not fermentable
+        proteinLevel = 'med';
+      } else if (name.includes('rice') || name.includes('corn') || name.includes('maize')) {
+        category = 'adjunct';
+        fermentability = 1.0;
+        proteinLevel = 'low';
+      } else if (name.includes('sugar') || name.includes('dextrose') || name.includes('honey') || name.includes('candi') || name.includes('syrup')) {
+        category = 'sugar';
+        fermentability = 1.0;
+        proteinLevel = 'low';
+      } else if (f.color >= 100 || name.includes('roast') || name.includes('chocolate') || name.includes('black')) {
+        category = 'roasted';
+        fermentability = 0.65;
+      } else if (f.color >= 20 || name.includes('crystal') || name.includes('caramel') || name.includes('cara')) {
+        category = 'crystal';
+        fermentability = 0.7;
+      } else if (name.includes('wheat') || name.includes('oat') || name.includes('rye') || name.includes('flaked')) {
+        category = 'adjunct';
+        proteinLevel = 'high';
+      }
+      
+      return {
+        name: f.name,
+        category,
+        weightKg: f.weight,
+        fermentability,
+        proteinLevel,
+        ignoreMouthfeel: f.ignoreMouthfeel
+      };
+    });
+
+    // Map detailed hops
+    const formattedHops = kettleHops.map(h => {
+      const variety = h.customVariety || allHopVarieties.find(v => v.name.toLowerCase() === h.name.toLowerCase());
+      return {
+        name: h.name,
+        weight: h.weight,
+        time: h.time,
+        use: h.use as 'boil' | 'whirlpool' | 'dry_hop',
+        temp: h.temp,
+        totalOilAvg: variety?.totalOils?.avg || 1.0,
+        dominantTags: variety?.tags || []
+      };
+    });
+
+    const activeDryHop = kettleHops.some(h => h.use === 'dry_hop');
+    
+    // Yeast mapping
+    let profile: 'clean' | 'fruity' | 'phenolic' = 'clean';
+    let biotransformation: 'low' | 'medium' | 'high' = 'low';
+    const isLager = primaryFermenter.yeast[0]?.type === 'lager';
+    
+    if (yeastInfo) {
+      const esterScore = yeastInfo.characteristicScores?.fruity || 0;
+      const phenolScore = yeastInfo.characteristicScores?.funky || 0;
+
+      if (esterScore > 3 || yeastInfo.tags?.includes('fruity') || yeastInfo.styles.some(s => s.toLowerCase().includes('neipa') || s.toLowerCase().includes('hazy'))) {
+        profile = 'fruity';
+        biotransformation = 'high';
+      } else if (phenolScore > 3 || yeastInfo.tags?.includes('phenolic') || yeastInfo.tags?.includes('spicy')) {
+        profile = 'phenolic';
+      }
+    }
+
+    // Attempt to guess ferm temp if not specified
+    const fermTempC = isLager ? 12 : (profile === 'fruity' ? 21 : 18);
+
+    return {
+      stats: {
+        og: sharedTargets.targetOG,
+        fg: primaryFermenter.targetFG,
+        abv: primaryFermenter.targetABV,
+        srm: sharedTargets.targetSRM,
+        totalIBU: sharedTargets.targetIBU,
+        co2Volumes
+      },
+      water: {
+        sulfate: activeTargetWater.sulfate,
+        chloride: activeTargetWater.chloride,
+        calcium: activeTargetWater.calcium,
+        residualAlkalinity: activeTargetWater.bicarbonate,
+        mashPh: predictedPH,
+        words: waterNarrative.words
+      },
+      fermentables: formattedFermentables,
+      hops: {
+        scores: hopProfile?.scores || { Fruity: 0, Floral: 0, Herbaceous: 0, Spicy: 0, Earthy: 0 },
+        totalOilMl: hopProfile?.oilConcentration.total || 0,
+        dominantTags: hopProfile?.topTags || [],
+        activeDryHop
+      },
+      mashSteps: mashSteps.map(s => ({
+        tempC: s.stepTemp,
+        durationMins: s.stepTime
+      })),
+      yeast: {
+        attenuation: yeastInfo?.attenuation.avg || 75,
+        profile,
+        biotransformation,
+        fermTempC,
+        isLager,
+        scores: yeastInfo?.characteristicScores
+      }
+    };
+  }, [sharedTargets, primaryFermenter, fermentables, kettleHops, mashSteps, activeTargetWater, predictedPH, co2Volumes, yeastInfo, hopProfile, waterNarrative]);
+
+  // Run the Tasting Engine
+  const tastingOutput = useMemo(() => generateOverallTastingNotes(tastingInput), [tastingInput]);
+
+  // Derive UI elements from the Matrix
+  const beerBalance = useMemo(() => {
+    return {
+      bitterness: tastingOutput.matrix.bitternessIndex / 10,
+      body: tastingOutput.matrix.bodyIndex / 10
+    };
+  }, [tastingOutput]);
+
+  const detailedFlavorMap = useMemo(() => {
+    const m = tastingOutput.matrix;
+    return {
+      Fruity: m.fruityScore / 2,
+      Floral: m.floralScore / 2,
+      Earthy: m.earthyScore / 2,
+      Spicy: m.spicyScore / 2,
+      Phenolic: m.phenolicScore / 2,
+      Roasty: m.roastIndex / 2
+    };
+  }, [tastingOutput]);
+
+  return (
+    <div style={{ width: '100%', height: '100%' }}>
+      <section style={{ 
+        position: 'sticky', 
+        top: '1rem', 
+        backgroundColor: 'var(--bg-surface)', 
+        padding: '1.5rem', 
+        borderRadius: 'var(--border-radius)', 
+        border: '1px solid var(--border-color)',
+        maxHeight: 'calc(100vh - 2rem)',
+        overflowY: 'auto'
+      }}>
+        
+        <div style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Beer Summary</div>
+          <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: '1.6', fontWeight: 500, margin: 0 }}>
+            {tastingOutput.notes}
+          </p>
+        </div>
+
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '1rem' }}>Overall Balance</div>
+          <BalanceBar 
+            label="Flavor Balance" 
+            leftLabel="Malty/Sweet" 
+            rightLabel="Bitter/Dry" 
+            value={beerBalance.bitterness} 
+            color="#FFB300"
+          />
+          <BalanceBar 
+            label="Mouthfeel" 
+            leftLabel="Crisp" 
+            rightLabel="Full-Bodied" 
+            value={beerBalance.body} 
+            color="#4CAF50"
+          />
+        </div>
+
+        <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '1.5rem', width: '100%' }}>Flavor Categories</div>
+          <RadarChart scores={detailedFlavorMap} size={180} color="var(--accent-secondary, #4CAF50)" />
+        </div>
+        
+        {activeStyle && (
+          <div style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem', paddingTop: '0.5rem', borderTop: '1px solid var(--border-color)' }}>
+            <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem', marginTop: '1rem' }}>Style Match: {activeStyle.name}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontFamily: 'var(--font-mono)', marginTop: '1rem' }}>
+              <StyleGauge label="OG" value={sharedTargets.targetOG} min={activeStyle.stats.og.min} max={activeStyle.stats.og.max} />
+              <StyleGauge label="FG" value={primaryFermenter.targetFG} min={activeStyle.stats.fg.min} max={activeStyle.stats.fg.max} />
+              <StyleGauge label="ABV %" value={primaryFermenter.targetABV} min={activeStyle.stats.abv.min} max={activeStyle.stats.abv.max} />
+              <StyleGauge label="IBU" value={sharedTargets.targetIBU} min={activeStyle.stats.ibu.min} max={activeStyle.stats.ibu.max} />
+              <StyleGauge label="SRM" value={sharedTargets.targetSRM} min={activeStyle.stats.srm.min} max={activeStyle.stats.srm.max} />
+            </div>
+          </div>
+        )}
+        
+        {activeStyle && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {activeStyle.description && (
+              <div>
+                <label style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 'bold', display: 'block', marginBottom: '0.4rem' }}>Style Impression</label>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: '1.5', margin: 0 }}>{activeStyle.description}</p>
+              </div>
+            )}
+            
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              {activeStyle.flavor && (
+                <div style={{ gridColumn: 'span 2' }}>
+                  <label style={{ fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 'bold', display: 'block', marginBottom: '0.2rem' }}>Style Flavor</label>
+                  <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', lineHeight: '1.4', margin: 0 }}>{activeStyle.flavor}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {!activeStyle && (
+          <p style={{ color: 'var(--text-muted)' }}>No style selected.</p>
+        )}
+      </section>
+    </div>
+  );
+};

@@ -1,0 +1,81 @@
+@import './variables.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-surface-hover);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--border-color);
+}
+
+button.primary {
+  background-color: var(--accent-primary);
+  color: #000;
+  font-weight: 600;
+}
+
+button.primary:hover {
+  background-color: var(--accent-hover);
+}
+
+input, select, textarea {
+  font-family: inherit;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+}
+
+/* Number inputs use monospace for readability */
+input[type="number"] {
+  font-family: var(--font-mono);
+}
+
+.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.no-spinners[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.hover-bg:hover {
+  background-color: var(--bg-surface-hover);
+}

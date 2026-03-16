@@ -1,7 +1,7 @@
 import type { FermenterEntity, FermentationStep } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { fermentationProfiles } from '../../data/profiles';
-import { celsiusToFahrenheit } from '../../utils/units';
+import { celsiusToFahrenheit, fahrenheitToCelsius } from '../../utils/units';
 
 interface FermentationSectionProps {
   primaryFermenter: FermenterEntity;
@@ -30,7 +30,7 @@ export const FermentationSection = ({
       fermentationSteps: [...prev.fermentationSteps, { 
         id: crypto.randomUUID(), 
         name: 'Secondary', 
-        stepTemp: measurementSystem === 'metric' ? 18 : 64, 
+        stepTemp: 18, // Default 18C
         stepTime: 7 
       }]
     }));
@@ -47,11 +47,10 @@ export const FermentationSection = ({
     if (!profileId) return;
     const profile = fermentationProfiles.find(p => p.id === profileId);
     if (profile) {
-      const isMetric = measurementSystem === 'metric';
       const newSteps = profile.steps.map(s => ({
         ...s,
         id: crypto.randomUUID(),
-        stepTemp: isMetric ? s.stepTemp : Math.round(celsiusToFahrenheit(s.stepTemp))
+        stepTemp: s.stepTemp // Already in Celsius in data/profiles
       }));
       setPrimaryFermenter(prev => ({
         ...prev,
@@ -62,8 +61,11 @@ export const FermentationSection = ({
 
   const firstStep = primaryFermenter.fermentationSteps[0];
   const totalDays = primaryFermenter.fermentationSteps.reduce((acc, s) => acc + s.stepTime, 0);
+  
+  const displayFirstTemp = firstStep ? (measurementSystem === 'metric' ? firstStep.stepTemp : celsiusToFahrenheit(firstStep.stepTemp)) : 0;
+  
   const summary = firstStep 
-    ? `${firstStep.stepTemp}°${measurementSystem === 'metric' ? 'C' : 'F'} • ${totalDays} DAYS TOTAL • ${co2Volumes} VOLS`
+    ? `${displayFirstTemp.toFixed(1)}°${measurementSystem === 'metric' ? 'C' : 'F'} • ${totalDays} DAYS TOTAL • ${co2Volumes} VOLS`
     : <span style={{ color: 'var(--text-muted)', fontWeight: 'normal', fontSize: '0.75rem', opacity: 0.8 }}>+ Define Fermentation</span>;
 
   return (
@@ -152,20 +154,23 @@ export const FermentationSection = ({
                   <label style={labelStyle}>Temp (°{measurementSystem === 'metric' ? 'C' : 'F'})</label>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <button 
-                      onClick={() => updateStep(step.id, { stepTemp: step.stepTemp - 1 })}
+                      onClick={() => updateStep(step.id, { stepTemp: step.stepTemp - (measurementSystem === 'metric' ? 1 : 0.5555) })}
                       style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
                     >−</button>
                     <input 
                       type="number" 
                       className="no-spinners"
                       style={{ ...inputStyle, textAlign: 'center', padding: '0.5rem 0' }} 
-                      value={step.stepTemp} 
-                      onChange={e => updateStep(step.id, { stepTemp: Number(e.target.value) })}
+                      value={Number((measurementSystem === 'metric' ? step.stepTemp : celsiusToFahrenheit(step.stepTemp)).toFixed(1))} 
+                      onChange={e => {
+                        const val = Number(e.target.value);
+                        updateStep(step.id, { stepTemp: measurementSystem === 'metric' ? val : fahrenheitToCelsius(val) });
+                      }}
                       onFocus={handleFocus}
                       onBlur={handleBlur}
                     />
                     <button 
-                      onClick={() => updateStep(step.id, { stepTemp: step.stepTemp + 1 })}
+                      onClick={() => updateStep(step.id, { stepTemp: step.stepTemp + (measurementSystem === 'metric' ? 1 : 0.5555) })}
                       style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
                     >+</button>
                   </div>

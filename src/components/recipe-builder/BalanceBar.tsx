@@ -14,6 +14,16 @@ export const BalanceBar: React.FC<BalanceBarProps> = ({
   // Ensure value is between 0 and 1
   const pos = Math.max(0, Math.min(1, value)) * 100;
 
+  const labelStyle = (isRight: boolean): React.CSSProperties => ({ 
+    fontSize: '0.65rem', 
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: isRight 
+      ? `color-mix(in srgb, var(--accent-primary), var(--text-muted) ${100 - pos}%)`
+      : `color-mix(in srgb, var(--accent-primary), var(--text-muted) ${pos}%)`,
+    transition: 'color 0.3s ease'
+  });
+
   return (
     <div style={{ marginBottom: '1.25rem', width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
@@ -41,8 +51,8 @@ export const BalanceBar: React.FC<BalanceBarProps> = ({
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
-        <span style={{ fontSize: '0.65rem', color: pos < 40 ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: pos < 40 ? 'bold' : 'normal' }}>{leftLabel}</span>
-        <span style={{ fontSize: '0.65rem', color: pos > 60 ? 'var(--text-primary)' : 'var(--text-muted)', fontWeight: pos > 60 ? 'bold' : 'normal' }}>{rightLabel}</span>
+        <span style={labelStyle(false)}>{leftLabel}</span>
+        <span style={labelStyle(true)}>{rightLabel}</span>
       </div>
     </div>
   );

@@ -1,28 +1,47 @@
 :root {
-  /* Color Palette - "Brewprint" Blueprint Aesthetic */
-  --bg-main: #0A192F; /* Deep blueprint blue */
-  --bg-surface: #112240; /* Slightly lighter technical blue */
-  --bg-surface-hover: #233554;
+  /* Default: Minimal Light Mode */
+  --bg-main: #FFFFFF;
+  --bg-surface: #F8FAFC;
+  --bg-surface-hover: #F1F5F9;
   
-  --text-primary: #E6F1FF; /* Crisp technical white */
-  --text-secondary: #8892B0;
-  --text-muted: #495670;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
 
-  --accent-primary: #64FFDA; /* Blueprint Cyan/Teal */
-  --accent-hover: #52D1B2;
+  --accent-primary: #0284C7; /* Refined Blue */
+  --accent-hover: #0369A1;
+  --accent-soft: rgba(2, 132, 199, 0.1);
   
-  --status-success: #64FFDA;
-  --status-warning: #FFD700;
-  --status-danger: #F44336;
-  --status-info: #00BFFF;
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-danger: #EF4444;
+  --status-info: #0EA5E9;
 
-  /* Borders & Shadows */
-  --border-color: #233554;
-  --border-radius: 4px; /* Sharper technical edges */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
-  --shadow-md: 0 4px 12px rgba(2, 12, 27, 0.7);
+  --border-color: #E2E8F0;
+  --border-radius: 6px; 
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
-  /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-main: #0F172A; /* Slate 900 */
+    --bg-surface: #1E293B; /* Slate 800 */
+    --bg-surface-hover: #334155; /* Slate 700 */
+    
+    --text-primary: #F8FAFC; /* Slate 50 */
+    --text-secondary: #94A3B8; /* Slate 400 */
+    --text-muted: #475569; /* Slate 600 */
+
+    --accent-primary: #38BDF8; /* Sky 400 */
+    --accent-hover: #7DD3FC; /* Sky 300 */
+    --accent-soft: rgba(56, 189, 248, 0.15);
+    
+    --border-color: #334155;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
 }

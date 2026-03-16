@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useBrewStore } from '../store/useBrewStore';
 import type { Recipe, Fermentable, Hop, FermenterEntity, Equipment, MashStep, WaterProfile, BrewMethod } from '../types/brewing';
 import { 
@@ -26,9 +26,7 @@ import {
   KettleHopsSection,
   YeastPitchSection,
   FermentationSection,
-  StyleMatchSidebar,
-  RecipeHopProfile,
-  RecipeYeastProfile
+  StyleMatchSidebar
 } from '../components/recipe-builder';
 
 import {
@@ -41,9 +39,12 @@ import {
 const allStyles = [...bjcpStyles, ...baStyles];
 
 export const RecipeBuilder = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { addRecipe, measurementSystem, setMeasurementSystem, defaultSourceWater, setDefaultSourceWater } = useBrewStore();
+  const { recipes, addRecipe, updateRecipe, measurementSystem, setMeasurementSystem, defaultSourceWater, setDefaultSourceWater } = useBrewStore();
+
+  const recipeToEdit = useMemo(() => recipes.find(r => r.id === id), [recipes, id]);
 
   // Recipe Metadata
   const [name, setName] = useState('');
@@ -55,49 +56,68 @@ export const RecipeBuilder = () => {
   const [selectedStyleId, setSelectedStyleId] = useState(allStyles[0]?.id || '');
   const activeStyle = allStyles.find(s => s.id === selectedStyleId) || allStyles[0];
 
-  // Unit Conversion Effect
-  const prevSystem = useRef(measurementSystem);
+  // Populate state when editing or reset when new
   useEffect(() => {
-    if (prevSystem.current !== measurementSystem) {
-      const isMetric = measurementSystem === 'metric';
+    if (recipeToEdit) {
+      setName(recipeToEdit.name || '');
+      setAuthor(recipeToEdit.author || '');
+      setVersion(recipeToEdit.version || '1.0');
+      setBrewMethod(recipeToEdit.type || 'All Grain');
       
-      // Convert batch-level volumes
-      setBatchVolume(v => isMetric ? galToLiters(v) : litersToGal(v));
-      setTrubLoss(v => isMetric ? galToLiters(v) : litersToGal(v));
-      setBoilOffRate(v => isMetric ? galToLiters(v) : litersToGal(v));
-      setMashTunDeadspace(v => isMetric ? galToLiters(v) : litersToGal(v));
+      if (recipeToEdit.styleId) setSelectedStyleId(recipeToEdit.styleId);
+      if (recipeToEdit.equipment) setEquipment(recipeToEdit.equipment);
       
-      // Convert fermentables
-      setFermentables(prev => prev.map(f => ({
-        ...f,
-        weight: isMetric ? lbsToKg(f.weight) : kgToLbs(f.weight)
-      })));
+      setBatchVolume(recipeToEdit.batchVolume);
+      setBoilVolume(recipeToEdit.boilVolume);
+      setBoilTime(recipeToEdit.boilTime);
+      setEfficiency(recipeToEdit.efficiency);
+      setGrainAbsorptionRate(recipeToEdit.grainAbsorptionRate || 0.8);
+      setTrubLoss(recipeToEdit.trubLoss || 0);
+      setMashTunDeadspace(recipeToEdit.mashTunDeadspace || 0);
+      setBoilOffRate(recipeToEdit.boilOffRate || 3.0);
 
-      // Convert hops
-      setKettleHops(prev => prev.map(h => ({
-        ...h,
-        weight: isMetric ? ozToGrams(h.weight) : gramsToOz(h.weight)
-      })));
+      if (recipeToEdit.fermentables) setFermentables(recipeToEdit.fermentables);
+      if (recipeToEdit.kettleHops) setKettleHops(recipeToEdit.kettleHops);
+      if (recipeToEdit.mashSteps) setMashSteps(recipeToEdit.mashSteps);
+      
+      if (recipeToEdit.fermenters && recipeToEdit.fermenters.length > 0) {
+        setPrimaryFermenter(recipeToEdit.fermenters[0]);
+      }
 
-      // Convert mash steps
-      setMashSteps(prev => prev.map(s => ({
-        ...s,
-        stepTemp: isMetric ? fahrenheitToCelsius(s.stepTemp) : celsiusToFahrenheit(s.stepTemp)
-      })));
-
-      // Convert primary fermenter
-      setPrimaryFermenter(prev => ({
-        ...prev,
-        volume: isMetric ? galToLiters(prev.volume) : litersToGal(prev.volume),
-        fermentationSteps: prev.fermentationSteps.map(s => ({
-          ...s,
-          stepTemp: isMetric ? fahrenheitToCelsius(s.stepTemp) : celsiusToFahrenheit(s.stepTemp)
-        }))
-      }));
-
-      prevSystem.current = measurementSystem;
+      if (recipeToEdit.waterProfile) setSourceWater(recipeToEdit.waterProfile);
+      if (recipeToEdit.targetWaterProfile) setCustomTargetWater(recipeToEdit.targetWaterProfile);
+      if (recipeToEdit.acidAddition) setAcidAddition(recipeToEdit.acidAddition);
+    } else if (!id) {
+      // Reset to defaults for a new recipe
+      setName('');
+      setAuthor('');
+      setVersion('1.0');
+      setBrewMethod('All Grain');
+      setSelectedStyleId(allStyles[0]?.id || '');
+      setEquipment(predefinedEquipment[0]);
+      setBatchVolume(predefinedEquipment[0].batchVolume);
+      setBoilVolume(predefinedEquipment[0].boilVolume);
+      setBoilTime(predefinedEquipment[0].boilTime);
+      setEfficiency(predefinedEquipment[0].efficiency);
+      setGrainAbsorptionRate(0.8);
+      setTrubLoss(0);
+      setMashTunDeadspace(0);
+      setBoilOffRate(3.0);
+      setFermentables([]);
+      setKettleHops([]);
+      setMashSteps([]);
+      setPrimaryFermenter({
+        id: crypto.randomUUID(), name: 'Primary', volume: predefinedEquipment[0].batchVolume, yeast: [], dryHops: [], fermentationSteps: [],
+        targetFG: 1.0, targetABV: 0
+      });
+      setSourceWater(defaultSourceWater);
+      setTargetWaterId(targetWaterProfiles[0].id);
+      setAcidAddition({ type: 'lactic', concentration: 88, volumeMl: 0 });
     }
-  }, [measurementSystem]);
+  }, [recipeToEdit, id, defaultSourceWater]);
+
+  // Unit Conversion Effect - REMOVED state-altering logic
+  // Internal state is now strictly METRIC.
 
   // Fermentable Searching
   const [fermentableSearch, setFermentableSearch] = useState('');
@@ -217,17 +237,17 @@ export const RecipeBuilder = () => {
   ), [equipment, grainAbsorptionRate, trubLoss, mashTunDeadspace, boilOffRate, fermentables, boilTime, brewMethod, batchVolume, manualStrikeVolume, manualSpargeVolume]);
 
   // Calculate salt additions
-  const totalWaterVol = waterVolumes.mashWater + waterVolumes.spargeWater;
+  const totalWaterVolumeLiters = waterVolumes.mashWater + waterVolumes.spargeWater;
   
   const autoTotalSaltMath = useMemo(() => 
-    calculateWaterAdditions(sourceWater, customTargetWater, totalWaterVol),
-    [sourceWater, customTargetWater, totalWaterVol]
+    calculateWaterAdditions(sourceWater, customTargetWater, totalWaterVolumeLiters),
+    [sourceWater, customTargetWater, totalWaterVolumeLiters]
   );
 
   const totalSaltMath = useMemo(() => {
     if (saltCalculationMode === 'auto') return autoTotalSaltMath;
-    return calculateProfileFromSalts(sourceWater, manualSaltAdditions, totalWaterVol);
-  }, [saltCalculationMode, autoTotalSaltMath, sourceWater, manualSaltAdditions, totalWaterVol]);
+    return calculateProfileFromSalts(sourceWater, manualSaltAdditions, totalWaterVolumeLiters);
+  }, [saltCalculationMode, autoTotalSaltMath, sourceWater, manualSaltAdditions, totalWaterVolumeLiters]);
 
   // activeTargetWater is driven by manual additions if in manual mode
   const activeTargetWater = useMemo(() => {
@@ -261,7 +281,7 @@ export const RecipeBuilder = () => {
     if (saltCalculationMode === 'auto') {
       return calculateWaterAdditions(sourceWater, activeTargetWater, waterVolumes.mashWater);
     } else {
-      const ratio = totalWaterVol > 0 ? waterVolumes.mashWater / totalWaterVol : 0;
+      const ratio = totalWaterVolumeLiters > 0 ? waterVolumes.mashWater / totalWaterVolumeLiters : 0;
       const mashAdditions = {
         gypsum: manualSaltAdditions.gypsum * ratio,
         cacl2: manualSaltAdditions.cacl2 * ratio,
@@ -270,13 +290,13 @@ export const RecipeBuilder = () => {
       };
       return calculateProfileFromSalts(sourceWater, mashAdditions, waterVolumes.mashWater);
     }
-  }, [saltCalculationMode, sourceWater, activeTargetWater, waterVolumes.mashWater, manualSaltAdditions, totalWaterVol]);
+  }, [saltCalculationMode, sourceWater, activeTargetWater, waterVolumes.mashWater, manualSaltAdditions, totalWaterVolumeLiters] );
   
   const spargeSaltMathSplit = useMemo(() => {
     if (saltCalculationMode === 'auto') {
       return calculateWaterAdditions(sourceWater, activeTargetWater, waterVolumes.spargeWater);
     } else {
-      const ratio = totalWaterVol > 0 ? waterVolumes.spargeWater / totalWaterVol : 0;
+      const ratio = totalWaterVolumeLiters > 0 ? waterVolumes.spargeWater / totalWaterVolumeLiters : 0;
       const spargeAdditions = {
         gypsum: manualSaltAdditions.gypsum * ratio,
         cacl2: manualSaltAdditions.cacl2 * ratio,
@@ -285,7 +305,7 @@ export const RecipeBuilder = () => {
       };
       return calculateProfileFromSalts(sourceWater, spargeAdditions, waterVolumes.spargeWater);
     }
-  }, [saltCalculationMode, sourceWater, activeTargetWater, waterVolumes.spargeWater, manualSaltAdditions, totalWaterVol]);
+  }, [saltCalculationMode, sourceWater, activeTargetWater, waterVolumes.spargeWater, manualSaltAdditions, totalWaterVolumeLiters] );
 
   // Determine what actually goes into the mash for pH prediction
   const effectiveMashProfile = useMemo(() => {
@@ -308,8 +328,8 @@ export const RecipeBuilder = () => {
       let bestVol = 0;
       let closestPH = currentPHNoAcid;
       
-      // Simple search for correct acid volume (0 to 10ml)
-      for (let v = 0; v <= 10; v += 0.1) {
+      // Simple search for correct acid volume (0 to 30ml)
+      for (let v = 0; v <= 30; v += 0.1) {
         const testPH = predictMashPH(
           { id: 'wp-final', name: 'Final', ...effectiveMashProfile }, 
           fermentables, 
@@ -484,8 +504,8 @@ export const RecipeBuilder = () => {
   };
 
   const handleSave = () => {
-    const newRecipe: Recipe = {
-      id: crypto.randomUUID(),
+    const recipeData: Recipe = {
+      id: id || crypto.randomUUID(),
       name: name || 'Unnamed Recipe',
       author: author || 'BrewManager User',
       version,
@@ -502,7 +522,12 @@ export const RecipeBuilder = () => {
       acidAddition,
       ...sharedTargets
     };
-    addRecipe(newRecipe);
+
+    if (id) {
+      updateRecipe(id, recipeData);
+    } else {
+      addRecipe(recipeData);
+    }
     navigate('/recipes');
   };
 

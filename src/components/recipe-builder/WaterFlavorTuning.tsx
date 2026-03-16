@@ -1,3 +1,4 @@
+import { ChevronUp, ChevronDown } from 'lucide-react';
 import type { WaterProfile } from '../../types/brewing';
 import { getWaterNarrative } from '../../utils/waterChemistry';
 
@@ -38,12 +39,23 @@ export const WaterFlavorTuning = ({
   };
 
   const activeBalancePct = intensityPpm > 0 ? (sulfate / intensityPpm) * 100 : 50;
+  const activeIntensityPct = (intensityPpm / 600) * 100;
+  const activeBodyPct = (calcium / 300) * 100;
+  const activeAlkalinityPct = (bicarbonate / 500) * 100;
 
   // UI Styles
   const labelRowStyle: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' };
   const labelStyle: React.CSSProperties = { fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 'bold' };
-  const readoutStyle: React.CSSProperties = { fontSize: '0.75rem', color: 'var(--text-main)' };
-  const sliderSubLabelStyle: React.CSSProperties = { display: 'flex', justifyContent: 'space-between', fontSize: '0.6rem', color: 'var(--text-muted)', marginTop: '0.2rem', textTransform: 'uppercase' };
+  const readoutStyle: React.CSSProperties = { fontSize: '0.75rem', color: 'var(--accent-primary)', fontWeight: '900' };
+  const sliderSubLabelStyle = (pct: number, isRight: boolean): React.CSSProperties => ({ 
+    fontSize: '0.65rem', 
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    color: isRight 
+      ? `color-mix(in srgb, var(--accent-primary), var(--text-muted) ${100 - pct}%)`
+      : `color-mix(in srgb, var(--accent-primary), var(--text-muted) ${pct}%)`,
+    transition: 'color 0.2s ease'
+  });
 
   return (
     <div style={{ marginBottom: '1.5rem' }}>
@@ -68,12 +80,12 @@ export const WaterFlavorTuning = ({
           <div>
             <div style={labelRowStyle}>
               <span style={labelStyle}>Flavor Balance</span>
-              <span style={readoutStyle}><strong style={{color: 'var(--accent-primary)'}}>{words?.balance || ''}</strong> ({so4ClRatio})</span>
+              <span style={readoutStyle}>{words?.balance?.toUpperCase() || ''} <span style={{fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'normal'}}>({so4ClRatio})</span></span>
             </div>
             <input type="range" min="0" max="100" step="1" value={Math.round(activeBalancePct)} onChange={e => handleBalanceSlider(Number(e.target.value))} style={{ width: '100%' }} />
-            <div style={sliderSubLabelStyle}>
-              <span>Malty</span>
-              <span>Hoppy</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+              <span style={sliderSubLabelStyle(activeBalancePct, false)}>Malty</span>
+              <span style={sliderSubLabelStyle(activeBalancePct, true)}>Hoppy</span>
             </div>
           </div>
 
@@ -81,12 +93,12 @@ export const WaterFlavorTuning = ({
           <div>
             <div style={labelRowStyle}>
               <span style={labelStyle}>Mineral Intensity</span>
-              <span style={readoutStyle}><strong>{words?.intensity || ''}</strong> ({intensityPpm} ppm)</span>
+              <span style={readoutStyle}>{words?.intensity?.toUpperCase() || ''} <span style={{fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'normal'}}>({intensityPpm} ppm)</span></span>
             </div>
             <input type="range" min="0" max="600" step="5" value={intensityPpm} onChange={e => handleIntensitySlider(Number(e.target.value))} style={{ width: '100%' }} />
-            <div style={sliderSubLabelStyle}>
-              <span>Soft</span>
-              <span>Bold</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+              <span style={sliderSubLabelStyle(activeIntensityPct, false)}>Soft</span>
+              <span style={sliderSubLabelStyle(activeIntensityPct, true)}>Bold</span>
             </div>
           </div>
 
@@ -94,12 +106,12 @@ export const WaterFlavorTuning = ({
           <div>
             <div style={labelRowStyle}>
               <span style={labelStyle}>Body / Mouthfeel</span>
-              <span style={readoutStyle}><strong>{words?.body || ''}</strong> ({calcium} ppm Ca)</span>
+              <span style={readoutStyle}>{words?.body?.toUpperCase() || ''} <span style={{fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'normal'}}>({calcium} ppm Ca)</span></span>
             </div>
             <input type="range" min="0" max="300" step="5" value={calcium} onChange={e => onProfileChange({ calcium: Number(e.target.value) })} style={{ width: '100%' }} />
-            <div style={sliderSubLabelStyle}>
-              <span>Thin</span>
-              <span>Heavy</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+              <span style={sliderSubLabelStyle(activeBodyPct, false)}>Thin</span>
+              <span style={sliderSubLabelStyle(activeBodyPct, true)}>Heavy</span>
             </div>
           </div>
 
@@ -107,12 +119,12 @@ export const WaterFlavorTuning = ({
           <div>
             <div style={labelRowStyle}>
               <span style={labelStyle}>Mash Buffer / Alkalinity</span>
-              <span style={readoutStyle}><strong>{words?.alkalinity || ''}</strong> ({bicarbonate} ppm)</span>
+              <span style={readoutStyle}>{words?.alkalinity?.toUpperCase() || ''} <span style={{fontSize: '0.6rem', color: 'var(--text-muted)', fontWeight: 'normal'}}>({bicarbonate} ppm)</span></span>
             </div>
             <input type="range" min="0" max="500" step="5" value={bicarbonate} onChange={e => onProfileChange({ bicarbonate: Number(e.target.value) })} style={{ width: '100%' }} />
-            <div style={sliderSubLabelStyle}>
-              <span>Bright</span>
-              <span>Buffered</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+              <span style={sliderSubLabelStyle(activeAlkalinityPct, false)}>Bright</span>
+              <span style={sliderSubLabelStyle(activeAlkalinityPct, true)}>Buffered</span>
             </div>
           </div>
 
@@ -128,42 +140,61 @@ export const WaterFlavorTuning = ({
               const isWarning = (ion === 'SO4' && val > 400) || (ion === 'Cl' && val > 250) || (ion === 'Na' && val > 100);
               
               return (
-                <div key={ion} style={{ backgroundColor: 'var(--bg-surface)', padding: '0.5rem 0.2rem', borderRadius: '6px', border: isWarning ? '1px solid var(--status-warning)' : '1px solid transparent', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.6rem', fontWeight: 'bold', marginBottom: '0.2rem' }}>{ion}</span>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                    <button 
-                      onClick={() => onIonChange(key, Math.max(0, val - 1))} 
-                      style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', padding: '0.2rem', cursor: 'pointer', fontSize: '0.8rem', lineHeight: 1 }}
-                    >−</button>
-                    <input 
-                      type="number" 
-                      className="no-spinners"
-                      value={val} 
-                      onChange={e => onIonChange(key, Number(e.target.value))}
-                      style={{ 
-                        width: '100%',
-                        minWidth: 0,
-                        background: 'transparent', 
-                        border: 'none', 
-                        textAlign: 'center', 
-                        fontWeight: '900', 
-                        fontSize: '1rem',
-                        color: isWarning ? 'var(--status-warning)' : 'inherit',
-                        outline: 'none',
-                        padding: 0
-                      }} 
-                    />
-                    <button 
-                      onClick={() => onIonChange(key, val + 1)} 
-                      style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', padding: '0.2rem', cursor: 'pointer', fontSize: '0.8rem', lineHeight: 1 }}
-                    >+</button>
-                  </div>
+                <div key={ion} style={{ 
+                  backgroundColor: 'var(--bg-surface)', 
+                  padding: '0.4rem 0.2rem', 
+                  borderRadius: '6px', 
+                  border: isWarning ? '1px solid var(--status-warning)' : '1px solid transparent', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center',
+                  gap: '2px'
+                }}>
+                  <span style={{ color: 'var(--text-muted)', display: 'block', fontSize: '0.6rem', fontWeight: 'bold' }}>{ion}</span>
+                  
+                  <button 
+                    type="button"
+                    onClick={() => onIonChange(key, val + 1)} 
+                    style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', padding: '2px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    title="Increase"
+                  >
+                    <ChevronUp size={14} />
+                  </button>
+
+                  <input 
+                    type="number" 
+                    className="no-spinners"
+                    value={val} 
+                    onChange={e => onIonChange(key, Number(e.target.value))}
+                    style={{ 
+                      width: '100%',
+                      minWidth: 0,
+                      background: 'transparent', 
+                      border: 'none', 
+                      textAlign: 'center', 
+                      fontWeight: '900', 
+                      fontSize: '1rem',
+                      color: isWarning ? 'var(--status-warning)' : 'inherit',
+                      outline: 'none',
+                      padding: 0,
+                      lineHeight: 1
+                    }} 
+                  />
+
+                  <button 
+                    type="button"
+                    onClick={() => onIonChange(key, Math.max(0, val - 1))} 
+                    style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', padding: '2px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    title="Decrease"
+                  >
+                    <ChevronDown size={14} />
+                  </button>
                 </div>
               );
             })}
           </div>
-          <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textAlign: 'center', marginTop: '1rem', margin: '1rem 0 0' }}>
-             SO4:Cl Ratio: <strong>{so4ClRatio}</strong> | Tip: Directly edit the ion values below to manually override the sliders.
+          <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textAlign: 'center', marginTop: '1rem', margin: '1rem 0 0', fontWeight: '500' }}>
+             SO4:Cl Ratio: <strong style={{color: 'var(--accent-primary)'}}>{so4ClRatio}</strong> | Tip: Directly edit the ion values below to manually override the sliders.
           </p>
         </div>
       </div>

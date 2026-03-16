@@ -15,7 +15,7 @@ export const RecipeHeader = ({
       <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
         <div style={{ 
           display: 'flex', 
-          backgroundColor: 'rgba(255,255,255,0.05)', 
+          backgroundColor: 'var(--bg-surface)', 
           padding: '2px', 
           borderRadius: '20px', 
           border: '1px solid var(--border-color)',
@@ -31,7 +31,7 @@ export const RecipeHeader = ({
               fontWeight: 'bold',
               border: 'none',
               backgroundColor: measurementSystem === 'metric' ? 'var(--accent-primary)' : 'transparent',
-              color: measurementSystem === 'metric' ? 'black' : 'var(--text-muted)',
+              color: measurementSystem === 'metric' ? '#0F172A' : 'var(--text-muted)',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}
@@ -46,7 +46,7 @@ export const RecipeHeader = ({
               fontWeight: 'bold',
               border: 'none',
               backgroundColor: measurementSystem === 'imperial' ? 'var(--accent-primary)' : 'transparent',
-              color: measurementSystem === 'imperial' ? 'black' : 'var(--text-muted)',
+              color: measurementSystem === 'imperial' ? '#0F172A' : 'var(--text-muted)',
               cursor: 'pointer',
               transition: 'all 0.2s'
             }}

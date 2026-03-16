@@ -140,7 +140,7 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
     // Explicit body impact from ingredients
     // Skip hulls (mash aids) which have 0 fermentability
     // Skip if user explicitly ignored the mouthfeel impact
-    if (f.fermentability > 0 && !f.ignoreMouthfeel) {
+    if ((f.fermentability ?? 0) > 0 && !f.ignoreMouthfeel) {
       if (f.category === 'sugar' || (f.category === 'adjunct' && f.proteinLevel === 'low')) {
         bodyThinningPct += pct;
       } else if (f.proteinLevel === 'high') {
@@ -228,7 +228,7 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
   const sensoryDrivers = [
     { label: 'fruity', value: matrix.fruityScore, desc: "vibrant, fruit-forward notes" },
     { label: 'floral', value: matrix.floralScore, desc: "bright floral aromatics" },
-    { label: 'earthy', value: matrix.earthyScore, desc: "subtle earthy and woody undertones" },
+    { label: 'earthy', value: matrix.earthyScore, desc: "earthy and woody undertones" },
     { label: 'spicy', value: matrix.spicyScore, desc: "complex, spicy yeast and hop notes" },
     { label: 'phenolic', value: matrix.phenolicScore, desc: "bold, phenolic spice" },
     { label: 'roasty', value: matrix.roastIndex, desc: "robust roasted malt aromas" }
@@ -239,6 +239,8 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
   const dominantTags = formatList(allTags.slice(0, 3));
   
   let aroma = "";
+  const isSubtle = matrix.hopAromaIndex <= 6;
+
   if (matrix.hopAromaIndex > 7 && dominantTags) {
     aroma = `a saturated wave of ${dominantTags}`;
   } else if (primaryDriver.value > 4) {
@@ -247,7 +249,7 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
   } else if (matrix.yeastEsterIndex < 3 && yeast.isLager) {
     aroma = "a crisp, clean profile";
   } else {
-    aroma = `subtle ${dominantBase} malt aromas`;
+    aroma = `${dominantBase} malt aromas`;
   }
 
   let maltParts = [`a ${dominantBase} foundation`];
@@ -276,13 +278,13 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
 
   const waterImpact = water.words ? `, rounded by its ${water.words.balance.toLowerCase()} and ${water.words.body.toLowerCase()} water profile` : "";
 
-  const s1 = `Pouring a ${haze}${appearance}${head}, this ${abvDesc} beer ${getRandom(Synonyms.entry)} ${matrix.hopAromaIndex > 6 ? 'pronounced' : 'subtle'} ${aroma}.`;
+  const s1 = `Pouring a ${haze}${appearance}${head}, this ${abvDesc} beer ${getRandom(Synonyms.entry)} ${isSubtle ? 'subtle' : 'pronounced'} ${aroma}.`;
   
   let mouthfeelDesc = "medium-bodied";
   if (matrix.bodyIndex > 8) mouthfeelDesc = "heavy and chewy";
   else if (matrix.bodyIndex > 7) mouthfeelDesc = "thick and coating";
   else if (matrix.bodyIndex > 6) mouthfeelDesc = "full-bodied and smooth";
-  else if (matrix.bodyIndex < 2) mouthfeelDesc = "very thin and watery";
+  else if (matrix.bodyIndex < 2) mouthfeelDesc = "very lean and highly attenuated";
   else if (matrix.bodyIndex < 3) mouthfeelDesc = "light and crisp";
   else if (matrix.bodyIndex < 4) mouthfeelDesc = "lean and refreshing";
 

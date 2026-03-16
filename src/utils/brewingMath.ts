@@ -17,7 +17,11 @@ export const calculateWaterVolumes = (
   const batchVolume = overrideBatchVolume !== undefined ? overrideBatchVolume : equipment.batchVolume;
   const trubLoss = overrideTrubLoss !== undefined ? overrideTrubLoss : equipment.trubLoss;
   const boilOffRate = overrideBoilOffRate !== undefined ? overrideBoilOffRate : equipment.boilOffRate;
-  const totalGrainWeight = fermentables.reduce((acc, f) => acc + f.weight, 0);
+  const totalGrainWeight = fermentables.reduce((acc, f) => {
+    // If it has 0 PPG, treat it as having no impact on water volumes/absorption
+    if (f.yield <= 0) return acc;
+    return acc + f.weight;
+  }, 0);
   
   const boilOffLoss = (boilOffRate * boilTime) / 60;
   const preBoilVolume = batchVolume + boilOffLoss + trubLoss;
@@ -59,7 +63,7 @@ export const calculateOG = (
   batchVolume: number, // in Liters (Target volume into fermenter)
   brewMethod: 'All Grain' | 'Extract' | 'Partial Mash' | 'BIAB' = 'All Grain',
   trubLoss: number = 0, // Liters lost in kettle
-  mashTunDeadspace: number = 0 // Liters lost in mash tun
+  _mashTunDeadspace: number = 0 // Liters lost in mash tun
 ): number => {
   // Total volume of wort that actually receives extracted sugars
   const totalWortVolume = batchVolume + trubLoss;
@@ -376,7 +380,7 @@ export const calculateWeightsFromPercentages = (
   batchVolume: number, // in Liters
   brewMethod: 'All Grain' | 'Extract' | 'Partial Mash' | 'BIAB' = 'All Grain',
   trubLoss: number = 0,
-  mashTunDeadspace: number = 0
+  _mashTunDeadspace: number = 0
 ): Fermentable[] => {
   const totalWortVolume = batchVolume + trubLoss;
   if (totalWortVolume <= 0 || targetOG <= 1.0) return fermentables;

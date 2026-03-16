@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Plus } from 'lucide-react';
 import type { Hop } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { HopVarietyPicker } from './HopVarietyPicker';
@@ -6,6 +7,7 @@ import { HopVisualizer } from './HopVisualizer';
 import { RecipeHopProfile } from './RecipeHopProfile';
 import { hops as allHops } from '../../data/hops';
 import { calculateHopProfile, calculateSingleHopIBU, calculateWeightToHitIBU } from '../../utils/brewingMath';
+import { gramsToOz, ozToGrams } from '../../utils/units';
 
 interface KettleHopsSectionProps {
   kettleHops: Hop[];
@@ -20,7 +22,7 @@ interface KettleHopsSectionProps {
 }
 
 export const KettleHopsSection = ({
-  kettleHops, setKettleHops, targetIBU, measurementSystem, collapsed, onToggle, targetOG, batchVolume, boilVolume
+  kettleHops, setKettleHops, measurementSystem, collapsed, onToggle, targetOG, batchVolume, boilVolume
 }: KettleHopsSectionProps) => {
   const [expandedVisualizers, setExpandedVisualizers] = useState<Record<string, boolean>>({});
   const [activeRowId, setActiveRowId] = useState<string | null>(null);
@@ -159,20 +161,23 @@ export const KettleHopsSection = ({
               const isRowActive = activeRowId === h.id;
               const isWhirlpool = h.use === 'whirlpool' || h.use === 'aroma';
               
+              const displayWeight = measurementSystem === 'metric' ? h.weight : gramsToOz(h.weight);
+
               return (
-                <div key={h.id} style={{ 
+                <div key={h.id} className="hover-bg" style={{ 
                   backgroundColor: 'rgba(255,255,255,0.015)', 
                   borderRadius: '6px', 
                   border: isRowActive ? '1px solid var(--accent-primary)' : '1px solid rgba(255,255,255,0.03)',
                   position: 'relative',
                   zIndex: isRowActive ? 100 : 1,
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  transition: 'background-color 0.2s'
                 }}>
                   <div style={{ 
                     display: 'grid', 
                     gridTemplateColumns: gridTemplate, 
                     gap: '0.5rem', 
-                    padding: '0.4rem 0.5rem',
+                    padding: '0.6rem 0.5rem',
                     alignItems: 'center'
                   }}>
                     <div style={{ fontSize: '0.7rem', fontWeight: 'bold', color: 'var(--text-muted)' }}>{idx + 1}</div>
@@ -199,9 +204,13 @@ export const KettleHopsSection = ({
                         type="number" 
                         className="no-spinners"
                         style={inputStyle} 
-                        value={h.weight === 0 ? '' : h.weight} 
+                        value={displayWeight === 0 ? '' : Number(displayWeight.toFixed(2))} 
                         placeholder="0.0"
-                        onChange={e => updateHop(h.id, { weight: parseFloat(e.target.value) || 0 })}
+                        onChange={e => {
+                          const val = parseFloat(e.target.value) || 0;
+                          const weightGrams = measurementSystem === 'metric' ? val : ozToGrams(val);
+                          updateHop(h.id, { weight: weightGrams });
+                        }}
                         onFocus={() => handleFocus(h.id)}
                         onBlur={handleBlur}
                       />
@@ -287,12 +296,12 @@ export const KettleHopsSection = ({
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.1rem', justifyContent: 'flex-end' }}>
+                    <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'flex-end' }}>
                       {h.use === 'boil' && (
                          <button 
                             type="button"
                             onClick={() => handleTargetIBUClick(h)}
-                            style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '0.9rem', padding: '0.4rem', cursor: 'pointer', opacity: 0.7 }}
+                            style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.1rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.8, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             title="Calculate weight to hit target IBU"
                           >
                             ⌖
@@ -302,7 +311,7 @@ export const KettleHopsSection = ({
                         <button 
                           type="button" 
                           onClick={() => toggleVisualizer(h.id)}
-                          style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.1rem', padding: '0.4rem', cursor: 'pointer' }}
+                          style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.3rem', padding: '0.5rem', cursor: 'pointer', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                           title={isExpanded ? "Collapse variety details" : "Expand variety details (Oil & Flavor)"}
                         >
                           {isExpanded ? '−' : '⊕'}
@@ -311,7 +320,7 @@ export const KettleHopsSection = ({
                       <button 
                         type="button" 
                         onClick={() => setKettleHops(kettleHops.filter(item => item.id !== h.id))}
-                        style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.1rem', padding: '0.4rem', cursor: 'pointer', opacity: 0.6 }}
+                        style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.4rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.7, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         title="Remove this hop addition"
                       >
                         ×
@@ -335,28 +344,30 @@ export const KettleHopsSection = ({
             style={{ 
               marginTop: '1rem',
               width: '100%',
-              padding: '0.75rem',
-              backgroundColor: 'transparent',
-              border: '1px dashed var(--border-color)',
+              padding: '0.85rem',
+              backgroundColor: 'var(--accent-soft)',
+              border: '1px solid var(--accent-primary)',
               borderRadius: '6px',
-              color: 'var(--text-secondary)',
+              color: 'var(--accent-primary)',
               fontWeight: 'bold',
-              fontSize: '0.85rem',
+              fontSize: '0.9rem',
               cursor: 'pointer',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem'
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-primary)';
-              e.currentTarget.style.color = 'var(--text-primary)';
-              e.currentTarget.style.backgroundColor = 'rgba(255,179,0,0.02)';
+              e.currentTarget.style.backgroundColor = 'var(--accent-primary)';
+              e.currentTarget.style.color = '#0F172A';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border-color)';
-              e.currentTarget.style.color = 'var(--text-secondary)';
-              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.backgroundColor = 'var(--accent-soft)';
+              e.currentTarget.style.color = 'var(--accent-primary)';
             }}
           >
-            + Add another hop addition
+            <Plus size={18} /> Add another hop addition
           </button>
 
           {kettleHops.length > 0 && (
@@ -371,7 +382,11 @@ export const KettleHopsSection = ({
               <div style={{ textAlign: 'right' }}>
                 <div style={{ ...headerLabelStyle, textAlign: 'right' }}>Total Hops</div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>
-                  {kettleHops.reduce((acc, h) => acc + h.weight, 0).toFixed(1)} <span style={{ fontSize: '0.7rem' }}>{weightUnit.toUpperCase()}</span>
+                  {(() => {
+                    const totalGrams = kettleHops.reduce((acc, h) => acc + h.weight, 0);
+                    const displayTotal = measurementSystem === 'metric' ? totalGrams : gramsToOz(totalGrams);
+                    return displayTotal.toFixed(1);
+                  })()} <span style={{ fontSize: '0.7rem' }}>{weightUnit.toUpperCase()}</span>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>

@@ -1,5 +1,6 @@
 import type { Fermentable } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
+import { kgToLbs, lbsToKg } from '../../utils/units';
 
 interface FermentablesSectionProps {
   fermentableSearch: string;
@@ -74,7 +75,8 @@ export const FermentablesSection = ({
     setFermentables(newFermentables);
   };
 
-  const onWeightChange = (id: string, newWeight: number) => {
+  const onWeightChange = (id: string, newDisplayWeight: number) => {
+    const newWeightKg = measurementSystem === 'metric' ? newDisplayWeight : lbsToKg(newDisplayWeight);
     setGrainBillMode('weight');
     
     const changedItem = fermentables.find(f => f.id === id);
@@ -87,19 +89,19 @@ export const FermentablesSection = ({
       // To keep its % the same, we must scale all other items by the exact same ratio.
       const oldWeight = changedItem.weight;
       if (oldWeight > 0) {
-        const scaleFactor = newWeight / oldWeight;
+        const scaleFactor = newWeightKg / oldWeight;
         newFermentables = fermentables.map(f => {
-          if (f.id === id) return { ...f, weight: newWeight };
+          if (f.id === id) return { ...f, weight: newWeightKg };
           return { ...f, weight: Number((f.weight * scaleFactor).toFixed(3)) };
         });
       } else {
-        newFermentables = fermentables.map(f => f.id === id ? { ...f, weight: newWeight } : f);
+        newFermentables = fermentables.map(f => f.id === id ? { ...f, weight: newWeightKg } : f);
       }
     } else {
       // User changed an UNLOCKED item's weight.
       // Other UNLOCKED items remain their current absolute weights.
       // FIXED items must scale to maintain their locked percentages against the NEW total weight.
-      newFermentables = fermentables.map(f => f.id === id ? { ...f, weight: newWeight } : f);
+      newFermentables = fermentables.map(f => f.id === id ? { ...f, weight: newWeightKg } : f);
 
       const lockedItems = newFermentables.filter(f => f.locked);
       const unlockedItems = newFermentables.filter(f => !f.locked);
@@ -142,7 +144,7 @@ export const FermentablesSection = ({
     const newF: Fermentable = { 
       ...lf, 
       id: crypto.randomUUID(), 
-      weight: measurementSystem === 'metric' ? 1.0 : 2.2,
+      weight: 1.0, // ALWAYS 1.0kg internally
       percentage: fermentables.length === 0 ? 100 : 0,
       locked: false
     };
@@ -199,7 +201,8 @@ export const FermentablesSection = ({
   const isPercentError = Math.abs(totalPercentage - 100) > 0.1;
   
   const weightUnit = measurementSystem === 'metric' ? 'kg' : 'lbs';
-  const summary = `${totalGrainWeight.toFixed(2)} ${weightUnit} • EST. OG: ${targetOG.toFixed(3)}`;
+  const displayTotalWeight = measurementSystem === 'metric' ? totalGrainWeight : kgToLbs(totalGrainWeight);
+  const summary = `${displayTotalWeight.toFixed(2)} ${weightUnit} • EST. OG: ${targetOG.toFixed(3)}`;
 
   return (
     <section style={{ backgroundColor: 'var(--bg-surface)', padding: '1.5rem', borderRadius: 'var(--border-radius)' }}>
@@ -282,7 +285,7 @@ export const FermentablesSection = ({
             <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
               <label style={labelStyle}>Total Weight</label>
               <div style={{ fontSize: '1.25rem', fontWeight: 'bold', padding: '0.2rem 0' }}>
-                {totalGrainWeight.toFixed(2)} <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{weightUnit.toUpperCase()}</span>
+                {displayTotalWeight.toFixed(2)} <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{weightUnit.toUpperCase()}</span>
               </div>
             </div>
           </div>
@@ -301,9 +304,10 @@ export const FermentablesSection = ({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {fermentables.map(f => {
               const calcPercentage = totalGrainWeight > 0 ? (f.weight / totalGrainWeight) * 100 : 0;
+              const displayWeight = measurementSystem === 'metric' ? f.weight : kgToLbs(f.weight);
               const impact = getMouthfeelImpact(f.name);
               return (
-                <div key={f.id} style={{ display: 'grid', gridTemplateColumns: '3fr 100px 140px 60px 60px 30px', gap: '1rem', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.015)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.03)' }}>
+                <div key={f.id} className="hover-bg" style={{ display: 'grid', gridTemplateColumns: '3fr 100px 140px 60px 60px 40px', gap: '1rem', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.015)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.03)', transition: 'background-color 0.2s' }}>
                   <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                     <input 
                       style={{ ...inputStyle, padding: '0.4rem', background: 'transparent', border: 'none', color: 'white' }} 
@@ -349,7 +353,7 @@ export const FermentablesSection = ({
                       background: 'rgba(255,255,255,0.02)',
                       color: 'white'
                     }} 
-                    value={f.weight || ''} 
+                    value={displayWeight || ''} 
                     onChange={e => onWeightChange(f.id, Number(e.target.value))} 
                     onFocus={handleFocus}
                     onBlur={handleBlur}
@@ -379,7 +383,7 @@ export const FermentablesSection = ({
                       style={{ 
                         background: f.locked ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', 
                         border: f.locked ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)',
-                        color: f.locked ? '#000' : 'var(--text-secondary)', 
+                        color: f.locked ? '#0F172A' : 'var(--text-secondary)', 
                         fontSize: '0.6rem', 
                         fontWeight: 'bold', 
                         padding: '0.4rem 0.5rem', 
@@ -398,19 +402,16 @@ export const FermentablesSection = ({
                   <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.yield} onChange={e => updateFermentable(f.id, { yield: Number(e.target.value) })} onFocus={handleFocus} onBlur={handleBlur} />
                   <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.color} onChange={e => updateFermentable(f.id, { color: Number(e.target.value) })} onFocus={handleFocus} onBlur={handleBlur} />
                   
-                  <button type="button" onClick={() => removeFermentable(f.id)} style={{ background: 'none', border: 'none', color: 'var(--status-danger)', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.6 }}>×</button>
+                  <button type="button" onClick={() => removeFermentable(f.id)} style={{ background: 'none', border: 'none', color: 'var(--status-danger)', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.6, width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
                 </div>
               );
             })}
           </div>
 
-          {fermentables.length > 0 && (
-            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 0.5rem' }}>
-              <div style={{ color: isPercentError ? 'var(--status-danger)' : 'var(--status-success)', fontSize: '0.85rem', fontWeight: 'bold' }}>
-                Total Pct: {totalPercentage.toFixed(1)}% {isPercentError && ' — Please adjust to equal 100%'}
-              </div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontStyle: 'italic' }}>
-                Tip: Click AUTO to fix a percentage during scaling.
+          {fermentables.length > 0 && isPercentError && (
+            <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid var(--status-danger)', borderRadius: '6px' }}>
+              <div style={{ color: 'var(--status-danger)', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                ⚠️ Grain bill total is {totalPercentage.toFixed(1)}%. Please adjust your percentages to equal 100%.
               </div>
             </div>
           )}

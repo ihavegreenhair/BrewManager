@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { BrewMethod, Equipment, WaterVolumes } from '../../types/brewing';
 import { predefinedEquipment } from '../../data/equipment';
 import { SectionHeader } from './SectionHeader';
+import { litersToGal, galToLiters } from '../../utils/units';
 
 interface WaterQuantitiesSectionProps {
   brewMethod: BrewMethod;
@@ -71,8 +72,12 @@ export const WaterQuantitiesSection = ({
 
   const unit = measurementSystem === 'metric' ? 'L' : 'GAL';
   // const totalLosses = waterVolumes.trubLoss + waterVolumes.boilOffLoss + waterVolumes.mashTunDeadspace + waterVolumes.grainAbsorption;
-  const totalWater = waterVolumes.mashWater + waterVolumes.spargeWater;
-  const summary = `TOTAL: ${totalWater.toFixed(1)}${unit} • BATCH: ${batchVolume.toFixed(1)}${unit} • ${equipment.name}`;
+  const totalWaterLiters = waterVolumes.mashWater + waterVolumes.spargeWater;
+  
+  const displayTotalWater = measurementSystem === 'metric' ? totalWaterLiters : litersToGal(totalWaterLiters);
+  const displayBatchVolume = measurementSystem === 'metric' ? batchVolume : litersToGal(batchVolume);
+
+  const summary = `TOTAL: ${displayTotalWater.toFixed(1)}${unit} • BATCH: ${displayBatchVolume.toFixed(1)}${unit} • ${equipment.name}`;
 
   return (
     <section style={{ backgroundColor: 'var(--bg-surface)', padding: '1.5rem', borderRadius: 'var(--border-radius)' }}>
@@ -105,8 +110,11 @@ export const WaterQuantitiesSection = ({
               <input 
                 type="number" step="0.1" 
                 style={inputStyle} 
-                value={batchVolume} 
-                onChange={e => setBatchVolume(Number(e.target.value))}
+                value={Number(displayBatchVolume.toFixed(2))} 
+                onChange={e => {
+                  const val = Number(e.target.value);
+                  setBatchVolume(measurementSystem === 'metric' ? val : galToLiters(val));
+                }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
               />
@@ -148,22 +156,49 @@ export const WaterQuantitiesSection = ({
             </button>
 
             {showLosses && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', padding: '1rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid var(--border-color)', marginTop: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', padding: '1.25rem', backgroundColor: 'var(--bg-main)', borderRadius: '8px', border: '1px solid var(--border-color)', marginTop: '0.5rem' }}>
                 <div>
-                  <label style={labelStyle}>Trub Loss <TooltipIcon text="Volume left in kettle after transfer" /></label>
-                  <input type="number" step="0.1" style={inputStyle} value={trubLoss} onChange={e => setTrubLoss(Number(e.target.value))} onFocus={handleFocus} onBlur={handleBlur} />
+                  <label style={labelStyle}>Trub Loss ({unit}) <TooltipIcon text="Volume left in kettle after transfer" /></label>
+                  <input 
+                    type="number" step="0.1" className="no-spinners" 
+                    style={inputStyle} 
+                    value={Number((measurementSystem === 'metric' ? trubLoss : litersToGal(trubLoss)).toFixed(2))} 
+                    onChange={e => {
+                      const val = Number(e.target.value);
+                      setTrubLoss(measurementSystem === 'metric' ? val : galToLiters(val));
+                    }} 
+                    onFocus={handleFocus} onBlur={handleBlur} 
+                  />
                 </div>
                 <div>
-                  <label style={labelStyle}>Boil-Off Rate <TooltipIcon text="Evaporation per hour" /></label>
-                  <input type="number" step="0.1" style={inputStyle} value={boilOffRate} onChange={e => setBoilOffRate(Number(e.target.value))} onFocus={handleFocus} onBlur={handleBlur} />
+                  <label style={labelStyle}>Boil-Off Rate ({unit}/hr) <TooltipIcon text="Evaporation per hour" /></label>
+                  <input 
+                    type="number" step="0.1" className="no-spinners" 
+                    style={inputStyle} 
+                    value={Number((measurementSystem === 'metric' ? boilOffRate : litersToGal(boilOffRate)).toFixed(2))} 
+                    onChange={e => {
+                      const val = Number(e.target.value);
+                      setBoilOffRate(measurementSystem === 'metric' ? val : galToLiters(val));
+                    }} 
+                    onFocus={handleFocus} onBlur={handleBlur} 
+                  />
                 </div>
                 <div>
-                  <label style={labelStyle}>Deadspace <TooltipIcon text="Volume trapped in mash tun" /></label>
-                  <input type="number" step="0.1" style={inputStyle} value={mashTunDeadspace} onChange={e => setMashTunDeadspace(Number(e.target.value))} onFocus={handleFocus} onBlur={handleBlur} />
+                  <label style={labelStyle}>Deadspace ({unit}) <TooltipIcon text="Volume trapped in mash tun" /></label>
+                  <input 
+                    type="number" step="0.1" className="no-spinners" 
+                    style={inputStyle} 
+                    value={Number((measurementSystem === 'metric' ? mashTunDeadspace : litersToGal(mashTunDeadspace)).toFixed(2))} 
+                    onChange={e => {
+                      const val = Number(e.target.value);
+                      setMashTunDeadspace(measurementSystem === 'metric' ? val : galToLiters(val));
+                    }} 
+                    onFocus={handleFocus} onBlur={handleBlur} 
+                  />
                 </div>
                 <div>
-                  <label style={labelStyle}>Grain Abs. <TooltipIcon text="Water soaked up by grain" /></label>
-                  <input type="number" step="0.01" style={inputStyle} value={grainAbsorptionRate} onChange={e => setGrainAbsorptionRate(Number(e.target.value))} onFocus={handleFocus} onBlur={handleBlur} />
+                  <label style={labelStyle}>Grain Abs. (L/kg) <TooltipIcon text="Water soaked up by grain" /></label>
+                  <input type="number" step="0.01" className="no-spinners" style={inputStyle} value={grainAbsorptionRate} onChange={e => setGrainAbsorptionRate(Number(e.target.value))} onFocus={handleFocus} onBlur={handleBlur} />
                 </div>
               </div>
             )}
@@ -176,26 +211,26 @@ export const WaterQuantitiesSection = ({
               <div>
                 <label style={{ ...labelStyle, color: 'var(--accent-primary)', fontSize: '0.75rem' }}>Total Water Needed</label>
                 <div style={{ fontSize: '2.5rem', fontWeight: '900', color: 'var(--accent-primary)', lineHeight: 1 }}>
-                  {totalWater.toFixed(1)} <span style={{ fontSize: '1rem', fontWeight: 'bold' }}>{unit}</span>
+                  {displayTotalWater.toFixed(1)} <span style={{ fontSize: '1rem', fontWeight: 'bold' }}>{unit}</span>
                 </div>
                 {/* Equation Receipt Style */}
                 <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.8rem', display: 'flex', flexWrap: 'wrap', gap: '0.4rem', alignItems: 'baseline', fontStyle: 'italic' }}>
-                  <span style={{ color: 'var(--text-main)' }}>{batchVolume.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>BATCH</span></span>
+                  <span style={{ color: 'var(--text-main)' }}>{displayBatchVolume.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>BATCH</span></span>
                   <span>+</span>
-                  <span>{waterVolumes.trubLoss.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>TRUB</span></span>
+                  <span>{(measurementSystem === 'metric' ? waterVolumes.trubLoss : litersToGal(waterVolumes.trubLoss)).toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>TRUB</span></span>
                   <span>+</span>
-                  <span>{waterVolumes.boilOffLoss.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>BOIL-OFF</span></span>
+                  <span>{(measurementSystem === 'metric' ? waterVolumes.boilOffLoss : litersToGal(waterVolumes.boilOffLoss)).toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>BOIL-OFF</span></span>
                   <span>+</span>
-                  <span>{waterVolumes.mashTunDeadspace.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>DEADSPACE</span></span>
+                  <span>{(measurementSystem === 'metric' ? waterVolumes.mashTunDeadspace : litersToGal(waterVolumes.mashTunDeadspace)).toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>DEADSPACE</span></span>
                   <span>+</span>
-                  <span>{waterVolumes.grainAbsorption.toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>ABS.</span></span>
-                  <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontStyle: 'normal', marginLeft: '0.2rem' }}>= {totalWater.toFixed(1)}{unit}</span>
+                  <span>{(measurementSystem === 'metric' ? waterVolumes.grainAbsorption : litersToGal(waterVolumes.grainAbsorption)).toFixed(1)}{unit} <span style={{fontSize: '0.6rem', fontStyle: 'normal', fontWeight: 'bold'}}>ABS.</span></span>
+                  <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', fontStyle: 'normal', marginLeft: '0.2rem' }}>= {displayTotalWater.toFixed(1)}{unit}</span>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
                 <label style={labelStyle}>Pre-Boil Volume</label>
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-main)' }}>
-                  {waterVolumes.boilVolume.toFixed(1)} <span style={{ fontSize: '0.8rem' }}>{unit}</span>
+                  {(measurementSystem === 'metric' ? waterVolumes.boilVolume : litersToGal(waterVolumes.boilVolume)).toFixed(1)} <span style={{ fontSize: '0.8rem' }}>{unit}</span>
                 </div>
               </div>
             </div>
@@ -211,8 +246,11 @@ export const WaterQuantitiesSection = ({
                 <input 
                   type="number" step="0.1" 
                   style={{ ...inputStyle, fontSize: '1.25rem', backgroundColor: 'rgba(0,0,0,0.15)', borderBottom: manualStrikeVolume !== undefined ? '2px solid var(--accent-primary)' : '2px solid transparent' }} 
-                  value={(manualStrikeVolume ?? waterVolumes.mashWater).toFixed(1)} 
-                  onChange={e => setManualStrikeVolume(Number(e.target.value))} 
+                  value={Number((measurementSystem === 'metric' ? (manualStrikeVolume ?? waterVolumes.mashWater) : litersToGal(manualStrikeVolume ?? waterVolumes.mashWater)).toFixed(2))} 
+                  onChange={e => {
+                    const val = Number(e.target.value);
+                    setManualStrikeVolume(measurementSystem === 'metric' ? val : galToLiters(val));
+                  }} 
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                 />
@@ -233,9 +271,10 @@ export const WaterQuantitiesSection = ({
                   type="number" step="0.1" 
                   disabled={manualSpargeVolume === undefined}
                   style={{ ...inputStyle, fontSize: '1.25rem', backgroundColor: 'rgba(0,0,0,0.15)', opacity: manualSpargeVolume === undefined ? 0.4 : 1, cursor: manualSpargeVolume === undefined ? 'not-allowed' : 'text', borderBottom: manualSpargeVolume !== undefined ? '2px solid var(--accent-primary)' : '2px solid transparent' }} 
-                  value={(manualSpargeVolume ?? waterVolumes.spargeWater).toFixed(1)} 
+                  value={Number((measurementSystem === 'metric' ? (manualSpargeVolume ?? waterVolumes.spargeWater) : litersToGal(manualSpargeVolume ?? waterVolumes.spargeWater)).toFixed(2))} 
                   onChange={e => {
-                    setManualSpargeVolume(Number(e.target.value));
+                    const val = Number(e.target.value);
+                    setManualSpargeVolume(measurementSystem === 'metric' ? val : galToLiters(val));
                   }} 
                   onFocus={handleFocus}
                   onBlur={handleBlur}

@@ -23,13 +23,13 @@ export const WaterPHControl = ({
         <div style={{ display: 'flex', backgroundColor: 'var(--bg-main)', borderRadius: '4px', padding: '2px' }}>
           <button 
             onClick={() => setAcidMode('manual')} 
-            style={{ padding: '2px 8px', fontSize: '0.7rem', border: 'none', borderRadius: '3px', backgroundColor: acidMode === 'manual' ? 'var(--accent-primary)' : 'transparent', color: acidMode === 'manual' ? 'white' : 'var(--text-muted)', cursor: 'pointer' }}
+            style={{ padding: '2px 8px', fontSize: '0.7rem', border: 'none', borderRadius: '3px', backgroundColor: acidMode === 'manual' ? 'var(--accent-primary)' : 'transparent', color: acidMode === 'manual' ? '#0F172A' : 'var(--text-muted)', cursor: 'pointer', fontWeight: 'bold' }}
           >
             Manual
           </button>
           <button 
             onClick={() => setAcidMode('auto')} 
-            style={{ padding: '2px 8px', fontSize: '0.7rem', border: 'none', borderRadius: '3px', backgroundColor: acidMode === 'auto' ? 'var(--accent-primary)' : 'transparent', color: acidMode === 'auto' ? 'white' : 'var(--text-muted)', cursor: 'pointer' }}
+            style={{ padding: '2px 8px', fontSize: '0.7rem', border: 'none', borderRadius: '3px', backgroundColor: acidMode === 'auto' ? 'var(--accent-primary)' : 'transparent', color: acidMode === 'auto' ? '#0F172A' : 'var(--text-muted)', cursor: 'pointer', fontWeight: 'bold' }}
           >
             Auto
           </button>

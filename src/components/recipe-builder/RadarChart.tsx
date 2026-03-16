@@ -54,7 +54,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       {/* Data Area */}
       <polygon 
         points={points} 
-        fill={color.replace(')', ', 0.3)').replace('var(--accent-primary)', 'rgba(255, 179, 0')} 
+        fill={color.includes('var') ? `color-mix(in srgb, ${color}, transparent 70%)` : color.replace(')', ', 0.3)')} 
         stroke={color} 
         strokeWidth="2" 
       />
@@ -66,7 +66,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         const y = center + labelRadius * Math.sin(angle);
         
         // Fine-tune text anchor based on angle
-        let textAnchor = 'middle';
+        let textAnchor: 'start' | 'middle' | 'end' = 'middle';
         if (Math.cos(angle) > 0.2) textAnchor = 'start';
         else if (Math.cos(angle) < -0.2) textAnchor = 'end';
 

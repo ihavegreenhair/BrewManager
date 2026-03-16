@@ -7,6 +7,8 @@ import { WaterFlavorTuning } from './WaterFlavorTuning';
 import { WaterAdditionsTable } from './WaterAdditionsTable';
 import { WaterPHControl } from './WaterPHControl';
 import { getWaterNarrative } from '../../utils/waterChemistry';
+import { useBrewStore } from '../../store/useBrewStore';
+import { gramsToOz } from '../../utils/units';
 
 interface WaterChemistrySectionProps {
   sourceWater: WaterProfile;
@@ -186,7 +188,13 @@ export const WaterChemistrySection = ({
                </h4>
                {!openSteps.plan && (
                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                   pH: {predictedPH.toFixed(2)} | Total Additions: {(totalSaltMath.additions.gypsum + totalSaltMath.additions.cacl2 + totalSaltMath.additions.epsom + totalSaltMath.additions.bakingSoda).toFixed(1)}g
+                   {(() => {
+                     const { measurementSystem } = useBrewStore.getState();
+                     const totalGrams = totalSaltMath.additions.gypsum + totalSaltMath.additions.cacl2 + totalSaltMath.additions.epsom + totalSaltMath.additions.bakingSoda;
+                     const displayTotal = measurementSystem === 'metric' ? totalGrams : gramsToOz(totalGrams);
+                     const unit = measurementSystem === 'metric' ? 'g' : 'oz';
+                     return `pH: ${predictedPH.toFixed(2)} | Total Additions: ${displayTotal.toFixed(1)}${unit}`;
+                   })()}
                  </span>
                )}
              </div>

@@ -10,6 +10,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="recipes" element={<Recipes />} />
           <Route path="recipes/new" element={<RecipeBuilder />} />
+          <Route path="recipes/:id" element={<RecipeBuilder />} />
           <Route path="sessions" element={<Sessions />} />
           <Route path="calculators" element={<Calculators />} />
           <Route path="inventory" element={<Inventory />} />

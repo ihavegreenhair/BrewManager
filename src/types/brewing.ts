@@ -53,7 +53,7 @@ export interface Fermentable {
   ignoreMouthfeel?: boolean;
 }
 
-export type HopUse = 'boil' | 'whirlpool' | 'dry_hop' | 'mash' | 'first_wort';
+export type HopUse = 'boil' | 'whirlpool' | 'dry_hop' | 'mash' | 'first_wort' | 'aroma' | 'hopstand';
 
 export interface Hop {
   id: string;
@@ -82,6 +82,9 @@ export interface HopVariety {
   betaAcid: HopCharacteristic;
   coHumulone: HopCharacteristic;
   totalOils: HopCharacteristic;
+  totalOil?: [number, number];
+  beta?: [number, number];
+  alpha?: [number, number];
   oilBreakdown: {
     myrcene?: HopCharacteristic;
     humulene?: HopCharacteristic;
@@ -122,8 +125,8 @@ export interface YeastVariety {
   form: 'Liquid' | 'Dry';
   species: string;
   attenuation: {
-    range: [number, number];
-    avg: number;
+    range: [(number | null), (number | null)];
+    avg: number | null;
   };
   flocculation: string;
   alcoholTolerance: number;
@@ -216,6 +219,7 @@ export interface Recipe {
   grainAbsorptionRate?: number;
   boilOffRate?: number;
   mashTunDeadspace?: number;
+  trubLoss?: number;
 
   waterProfile?: WaterProfile;
   targetWaterProfile?: WaterProfile;

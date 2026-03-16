@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useBrewStore } from '../../store/useBrewStore';
+import { gramsToOz, ozToGrams } from '../../utils/units';
 
 interface WaterAdditionsTableProps {
   saltAdditionPosition: 'split' | 'mash_only' | 'kettle_only';
@@ -19,12 +21,17 @@ export const WaterAdditionsTable = ({
   totalSaltMath, mashSaltMathSplit, spargeSaltMathSplit
 }: WaterAdditionsTableProps) => {
 
+  const { measurementSystem } = useBrewStore();
+  const isMetric = measurementSystem === 'metric';
+  const unit = isMetric ? 'g' : 'oz';
+
   const [activeSalt, setActiveSalt] = useState<string | null>(null);
   const [localValue, setLocalValue] = useState<string>('');
 
   const handleFocus = (salt: string, currentVal: number) => {
     setActiveSalt(salt);
-    setLocalValue(currentVal === 0 ? '' : currentVal.toString());
+    const displayVal = isMetric ? currentVal : gramsToOz(currentVal);
+    setLocalValue(displayVal === 0 ? '' : displayVal.toFixed(2));
   };
 
   const handleBlur = () => {
@@ -36,6 +43,7 @@ export const WaterAdditionsTable = ({
     
     // Allow empty string or ending in decimal for smooth typing, but parse it for the math engine
     const numValue = valStr === '' ? 0 : parseFloat(valStr) || 0;
+    const valueGrams = isMetric ? numValue : ozToGrams(numValue);
     
     if (saltCalculationMode === 'auto') {
       setSaltCalculationMode('manual');
@@ -44,10 +52,10 @@ export const WaterAdditionsTable = ({
         cacl2: totalSaltMath.additions.cacl2,
         epsom: totalSaltMath.additions.epsom,
         bakingSoda: totalSaltMath.additions.bakingSoda,
-        [salt]: numValue
+        [salt]: valueGrams
       });
     } else {
-      setManualSaltAdditions({ ...manualSaltAdditions, [salt]: numValue });
+      setManualSaltAdditions({ ...manualSaltAdditions, [salt]: valueGrams });
     }
   };
 
@@ -115,17 +123,28 @@ export const WaterAdditionsTable = ({
             const spargeVal = saltAdditionPosition === 'split' ? spargeSaltMathSplit.additions[salt] : 0;
             
             const isEditing = activeSalt === salt;
+            const currentValGrams = saltCalculationMode === 'manual' ? manualSaltAdditions[salt] : totalGrams;
+            const currentDisplayVal = isMetric ? currentValGrams : gramsToOz(currentValGrams);
+
             const displayValue = isEditing 
               ? localValue 
-              : (saltCalculationMode === 'manual' ? (manualSaltAdditions[salt] === 0 ? '' : manualSaltAdditions[salt].toString()) : (totalGrams === 0 ? '' : totalGrams.toFixed(2)));
+              : (currentDisplayVal === 0 ? '' : currentDisplayVal.toFixed(2));
 
             return (
               <tr key={salt} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 <td style={{ padding: '0.75rem 0.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
                   {salt === 'cacl2' ? 'Calcium Chloride' : salt === 'gypsum' ? 'Gypsum' : salt === 'epsom' ? 'Epsom Salt' : 'Baking Soda'}
                 </td>
-                {saltAdditionPosition === 'split' && <td style={{ padding: '0.75rem 0.5rem', textAlign: 'right', color: 'var(--text-secondary)' }}>{mashVal.toFixed(2)}g</td>}
-                {saltAdditionPosition === 'split' && <td style={{ padding: '0.75rem 0.5rem', textAlign: 'right', color: 'var(--text-secondary)' }}>{spargeVal.toFixed(2)}g</td>}
+                {saltAdditionPosition === 'split' && (
+                  <td style={{ padding: '0.75rem 0.5rem', textAlign: 'right', color: 'var(--text-secondary)' }}>
+                    {(isMetric ? mashVal : gramsToOz(mashVal)).toFixed(2)}{unit}
+                  </td>
+                )}
+                {saltAdditionPosition === 'split' && (
+                  <td style={{ padding: '0.75rem 0.5rem', textAlign: 'right', color: 'var(--text-secondary)' }}>
+                    {(isMetric ? spargeVal : gramsToOz(spargeVal)).toFixed(2)}{unit}
+                  </td>
+                )}
                 <td style={{ padding: '0.5rem', textAlign: 'right' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.4rem' }}>
                     <input 
@@ -135,7 +154,7 @@ export const WaterAdditionsTable = ({
                         ...inputStyle,
                         border: saltCalculationMode === 'manual' ? '1px solid var(--accent-primary)' : '1px solid transparent',
                         background: saltCalculationMode === 'manual' ? 'rgba(255,179,0,0.05)' : 'transparent',
-                        color: saltCalculationMode === 'manual' ? 'white' : 'var(--text-primary)'
+                        color: saltCalculationMode === 'manual' ? 'white' : 'white'
                       }}
                       value={displayValue}
                       onChange={(e) => {
@@ -145,11 +164,11 @@ export const WaterAdditionsTable = ({
                           handleSaltInput(salt, val);
                         }
                       }}
-                      onFocus={() => handleFocus(salt, saltCalculationMode === 'manual' ? manualSaltAdditions[salt] : totalGrams)}
+                      onFocus={() => handleFocus(salt, currentValGrams)}
                       onBlur={handleBlur}
                       placeholder="0.0"
                     />
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 'bold' }}>g</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 'bold' }}>{unit}</span>
                   </div>
                 </td>
               </tr>
@@ -157,6 +176,17 @@ export const WaterAdditionsTable = ({
           })}
         </tbody>
       </table>
+
+      {totalSaltMath.warnings && totalSaltMath.warnings.length > 0 && (
+        <div style={{ marginTop: '1.5rem', padding: '1rem', borderRadius: '8px', border: '1px solid #721c24', backgroundColor: 'rgba(114, 28, 36, 0.05)', color: '#f8d7da' }}>
+          <h5 style={{ margin: '0 0 0.5rem 0', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', color: '#f5c6cb' }}>Water Treatment Warnings</h5>
+          <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.8rem', lineHeight: '1.4' }}>
+            {totalSaltMath.warnings.map((warning: string, idx: number) => (
+              <li key={idx} style={{ marginBottom: '0.25rem' }}>{warning}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

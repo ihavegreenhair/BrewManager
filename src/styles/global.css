@@ -9,11 +9,6 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
-  /* Subtle Blueprint Grid */
-  background-image: 
-    linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
-  background-size: 20px 20px;
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -30,39 +25,38 @@ a:hover {
 }
 
 button {
-  font-family: var(--font-mono); /* Technical feel */
+  font-family: var(--font-sans); 
   cursor: pointer;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 0.5rem 1rem;
   background-color: var(--bg-surface);
   color: var(--text-primary);
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.75rem;
-  font-weight: 600;
+  transition: all 0.15s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 button:hover {
   background-color: var(--bg-surface-hover);
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
+  border-color: var(--text-muted);
 }
 
 button.primary {
-  background-color: transparent;
+  background-color: var(--accent-primary);
   border: 1px solid var(--accent-primary);
-  color: var(--accent-primary);
+  color: #0F172A; /* Consistent dark text on bright accent */
+  font-weight: 600;
 }
 
 button.primary:hover {
-  background-color: rgba(100, 255, 218, 0.1);
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 input, select, textarea {
-  font-family: var(--font-mono);
-  background-color: rgba(2, 12, 27, 0.5); /* Semi-transparent dark */
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -72,7 +66,6 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 5px rgba(100, 255, 218, 0.2);
 }
 
 /* Number inputs use monospace for readability */

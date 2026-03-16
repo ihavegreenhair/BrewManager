@@ -24,21 +24,25 @@ export const Recipes = () => {
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
           {recipes.map(recipe => (
-            <div key={recipe.id} style={{ 
-              backgroundColor: 'var(--bg-surface)', 
-              padding: '1.5rem', 
-              borderRadius: 'var(--border-radius)',
-              border: '1px solid var(--border-color)'
-            }}>
-              <h3 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{recipe.name}</h3>
-              <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>{recipe.styleId || 'No Style Selected'}</p>
-              
-              <div style={{ display: 'flex', gap: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
-                <div>OG: {recipe.targetOG.toFixed(3)}</div>
-                <div>IBU: {recipe.targetIBU}</div>
-                <div>ABV: {recipe.fermenters[0]?.targetABV.toFixed(1) || 0}%</div>
+            <Link key={recipe.id} to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div style={{ 
+                backgroundColor: 'var(--bg-surface)', 
+                padding: '1.5rem', 
+                borderRadius: 'var(--border-radius)',
+                border: '1px solid var(--border-color)',
+                transition: 'all 0.2s ease',
+                cursor: 'pointer'
+              }} className="hover-bg">
+                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{recipe.name}</h3>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>{recipe.styleId || 'No Style Selected'}</p>
+                
+                <div style={{ display: 'flex', gap: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
+                  <div>OG: {recipe.targetOG.toFixed(3)}</div>
+                  <div>IBU: {recipe.targetIBU}</div>
+                  <div>ABV: {recipe.fermenters[0]?.targetABV.toFixed(1) || 0}%</div>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

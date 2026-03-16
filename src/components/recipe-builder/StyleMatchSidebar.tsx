@@ -1,9 +1,9 @@
 import { StyleGauge } from './StyleGauge';
 import { RadarChart } from './RadarChart';
 import { BalanceBar } from './BalanceBar';
-import type { Fermentable, Hop, FermenterEntity, WaterProfile, MeasurementSystem, BeerStyle, MashStep } from '../types/brewing';
+import type { Fermentable, Hop, FermenterEntity, WaterProfile, MeasurementSystem, BeerStyle, MashStep } from '../../types/brewing';
 import { calculateHopProfile } from '../../utils/brewingMath';
-import { generateOverallTastingNotes, analyzeMash } from '../../utils/tastingNotes';
+import { generateOverallTastingNotes } from '../../utils/tastingNotes';
 import type { TastingInput } from '../../utils/tastingNotes';
 import { hops as allHopVarieties } from '../../data/hops';
 import { yeasts as allYeastVarieties } from '../../data/yeasts';
@@ -83,20 +83,6 @@ export const StyleMatchSidebar = ({
       };
     });
 
-    // Map detailed hops
-    const formattedHops = kettleHops.map(h => {
-      const variety = h.customVariety || allHopVarieties.find(v => v.name.toLowerCase() === h.name.toLowerCase());
-      return {
-        name: h.name,
-        weight: h.weight,
-        time: h.time,
-        use: h.use as 'boil' | 'whirlpool' | 'dry_hop',
-        temp: h.temp,
-        totalOilAvg: variety?.totalOils?.avg || 1.0,
-        dominantTags: variety?.tags || []
-      };
-    });
-
     const activeDryHop = kettleHops.some(h => h.use === 'dry_hop');
     
     // Yeast mapping
@@ -143,7 +129,7 @@ export const StyleMatchSidebar = ({
         dominantTags: hopProfile?.topTags || [],
         activeDryHop
       },
-      mashSteps: mashSteps.map(s => ({
+      mashSteps: mashSteps.map((s: MashStep) => ({
         tempC: s.stepTemp,
         durationMins: s.stepTime
       })),
@@ -160,6 +146,16 @@ export const StyleMatchSidebar = ({
 
   // Run the Tasting Engine
   const tastingOutput = useMemo(() => generateOverallTastingNotes(tastingInput), [tastingInput]);
+
+  const apparentAttenuation = useMemo(() => {
+    if (sharedTargets.targetOG <= 1.0) return 0;
+    return ((sharedTargets.targetOG - primaryFermenter.targetFG) / (sharedTargets.targetOG - 1)) * 100;
+  }, [sharedTargets.targetOG, primaryFermenter.targetFG]);
+
+  const buguRatio = useMemo(() => {
+    if (sharedTargets.targetOG <= 1.0) return 0;
+    return sharedTargets.targetIBU / ((sharedTargets.targetOG - 1) * 1000);
+  }, [sharedTargets.targetIBU, sharedTargets.targetOG]);
 
   // Derive UI elements from the Matrix
   const beerBalance = useMemo(() => {
@@ -181,47 +177,120 @@ export const StyleMatchSidebar = ({
     };
   }, [tastingOutput]);
 
+  const statItemStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 1,
+    padding: '0.5rem',
+    borderRight: '1px solid rgba(255,255,255,0.05)'
+  };
+
+  const statLabelStyle: React.CSSProperties = {
+    fontSize: '0.55rem',
+    color: 'var(--text-muted)',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    marginBottom: '0.2rem'
+  };
+
+  const statValueStyle: React.CSSProperties = {
+    fontSize: '0.85rem',
+    fontWeight: '900',
+    color: 'var(--text-primary)',
+    fontFamily: 'var(--font-mono)'
+  };
+
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: '100%' }}>
       <section style={{ 
-        position: 'sticky', 
-        top: '1rem', 
         backgroundColor: 'var(--bg-surface)', 
         padding: '1.5rem', 
         borderRadius: 'var(--border-radius)', 
         border: '1px solid var(--border-color)',
-        maxHeight: 'calc(100vh - 2rem)',
-        overflowY: 'auto'
+        marginBottom: '2rem'
       }}>
         
-        <div style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
-          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Beer Summary</div>
-          <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: '1.6', fontWeight: 500, margin: 0 }}>
-            {tastingOutput.notes}
-          </p>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.75rem', fontWeight: 'bold', letterSpacing: '0.05em' }}>Beer Summary</div>
+          <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', lineHeight: '1.6', fontWeight: 500, margin: 0 }}>
+            {tastingOutput.notes.split('. ').map((note, i) => (
+              note.trim() && (
+                <div key={i} style={{ marginBottom: '0.4rem', display: 'flex', gap: '0.5rem' }}>
+                  <span style={{ color: 'var(--accent-primary)' }}>•</span>
+                  <span>{note.trim()}{!note.endsWith('.') && '.'}</span>
+                </div>
+              )
+            ))}
+          </div>
         </div>
 
-        <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '1rem' }}>Overall Balance</div>
+        {/* Vital Stats Bar */}
+        <div style={{ 
+          display: 'flex', 
+          backgroundColor: 'var(--bg-main)', 
+          borderRadius: '8px', 
+          marginBottom: '0.5rem', 
+          border: '1px solid rgba(255,255,255,0.05)',
+          overflow: 'hidden'
+        }}>
+          <div style={statItemStyle}>
+            <span style={statLabelStyle}>OG</span>
+            <span style={statValueStyle}>{sharedTargets.targetOG.toFixed(3)}</span>
+          </div>
+          <div style={statItemStyle}>
+            <span style={statLabelStyle}>FG</span>
+            <span style={statValueStyle}>{primaryFermenter.targetFG.toFixed(3)}</span>
+          </div>
+          <div style={statItemStyle}>
+            <span style={statLabelStyle}>ABV</span>
+            <span style={statValueStyle}>{primaryFermenter.targetABV.toFixed(1)}%</span>
+          </div>
+          <div style={{ ...statItemStyle, borderRight: 'none' }}>
+            <span style={statLabelStyle}>SRM</span>
+            <span style={{ ...statValueStyle, color: `var(--srm-${Math.round(sharedTargets.targetSRM)})` }}>{sharedTargets.targetSRM.toFixed(1)}</span>
+          </div>
+        </div>
+
+        {/* Efficiency & Balance Bar */}
+        <div style={{ 
+          display: 'flex', 
+          backgroundColor: 'var(--bg-main)', 
+          borderRadius: '8px', 
+          marginBottom: '1.5rem', 
+          border: '1px solid rgba(255,255,255,0.05)',
+          overflow: 'hidden'
+        }}>
+          <div style={statItemStyle}>
+            <span style={statLabelStyle}>Apparent Attenuation</span>
+            <span style={statValueStyle}>{apparentAttenuation.toFixed(0)}%</span>
+          </div>
+          <div style={{ ...statItemStyle, borderRight: 'none' }}>
+            <span style={statLabelStyle}>Bitterness Ratio (BU:GU)</span>
+            <span style={statValueStyle}>{buguRatio.toFixed(2)}</span>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: '1.5rem' }}>
           <BalanceBar 
             label="Flavor Balance" 
             leftLabel="Malty/Sweet" 
             rightLabel="Bitter/Dry" 
             value={beerBalance.bitterness} 
-            color="#FFB300"
+            color="var(--accent-primary)"
           />
           <BalanceBar 
             label="Mouthfeel" 
             leftLabel="Crisp" 
             rightLabel="Full-Bodied" 
             value={beerBalance.body} 
-            color="#4CAF50"
+            color="var(--accent-primary)"
           />
         </div>
 
-        <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
-          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '1.5rem', width: '100%' }}>Flavor Categories</div>
-          <RadarChart scores={detailedFlavorMap} size={180} color="var(--accent-secondary, #4CAF50)" />
+        <div style={{ marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '1rem', width: '100%', fontWeight: 'bold', letterSpacing: '0.05em' }}>Flavor Categories</div>
+          <RadarChart scores={detailedFlavorMap} size={180} color="var(--accent-primary)" />
         </div>
         
         {activeStyle && (

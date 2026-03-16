@@ -1,20 +1,31 @@
 import { useState } from 'react';
 import { calculateABV } from '../utils/brewingMath';
+import { useBrewStore } from '../store/useBrewStore';
+import { celsiusToFahrenheit, fahrenheitToCelsius, kgToLbs, lbsToKg, litersToGal, galToLiters } from '../utils/units';
 
 export const Calculators = () => {
+  const { measurementSystem } = useBrewStore();
+  const isMetric = measurementSystem === 'metric';
+
   // ABV Calculator State
   const [og, setOg] = useState(1.050);
   const [fg, setFg] = useState(1.010);
 
   // Strike Water State
-  const [grainWeight, setGrainWeight] = useState(10); // lbs
-  const [targetMashTemp, setTargetMashTemp] = useState(152); // F
-  const [grainTemp, setGrainTemp] = useState(70); // F
-  const [waterToGrainRatio, setWaterToGrainRatio] = useState(1.5); // qts/lb
+  const [grainWeight, setGrainWeight] = useState(isMetric ? 5 : 10); // kg or lbs
+  const [targetMashTemp, setTargetMashTemp] = useState(isMetric ? 67 : 152); // C or F
+  const [grainTemp, setGrainTemp] = useState(isMetric ? 20 : 70); // C or F
+  const [waterToGrainRatio, setWaterToGrainRatio] = useState(isMetric ? 3 : 1.5); // L/kg or qts/lb
 
   // Strike water formula:
-  // Strike Temp = (0.2 / Ratio) * (TargetMashTemp - GrainTemp) + TargetMashTemp
-  const strikeTemp = (0.2 / waterToGrainRatio) * (targetMashTemp - grainTemp) + targetMashTemp;
+  // Imperial: Strike Temp = (0.2 / Ratio) * (TargetMashTemp - GrainTemp) + TargetMashTemp
+  // Metric: Strike Temp = (0.41 / Ratio) * (TargetMashTemp - GrainTemp) + TargetMashTemp
+  const ratioConstant = isMetric ? 0.41 : 0.2;
+  const strikeTemp = (ratioConstant / waterToGrainRatio) * (targetMashTemp - grainTemp) + targetMashTemp;
+
+  const tempUnit = isMetric ? '°C' : '°F';
+  const weightUnit = isMetric ? 'kg' : 'lbs';
+  const ratioUnit = isMetric ? 'L/kg' : 'qts/lb';
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -54,28 +65,28 @@ export const Calculators = () => {
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Grain Weight (lbs)</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Grain Weight ({weightUnit})</label>
               <input type="number" style={{ width: '100%' }} value={grainWeight} onChange={e => setGrainWeight(Number(e.target.value))} />
             </div>
             <div style={{ display: 'flex', gap: '1rem' }}>
               <div style={{ flex: 1 }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Target Mash (°F)</label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Target Mash ({tempUnit})</label>
                 <input type="number" style={{ width: '100%' }} value={targetMashTemp} onChange={e => setTargetMashTemp(Number(e.target.value))} />
               </div>
               <div style={{ flex: 1 }}>
-                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Grain Temp (°F)</label>
+                <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Grain Temp ({tempUnit})</label>
                 <input type="number" style={{ width: '100%' }} value={grainTemp} onChange={e => setGrainTemp(Number(e.target.value))} />
               </div>
             </div>
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Thickness (qts/lb)</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-secondary)' }}>Thickness ({ratioUnit})</label>
               <input type="number" step="0.1" style={{ width: '100%' }} value={waterToGrainRatio} onChange={e => setWaterToGrainRatio(Number(e.target.value))} />
             </div>
 
             <div style={{ marginTop: '1rem', padding: '1rem', backgroundColor: 'var(--bg-main)', borderRadius: 'var(--border-radius)', textAlign: 'center' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Strike Temp Target</span>
               <div style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)' }}>
-                {strikeTemp.toFixed(1)}°F
+                {strikeTemp.toFixed(1)}{tempUnit}
               </div>
             </div>
           </div>

@@ -25,7 +25,7 @@ export const MashScheduleSection = ({
 
   const addStep = () => {
     const lastStep = mashSteps[mashSteps.length - 1];
-    const newTemp = lastStep ? lastStep.stepTemp + 5 : (measurementSystem === 'metric' ? 65 : 150);
+    const newTemp = lastStep ? lastStep.stepTemp + 5 : 65; // Default 65C
     setMashSteps([...mashSteps, { 
       id: crypto.randomUUID(), 
       name: `Step ${mashSteps.length + 1}`, 
@@ -43,11 +43,10 @@ export const MashScheduleSection = ({
     if (!profileId) return;
     const profile = mashProfiles.find(p => p.id === profileId);
     if (profile) {
-      const isMetric = measurementSystem === 'metric';
       const newSteps = profile.steps.map(s => ({
         ...s,
         id: crypto.randomUUID(),
-        stepTemp: isMetric ? s.stepTemp : Math.round(celsiusToFahrenheit(s.stepTemp))
+        stepTemp: s.stepTemp // Already in Celsius in data/profiles
       }));
       setMashSteps(newSteps as MashStep[]);
     }
@@ -60,8 +59,8 @@ export const MashScheduleSection = ({
     if (index === 0) return 0;
     
     const prevStep = steps[index - 1];
-    const prevTempC = measurementSystem === 'metric' ? prevStep.stepTemp : fahrenheitToCelsius(prevStep.stepTemp);
-    const currentTempC = measurementSystem === 'metric' ? step.stepTemp : fahrenheitToCelsius(step.stepTemp);
+    const prevTempC = prevStep.stepTemp;
+    const currentTempC = step.stepTemp;
     
     if (currentTempC <= prevTempC) return 0;
     
@@ -69,8 +68,7 @@ export const MashScheduleSection = ({
     return Math.round(currentTempC - prevTempC);
   };
 
-  const getStepDescription = (tempValue: number) => {
-    const tempC = measurementSystem === 'metric' ? tempValue : fahrenheitToCelsius(tempValue);
+  const getStepDescription = (tempC: number) => {
     if (tempC < 45) return "Acid / Glucan Rest: Lowers pH and breaks down gummy beta-glucans to prevent a stuck mash.";
     if (tempC < 60) return "Protein Rest: Breaks down large proteins to improve head retention and reduce chill haze.";
     if (tempC < 66) return "Beta-Amylase Rest: Creates highly fermentable sugars, driving a higher ABV and a crisp, dry finish.";
@@ -89,7 +87,7 @@ export const MashScheduleSection = ({
     let weightedSaccTemp = 0;
     
     mashSteps.forEach(step => {
-      const tempC = measurementSystem === 'metric' ? step.stepTemp : fahrenheitToCelsius(step.stepTemp);
+      const tempC = step.stepTemp;
       if (tempC >= 55 && tempC < 65) {
         betaTime += step.stepTime;
         totalSaccTime += step.stepTime;
@@ -231,8 +229,11 @@ export const MashScheduleSection = ({
                         type="number" 
                         className="no-spinners"
                         style={{ ...inputStyle, textAlign: 'right' }} 
-                        value={step.stepTemp} 
-                        onChange={e => updateStep(step.id, { stepTemp: Number(e.target.value) })}
+                        value={Number((measurementSystem === 'metric' ? step.stepTemp : celsiusToFahrenheit(step.stepTemp)).toFixed(1))} 
+                        onChange={e => {
+                          const val = Number(e.target.value);
+                          updateStep(step.id, { stepTemp: measurementSystem === 'metric' ? val : fahrenheitToCelsius(val) });
+                        }}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                       />

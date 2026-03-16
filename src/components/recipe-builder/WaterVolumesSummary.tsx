@@ -1,4 +1,6 @@
 import type { WaterVolumes } from '../../types/brewing';
+import { useBrewStore } from '../../store/useBrewStore';
+import { litersToGal, galToLiters } from '../../utils/units';
 
 interface WaterVolumesSummaryProps {
   manualStrikeVolume: number | undefined;
@@ -13,7 +15,13 @@ export const WaterVolumesSummary = ({
   manualSpargeVolume, setManualSpargeVolume,
   waterVolumes
 }: WaterVolumesSummaryProps) => {
+  const { measurementSystem } = useBrewStore();
+  const unit = measurementSystem === 'metric' ? 'L' : 'GAL';
+  const isMetric = measurementSystem === 'metric';
+
   const opStyle: React.CSSProperties = { display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontWeight: 'bold', fontSize: '1.2rem', paddingBottom: '0.5rem' };
+
+  const formatVol = (liters: number) => isMetric ? liters.toFixed(1) : litersToGal(liters).toFixed(2);
 
   return (
     <div style={{ backgroundColor: 'var(--bg-main)', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)', padding: '1.25rem', marginBottom: '1.5rem' }}>
@@ -27,8 +35,11 @@ export const WaterVolumesSummary = ({
           <input 
             type="number" step="0.1" 
             style={{ width: '100%', background: 'transparent', border: 'none', borderBottom: manualStrikeVolume !== undefined ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)', color: 'inherit', fontWeight: 'bold', fontSize: '1.1rem' }} 
-            value={manualStrikeVolume ?? waterVolumes.mashWater} 
-            onChange={e => setManualStrikeVolume(Number(e.target.value))} 
+            value={Number(formatVol(manualStrikeVolume ?? waterVolumes.mashWater))} 
+            onChange={e => {
+              const val = Number(e.target.value);
+              setManualStrikeVolume(isMetric ? val : galToLiters(val));
+            }} 
           />
         </div>
         <div style={opStyle}>+</div>
@@ -40,28 +51,31 @@ export const WaterVolumesSummary = ({
           <input 
             type="number" step="0.1" 
             style={{ width: '100%', background: 'transparent', border: 'none', borderBottom: manualSpargeVolume !== undefined ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)', color: 'inherit', fontWeight: 'bold', fontSize: '1.1rem' }} 
-            value={manualSpargeVolume ?? waterVolumes.spargeWater} 
-            onChange={e => setManualSpargeVolume(Number(e.target.value))} 
+            value={Number(formatVol(manualSpargeVolume ?? waterVolumes.spargeWater))} 
+            onChange={e => {
+              const val = Number(e.target.value);
+              setManualSpargeVolume(isMetric ? val : galToLiters(val));
+            }} 
           />
         </div>
         <div style={opStyle}>-</div>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>ABSORP.</span>
-          <strong style={{ fontSize: '1.1rem', color: 'var(--status-danger)' }}>{waterVolumes.grainAbsorption.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.1rem', color: 'var(--status-danger)' }}>{formatVol(waterVolumes.grainAbsorption)}{unit}</strong>
         </div>
         {waterVolumes.mashTunDeadspace > 0 && (
           <>
             <div style={opStyle}>-</div>
             <div>
               <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>DEADSPACE</span>
-              <strong style={{ fontSize: '1.1rem', color: 'var(--status-danger)' }}>{waterVolumes.mashTunDeadspace.toFixed(1)}L</strong>
+              <strong style={{ fontSize: '1.1rem', color: 'var(--status-danger)' }}>{formatVol(waterVolumes.mashTunDeadspace)}{unit}</strong>
             </div>
           </>
         )}
         <div style={opStyle}>=</div>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>PRE-BOIL</span>
-          <strong style={{ fontSize: '1.1rem', color: 'var(--accent-primary)' }}>{waterVolumes.boilVolume.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.1rem', color: 'var(--accent-primary)' }}>{formatVol(waterVolumes.boilVolume)}{unit}</strong>
         </div>
       </div>
 
@@ -69,22 +83,22 @@ export const WaterVolumesSummary = ({
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 20px 1fr 20px 1fr 20px 1fr', gap: '0.5rem', borderTop: '1px dashed var(--border-color)', paddingTop: '1rem' }}>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>PRE-BOIL</span>
-          <strong style={{ fontSize: '1.1rem' }}>{waterVolumes.boilVolume.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.1rem' }}>{formatVol(waterVolumes.boilVolume)}{unit}</strong>
         </div>
         <div style={opStyle}>-</div>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>BOIL-OFF</span>
-          <strong style={{ fontSize: '1.1rem' }}>{waterVolumes.boilOffLoss.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.1rem' }}>{formatVol(waterVolumes.boilOffLoss)}{unit}</strong>
         </div>
         <div style={opStyle}>-</div>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>TRUB LOSS</span>
-          <strong style={{ fontSize: '1.1rem' }}>{waterVolumes.trubLoss.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.1rem' }}>{formatVol(waterVolumes.trubLoss)}{unit}</strong>
         </div>
         <div style={opStyle}>=</div>
         <div>
           <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.25rem' }}>BATCH SIZE</span>
-          <strong style={{ fontSize: '1.25rem', color: 'var(--status-success)' }}>{waterVolumes.batchVolume.toFixed(1)}L</strong>
+          <strong style={{ fontSize: '1.25rem', color: 'var(--status-success)' }}>{formatVol(waterVolumes.batchVolume)}{unit}</strong>
         </div>
       </div>
     </div>

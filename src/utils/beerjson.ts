@@ -1,4 +1,4 @@
-import type { Recipe, Fermentable, Hop, FermenterEntity, MashStep, Yeast, WaterProfile } from '../types/brewing';
+import type { Recipe, Fermentable, Hop, FermenterEntity, MashStep, Yeast } from '../types/brewing';
 
 /**
  * Enhanced BeerJSON v1 Export Utility.

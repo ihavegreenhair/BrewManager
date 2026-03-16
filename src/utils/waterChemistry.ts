@@ -2,6 +2,22 @@
 
 import type { WaterProfile, Fermentable, BeerStyle } from '../types/brewing';
 
+// Conversions for ppm (mg/L) contributed by 1g of salt in 1L of water
+// Derived from molar mass of food-grade brewing salts
+const GYPSUM_CA = 232.8;
+const GYPSUM_SO4 = 558.2;
+const CACL2_CA = 272.6;
+const CACL2_CL = 482.3;
+const EPSOM_MG = 98.6;
+const EPSOM_SO4 = 390.4;
+const BAKING_SODA_NA = 273.8;
+const BAKING_SODA_HCO3 = 726.2;
+
+// Acid Addition Constants
+const LACTIC_ACID_FACTOR = 11.8; // mEq of alkalinity destroyed per mL of 88% lactic acid
+const PHOSPHORIC_ACID_FACTOR = 5.0; // Approximation for 10% phosphoric acid
+const RA_CONVERSION_FACTOR = 50; // Convert mEq/L to ppm as CaCO3 equivalent
+
 /**
  * Common Target Water Profiles (Regional / Style Based)
  * Based on historical data and modern brewing standards (e.g. Bru'n Water)
@@ -193,23 +209,29 @@ export const calculateWaterAdditions = (
   target: WaterProfile,
   volumeLiters: number
 ) => {
-  // Conversions for ppm (mg/L) contributed by 1g of salt in 1L of water
-  const GYPSUM_CA = 232.8;
-  const GYPSUM_SO4 = 558.2;
-  
-  const CACL2_CA = 272.6;
-  const CACL2_CL = 482.3;
-  
-  const EPSOM_MG = 98.6;
-  const EPSOM_SO4 = 390.4;
-  
-  const BAKING_SODA_NA = 273.8;
-  const BAKING_SODA_HCO3 = 726.2;
+  if (volumeLiters <= 0) {
+    return {
+      additions: { gypsum: 0, cacl2: 0, epsom: 0, bakingSoda: 0 },
+      resultingProfile: { ...source },
+      warnings: []
+    };
+  }
 
   const additions = { gypsumGrams: 0, cacl2Grams: 0, epsomGrams: 0, bakingSodaGrams: 0 };
   const current = { ...source };
+  const warnings: string[] = [];
 
-  // 0. Calculate Baking Soda if alkalinity needs raising (for dark beers in soft water)
+  // 0. Check for Dilution Warnings (Source > Target)
+  const ions: (keyof WaterProfile)[] = ['calcium', 'magnesium', 'sodium', 'sulfate', 'chloride', 'bicarbonate'];
+  ions.forEach(ion => {
+    if (typeof source[ion] === 'number' && typeof target[ion] === 'number') {
+      if ((source[ion] as number) > (target[ion] as number) + 5) { // 5ppm grace buffer
+        warnings.push(`Source ${ion} (${source[ion]}ppm) already exceeds target (${target[ion]}ppm). Consider diluting with RO water.`);
+      }
+    }
+  });
+
+  // 1. Calculate Baking Soda if alkalinity needs raising (for dark beers in soft water)
   const hco3Deficit = Math.max(0, target.bicarbonate - current.bicarbonate);
   if (hco3Deficit > 0) {
     additions.bakingSodaGrams = (hco3Deficit * volumeLiters) / BAKING_SODA_HCO3;
@@ -217,7 +239,7 @@ export const calculateWaterAdditions = (
     current.sodium += (additions.bakingSodaGrams * BAKING_SODA_NA) / volumeLiters;
   }
 
-  // 1. Calculate Epsom Salt for Magnesium deficit
+  // 2. Calculate Epsom Salt for Magnesium deficit
   const mgDeficit = Math.max(0, target.magnesium - current.magnesium);
   if (mgDeficit > 0) {
     additions.epsomGrams = (mgDeficit * volumeLiters) / EPSOM_MG;
@@ -225,7 +247,7 @@ export const calculateWaterAdditions = (
     current.sulfate += (additions.epsomGrams * EPSOM_SO4) / volumeLiters;
   }
 
-  // 2. Calculate Calcium Chloride for Chloride deficit
+  // 3. Calculate Calcium Chloride for Chloride deficit
   const clDeficit = Math.max(0, target.chloride - current.chloride);
   if (clDeficit > 0) {
     additions.cacl2Grams = (clDeficit * volumeLiters) / CACL2_CL;
@@ -233,12 +255,17 @@ export const calculateWaterAdditions = (
     current.calcium += (additions.cacl2Grams * CACL2_CA) / volumeLiters;
   }
 
-  // 3. Calculate Gypsum for remaining Sulfate deficit
+  // 4. Calculate Gypsum for remaining Sulfate deficit
   const so4Deficit = Math.max(0, target.sulfate - current.sulfate);
   if (so4Deficit > 0) {
     additions.gypsumGrams = (so4Deficit * volumeLiters) / GYPSUM_SO4;
     current.sulfate += so4Deficit;
     current.calcium += (additions.gypsumGrams * GYPSUM_CA) / volumeLiters;
+  }
+
+  // 5. Calcium Overshoot Warning
+  if (current.calcium > target.calcium + 30) {
+    warnings.push(`Calcium overshoot: Combined additions pushed calcium to ${Math.round(current.calcium)}ppm (Target: ${target.calcium}ppm). This is normal when hitting high Sulfate/Chloride targets.`);
   }
 
   return {
@@ -255,7 +282,8 @@ export const calculateWaterAdditions = (
       chloride: Number(current.chloride.toFixed(0)),
       sodium: Number(current.sodium.toFixed(0)),
       bicarbonate: Number(current.bicarbonate.toFixed(0))
-    }
+    },
+    warnings
   };
 };
 
@@ -267,16 +295,7 @@ export const calculateProfileFromSalts = (
   additions: { gypsum: number; cacl2: number; epsom: number; bakingSoda: number },
   volumeLiters: number
 ) => {
-  if (volumeLiters <= 0) return { additions, resultingProfile: source };
-
-  const GYPSUM_CA = 232.8;
-  const GYPSUM_SO4 = 558.2;
-  const CACL2_CA = 272.6;
-  const CACL2_CL = 482.3;
-  const EPSOM_MG = 98.6;
-  const EPSOM_SO4 = 390.4;
-  const BAKING_SODA_NA = 273.8;
-  const BAKING_SODA_HCO3 = 726.2;
+  if (volumeLiters <= 0) return { additions, resultingProfile: source, warnings: [] };
 
   const current = { ...source };
 
@@ -301,7 +320,8 @@ export const calculateProfileFromSalts = (
       chloride: Number(current.chloride.toFixed(0)),
       sodium: Number(current.sodium.toFixed(0)),
       bicarbonate: Number(current.bicarbonate.toFixed(0))
-    }
+    },
+    warnings: []
   };
 };
 
@@ -328,14 +348,11 @@ export const predictMashPH = (
 
   // Apply Acid Addition to reduce Residual Alkalinity before pH calc
   if (acidAddition && acidAddition.volumeMl > 0) {
-    // Highly simplified buffering factor for MVP:
-    // x mL of 88% lactic acid destroys ~ 11.8 mEq of alkalinity.
-    // We convert this roughly to an RA reduction per liter.
-    const acidFactor = acidAddition.type === 'lactic' ? 11.8 : 5.0; // Phosphoric is weaker per mL at typical 10% concentration
+    const acidFactor = acidAddition.type === 'lactic' ? LACTIC_ACID_FACTOR : PHOSPHORIC_ACID_FACTOR;
     const strengthMultiplier = acidAddition.concentration / 100;
     
     const mEqDestroyed = acidAddition.volumeMl * acidFactor * strengthMultiplier;
-    const raReduction = (mEqDestroyed * 50) / mashVolumeLiters; // roughly convert back to ppm as CaCO3 equivalent
+    const raReduction = (mEqDestroyed * RA_CONVERSION_FACTOR) / mashVolumeLiters;
     
     ra -= raReduction;
   }
@@ -343,21 +360,16 @@ export const predictMashPH = (
   // Weighted average color
   const avgColor = fermentables.reduce((acc, f) => acc + (f.color * f.weight), 0) / totalWeightKg;
 
-  // const thickness = mashVolumeLiters / totalWeightKg;
-  
   // Standard Model: Base pH of pale malt is roughly 5.6 - 5.7 at room temp.
-  // We use 5.6 as a conservative baseline.
-  // RA shift: 100 ppm RA ~ 0.1 pH shift.
-  // ra is in ppm as CaCO3.
   const raShift = (ra / 100) * 0.1;
   
   // Color shift: Each Lovibond adds acidity. 
-  // ~0.005 per unit is a common approximation for base/mid malts.
-  const colorShift = (avgColor * 0.005);
+  // Logarithmic curve for dark malts to prevent unrealistic sub-5.0 pH.
+  const colorShift = avgColor <= 30 
+    ? avgColor * 0.005 
+    : 0.15 + (Math.log10(avgColor - 29) * 0.02);
   
   const estimatedPH = 5.6 + raShift - colorShift;
-
-  // console.log(`pH Debug: RA=${ra.toFixed(1)}, AvgColor=${avgColor.toFixed(1)}, raShift=${raShift.toFixed(3)}, colorShift=${colorShift.toFixed(3)}, result=${estimatedPH.toFixed(2)}`);
 
   return Number(Math.max(4.2, Math.min(6.5, estimatedPH)).toFixed(2));
 };
@@ -367,8 +379,9 @@ export const predictMashPH = (
  * Heavily weighted on mineral interplay (Ca:SO4, SO4:Cl, Na:Cl, RA).
  */
 export const getWaterNarrative = (profile: WaterProfile) => {
-  if (!profile) return { summary: '', description: '', words: { balance: '', intensity: '', body: '', alkalinity: '' } };
-  const { calcium, magnesium, sodium, sulfate, chloride, bicarbonate } = profile;
+  const fallbackWords = { balance: 'Neutral', intensity: 'Low', body: 'None', alkalinity: 'Neutral' };
+  if (!profile) return { summary: '', description: '', words: fallbackWords };
+  const { id, calcium, magnesium, sodium, sulfate, chloride, bicarbonate } = profile;
   
   // 0. BLANK CANVAS TRAP
   if (calcium < 5 && sulfate < 5 && chloride < 5) {
@@ -381,7 +394,6 @@ export const getWaterNarrative = (profile: WaterProfile) => {
 
   // 1. ADVANCED RATIO ANALYSIS
   const so4ClRatio = chloride > 0 ? sulfate / chloride : sulfate > 0 ? 10 : 1;
-  // const caSo4Ratio = sulfate > 0 ? calcium / sulfate : 2;
   const totalSeasoning = sulfate + chloride;
   const ra = (bicarbonate * 0.82) - ((calcium / 1.4) + (magnesium / 1.7));
 
@@ -394,7 +406,7 @@ export const getWaterNarrative = (profile: WaterProfile) => {
   // 3. SEED MATH CATEGORIES (Stable structural changes)
   const colorCat = ra < 0 ? 0 : ra <= 60 ? 1 : 2; // 0: Pale, 1: Amber, 2: Dark
   const balCat = balIdx <= 2 ? 0 : balIdx <= 4 ? 1 : balIdx <= 7 ? 2 : 3;
-  const seed = (balCat * 7) + (colorCat * 3);
+  const seed = (balCat * 3) + colorCat; // Restructured for better distribution
 
   // 4. RATIO-DRIVEN SUMMARY WORDS (Corrected for Brewing Chemistry)
   const summaryWords = {
@@ -469,6 +481,7 @@ export const getWaterNarrative = (profile: WaterProfile) => {
 
   // 8. CHEMICAL ACCURACY FOOTERS
   const footers: string[] = [];
+  if (id === 'wp-burton') footers.push("High Mineral Warning: This historic Burton profile is extremely high in Sulfate and Magnesium. It is intended only for authentic English IPA recreation and may be too harsh for modern styles.");
   if (ra > 50 && sulfate > 100) footers.push("Warning: High sulfate combined with a profile suited for dark malts often creates a harsh, astringent bitterness.");
   if (magnesium > 40) footers.push("Caution: Magnesium above 40ppm can introduce a harsh, sour bitterness.");
   if (sodium > 100) footers.push("Caution: Sodium above 100ppm can taste perceptibly salty or harsh.");

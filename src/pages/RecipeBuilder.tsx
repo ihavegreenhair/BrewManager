@@ -29,13 +29,6 @@ import {
   StyleMatchSidebar
 } from '../components/recipe-builder';
 
-import {
-  kgToLbs, lbsToKg,
-  gramsToOz, ozToGrams,
-  litersToGal, galToLiters,
-  celsiusToFahrenheit, fahrenheitToCelsius
-} from '../utils/units';
-
 const allStyles = [...bjcpStyles, ...baStyles];
 
 export const RecipeBuilder = () => {

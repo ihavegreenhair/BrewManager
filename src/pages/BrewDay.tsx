@@ -15,7 +15,11 @@ import {
 } from 'lucide-react';
 import type { Session, BrewEvent, Hop, Fermentable } from '../types/brewing';
 import { StyleMatchSidebar } from '../components/recipe-builder';
-import { calculateABV, calculateFG, calculateIBU, calculateSRM, calculateOG } from '../utils/brewingMath';
+import { calculateABV, calculateFG, calculateIBU, calculateSRM, calculateOG, calculateWaterVolumes } from '../utils/brewingMath';
+import { calculateProfileFromSalts } from '../utils/waterChemistry';
+import { HopVarietyPicker } from '../components/recipe-builder/HopVarietyPicker';
+import { YeastVarietyPicker } from '../components/recipe-builder/YeastVarietyPicker';
+import { fermentables as fermentableLibrary } from '../data/fermentables';
 
 export const BrewDay = () => {
   const { sessionId } = useParams();
@@ -29,6 +33,8 @@ export const BrewDay = () => {
   const timerRef = useRef<any>(null);
   
   const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+  const [maltSearch, setMaltSearch] = useState('');
+  const [activeMaltSwapId, setActiveMaltSwapId] = useState<string | null>(null);
 
   useEffect(() => {
     if (session) {
@@ -37,6 +43,90 @@ export const BrewDay = () => {
   }, [session?.id]);
 
   const activeEvent = session?.events[activeEventIndex];
+
+  // Ingredient Swapping Handlers
+  const handleSwapHop = (newVariety: any) => {
+    if (!session || !activeEvent || !activeEvent.metadata?.hopDetails) return;
+    const oldId = activeEvent.metadata.hopDetails.id;
+    const newRecipe = JSON.parse(JSON.stringify(session.recipeSnapshot));
+    const hopIdx = newRecipe.kettleHops.findIndex((h: any) => h.id === oldId || h.name === activeEvent.metadata!.hopDetails!.name);
+    if (hopIdx > -1) {
+      newRecipe.kettleHops[hopIdx].name = newVariety.name;
+      newRecipe.kettleHops[hopIdx].alphaAcid = newVariety.alphaAcid.avg;
+      newRecipe.kettleHops[hopIdx].customVariety = newVariety;
+    }
+
+    const newEvents = [...session.events];
+    newEvents[activeEventIndex] = {
+      ...activeEvent,
+      label: activeEvent.label.replace(activeEvent.metadata.hopDetails.name, newVariety.name),
+      metadata: {
+        ...activeEvent.metadata,
+        hopDetails: {
+          ...activeEvent.metadata.hopDetails,
+          name: newVariety.name,
+          alpha: newVariety.alphaAcid.avg
+        }
+      }
+    };
+
+    updateSession(session.id, { recipeSnapshot: newRecipe, events: newEvents });
+  };
+
+  const handleSwapYeast = (newVariety: any) => {
+    if (!session || !activeEvent || !activeEvent.metadata?.yeastDetails) return;
+    const newRecipe = JSON.parse(JSON.stringify(session.recipeSnapshot));
+    if (newRecipe.fermenters[0]?.yeast[0]) {
+      newRecipe.fermenters[0].yeast[0].name = newVariety.name;
+      newRecipe.fermenters[0].yeast[0].attenuation = newVariety.attenuation.avg || 75;
+      newRecipe.fermenters[0].yeast[0].customVariety = newVariety;
+    }
+
+    const newEvents = [...session.events];
+    newEvents[activeEventIndex] = {
+      ...activeEvent,
+      label: activeEvent.label.replace(activeEvent.metadata.yeastDetails.name, newVariety.name),
+      metadata: {
+        ...activeEvent.metadata,
+        yeastDetails: {
+          ...activeEvent.metadata.yeastDetails,
+          name: newVariety.name
+        }
+      }
+    };
+
+    updateSession(session.id, { recipeSnapshot: newRecipe, events: newEvents });
+  };
+
+  const handleSwapMalt = (oldId: string, newMaltBase: any) => {
+    if (!session || !activeEvent) return;
+    const newRecipe = JSON.parse(JSON.stringify(session.recipeSnapshot));
+    const grainIdx = newRecipe.fermentables.findIndex((f: any) => f.id === oldId);
+    if (grainIdx > -1) {
+      newRecipe.fermentables[grainIdx] = { 
+        ...newRecipe.fermentables[grainIdx], 
+        name: newMaltBase.name, 
+        yield: newMaltBase.yield, 
+        color: newMaltBase.color 
+      };
+    }
+    
+    const newDetailed = activeEvent.detailedActuals?.map(da => 
+      da.id === oldId ? { ...da, label: newMaltBase.name } : da
+    );
+
+    updateSession(session.id, { 
+      recipeSnapshot: newRecipe,
+      events: session.events.map(e => e.id === activeEvent.id ? { ...e, detailedActuals: newDetailed } : e)
+    });
+    setActiveMaltSwapId(null);
+    setMaltSearch('');
+  };
+
+  const filteredMalts = useMemo(() => {
+    if (!maltSearch) return [];
+    return fermentableLibrary.filter(f => f.name.toLowerCase().includes(maltSearch.toLowerCase())).slice(0, 10);
+  }, [maltSearch]);
 
   // Timer Logic
   useEffect(() => {
@@ -218,6 +308,38 @@ export const BrewDay = () => {
         temp: e.hopTemp
       }));
 
+    const actualMashSteps = session.events
+      .filter(e => e.type === 'mash' && e.metadata?.mashDetails)
+      .map(e => ({
+        id: e.id,
+        name: e.metadata!.mashDetails!.name || e.label,
+        type: 'infusion' as const,
+        stepTemp: e.actualTemp ?? e.targetTemp ?? 67,
+        stepTime: e.actualDuration ?? e.duration ?? 60,
+      }));
+    const mashStepsToUse = actualMashSteps.length > 0 ? actualMashSteps : recipe.mashSteps;
+
+    // Move variables up for use in water volumes
+    const equipment = recipe.equipment;
+    const boilTime = recipe.boilTime;
+    const efficiency = recipe.efficiency;
+
+    let activeTargetWater = recipe.targetWaterProfile || recipe.waterProfile || { id: 'w', name: 'W', calcium:0, magnesium:0, sodium:0, sulfate:0, chloride:0, bicarbonate:0 };
+    const saltStep = session.events.find(e => e.label === 'Add Water Salts');
+    if (saltStep?.detailedActuals && recipe.waterProfile) {
+      const getSalt = (id: string) => saltStep.detailedActuals?.find(da => da.id === id)?.actual ?? saltStep.detailedActuals?.find(da => da.id === id)?.target ?? 0;
+      const actualSalts = {
+        gypsum: getSalt('gypsum'),
+        cacl2: getSalt('cacl2'),
+        epsom: getSalt('epsom'),
+        bakingSoda: getSalt('bakingSoda')
+      };
+      const totalVolLiters = calculateWaterVolumes(equipment, actualFermentables, boilTime, recipe.type, recipe.batchVolume, recipe.waterSettings?.manualStrikeVolume, recipe.waterSettings?.manualSpargeVolume, recipe.trubLoss).mashWater + calculateWaterVolumes(equipment, actualFermentables, boilTime, recipe.type, recipe.batchVolume, recipe.waterSettings?.manualStrikeVolume, recipe.waterSettings?.manualSpargeVolume, recipe.trubLoss).spargeWater;
+      
+      const { resultingProfile } = calculateProfileFromSalts(recipe.waterProfile, actualSalts, totalVolLiters);
+      activeTargetWater = { id: 'custom-actual', name: 'Actual Water Profile', ...resultingProfile };
+    }
+
     const eventActuals: Partial<Session['actuals']> = {};
     session.events.forEach(e => {
       if (e.label.includes('Post-boil Measurements') && e.actualValue) eventActuals.og = e.actualValue;
@@ -227,10 +349,6 @@ export const BrewDay = () => {
     const mergedActuals = { ...session.actuals, ...eventActuals };
 
     // 2. Re-calculate Metrics
-    const equipment = recipe.equipment;
-    const boilTime = recipe.boilTime;
-    const efficiency = recipe.efficiency;
-
     let targetOG = calculateOG(actualFermentables, efficiency, recipe.batchVolume, recipe.type, recipe.trubLoss || equipment.trubLoss);
     let targetVolume = recipe.batchVolume;
 
@@ -266,7 +384,10 @@ export const BrewDay = () => {
       primaryFermenter: { ...primaryFermenter, targetFG: fg, targetABV: abv },
       batchVolume: targetVolume,
       fermentables: actualFermentables,
-      hops: actualHops
+      hops: actualHops,
+      activeTargetWater,
+      mashSteps: mashStepsToUse,
+      mergedActuals
     };
   }, [session?.events, session?.actuals, session?.recipeSnapshot]);
 
@@ -403,6 +524,15 @@ export const BrewDay = () => {
             {/* Editable Hop Stage/Time/Temp */}
             {activeEvent.type === 'hop' && (
               <div className="detailed-actuals-grid" style={{ marginBottom: '1rem', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
+                <div className="actual-input-group" style={{ gridColumn: '1 / -1' }}>
+                  <label>Hop Variety</label>
+                  <HopVarietyPicker 
+                    value={activeEvent.metadata?.hopDetails?.name || ''}
+                    onChange={(v) => handleSwapHop(v)}
+                    onFocus={() => {}}
+                    onBlur={() => {}}
+                  />
+                </div>
                 <div className="actual-input-group">
                   <label>Stage</label>
                   <select value={activeEvent.hopUse} onChange={e => updateActiveEvent({ hopUse: e.target.value as any })}>
@@ -422,6 +552,21 @@ export const BrewDay = () => {
                     <input type="number" value={activeEvent.hopTemp ?? ''} onChange={e => updateActiveEvent({ hopTemp: Number(e.target.value) })} />
                   </div>
                 )}
+              </div>
+            )}
+
+            {/* Editable Yeast */}
+            {activeEvent.type === 'yeast' && (
+              <div className="detailed-actuals-grid" style={{ marginBottom: '1rem', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
+                <div className="actual-input-group" style={{ gridColumn: '1 / -1' }}>
+                  <label>Yeast Strain</label>
+                  <YeastVarietyPicker 
+                    value={activeEvent.metadata?.yeastDetails?.name || ''}
+                    onChange={(v) => handleSwapYeast(v)}
+                    onFocus={() => {}}
+                    onBlur={() => {}}
+                  />
+                </div>
               </div>
             )}
 
@@ -449,13 +594,50 @@ export const BrewDay = () => {
 
             {/* Detailed Actuals (Grain weights, Salts) */}
             {activeEvent.detailedActuals && activeEvent.detailedActuals.length > 0 && (
-              <div className="detailed-actuals-grid" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
-                {activeEvent.detailedActuals.map(da => (
-                  <div key={da.id} className="actual-input-group">
-                    <label>{da.label} ({da.unit}) • Target: {da.target}</label>
-                    <input type="number" step="any" value={da.actual || ''} onChange={e => updateDetailedActual(da.id, Number(e.target.value))} placeholder={da.target.toString()} />
-                  </div>
-                ))}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
+                <div className="detailed-actuals-grid" style={{ marginTop: 0 }}>
+                  {activeEvent.detailedActuals.map(da => (
+                    <div key={da.id} className="actual-input-group" style={{ position: 'relative' }}>
+                      <label style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span>{da.label} ({da.unit})</span>
+                        <span>Target: {da.target}</span>
+                      </label>
+                      <input type="number" step="any" value={da.actual || ''} onChange={e => updateDetailedActual(da.id, Number(e.target.value))} placeholder={da.target.toString()} />
+                      
+                      {activeEvent.label === 'Mash In' && (
+                        <button 
+                          onClick={() => setActiveMaltSwapId(activeMaltSwapId === da.id ? null : da.id)}
+                          style={{ position: 'absolute', right: '0.5rem', top: '2.2rem', background: 'transparent', border: 'none', color: 'var(--accent-primary)', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold' }}
+                        >
+                          SWAP
+                        </button>
+                      )}
+                      
+                      {activeMaltSwapId === da.id && (
+                        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50, background: 'var(--bg-surface)', border: '1px solid var(--accent-primary)', borderRadius: '6px', padding: '0.5rem', marginTop: '0.2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
+                          <input 
+                            autoFocus
+                            placeholder="Search malts..." 
+                            value={maltSearch} 
+                            onChange={e => setMaltSearch(e.target.value)} 
+                            style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}
+                          />
+                          <div style={{ maxHeight: '150px', overflowY: 'auto' }}>
+                            {filteredMalts.map(m => (
+                              <div 
+                                key={m.id} 
+                                onClick={() => handleSwapMalt(da.id, m)}
+                                style={{ padding: '0.5rem', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.8rem' }}
+                              >
+                                {m.name} <span style={{ color: 'var(--text-muted)' }}>({m.yield} PPG, {m.color} SRM)</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -549,8 +731,9 @@ export const BrewDay = () => {
             primaryFermenter={updatedTargets.primaryFermenter}
             fermentables={updatedTargets.fermentables}
             kettleHops={updatedTargets.hops}
-            mashSteps={session.recipeSnapshot.mashSteps}
-            activeTargetWater={session.recipeSnapshot.targetWaterProfile || session.recipeSnapshot.waterProfile || { id: 'w', name: 'W', calcium:0, magnesium:0, sodium:0, sulfate:0, chloride:0, bicarbonate:0 }}
+            mashSteps={updatedTargets.mashSteps}
+            activeTargetWater={updatedTargets.activeTargetWater}
+            predictedPH={updatedTargets.mergedActuals.mashPh}
             measurementSystem="metric"
             co2Volumes={2.5}
            />

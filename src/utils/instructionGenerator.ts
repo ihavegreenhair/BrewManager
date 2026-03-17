@@ -1,25 +1,30 @@
-import type { Recipe, BrewEvent, MashStep, Hop } from '../types/brewing';
-import { calculateWaterVolumes, calculateStrikeTemp } from './brewingMath';
+import type { Recipe, BrewEvent, MashStep, Hop, FermenterEntity } from '../types/brewing';
+import { calculateWaterVolumes, calculateStrikeTemp, calculateOG } from './brewingMath';
 import { calculateWaterAdditions } from './waterChemistry';
 
-export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
-  const events: BrewEvent[] = [];
-  const volumes = calculateWaterVolumes(
-    recipe.equipment, 
-    recipe.fermentables, 
-    recipe.boilTime, 
-    recipe.type, 
-    recipe.batchVolume, 
-    recipe.waterSettings?.manualStrikeVolume, 
-    recipe.waterSettings?.manualSpargeVolume,
-    recipe.trubLoss
-  );
+const DEFAULT_SETTINGS = {
+  strikeTemp: 67,
+  grainTemp: 20,
+  whirlpoolTemp: 80,
+  pitchTemp: 20,
+  mashPh: 5.4,
+  co2Volumes: 2.5,
+  boilingTemp: 100,
+};
 
-  // 1. Water & Salts Phase
+const getWaterEvents = (recipe: Recipe, volumes: any): BrewEvent[] => {
+  const events: BrewEvent[] = [];
+  const fermentables = recipe.fermentables || [];
+  const mashSteps = recipe.mashSteps || [];
+  
+  const totalGrainWeight = fermentables.reduce((acc, f) => acc + f.weight, 0);
+  const grainRatio = totalGrainWeight > 0 ? volumes.mashWater / totalGrainWeight : 1;
+  const initialMashTemp = mashSteps[0]?.stepTemp || DEFAULT_SETTINGS.strikeTemp;
+
   const strikeTemp = calculateStrikeTemp(
-    recipe.mashSteps[0]?.stepTemp || 67,
-    20, // Assume 20C grain temp if not specified
-    volumes.mashWater / (recipe.fermentables.reduce((acc, f) => acc + f.weight, 0) || 1)
+    initialMashTemp,
+    DEFAULT_SETTINGS.grainTemp,
+    grainRatio
   );
 
   events.push({
@@ -67,8 +72,25 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     });
   }
 
-  // 2. Mash In Phase
-  const grainActuals = recipe.fermentables.map(f => ({
+  return events;
+};
+
+const getMashEvents = (recipe: Recipe, volumes: any): BrewEvent[] => {
+  const events: BrewEvent[] = [];
+  const fermentables = recipe.fermentables || [];
+  const mashSteps = recipe.mashSteps || [];
+  
+  const totalGrainWeight = fermentables.reduce((acc, f) => acc + f.weight, 0);
+  const grainRatio = totalGrainWeight > 0 ? volumes.mashWater / totalGrainWeight : 1;
+  const initialMashTemp = mashSteps[0]?.stepTemp || DEFAULT_SETTINGS.strikeTemp;
+
+  const strikeTemp = calculateStrikeTemp(
+    initialMashTemp,
+    DEFAULT_SETTINGS.grainTemp,
+    grainRatio
+  );
+
+  const grainActuals = fermentables.map(f => ({
     id: f.id,
     label: f.name,
     target: f.weight,
@@ -84,9 +106,18 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 3. Mash Rests Phase
-  recipe.mashSteps.forEach((step: MashStep, idx: number) => {
-    const prevTemp = idx > 0 ? recipe.mashSteps[idx-1].stepTemp : strikeTemp;
+  events.push({
+    id: crypto.randomUUID(),
+    type: 'checkpoint',
+    label: 'Mash pH Check',
+    subLabel: `Target: ${DEFAULT_SETTINGS.mashPh} pH at room temp. Check ~10 mins into mash.`,
+    targetValue: DEFAULT_SETTINGS.mashPh,
+    unit: 'pH',
+    completed: false
+  });
+
+  mashSteps.forEach((step: MashStep, idx: number) => {
+    const prevTemp = idx > 0 ? mashSteps[idx-1].stepTemp : strikeTemp;
     const tempChange = step.stepTemp - prevTemp;
     
     let instruction = `Rest at ${step.stepTemp}°C.`;
@@ -106,16 +137,6 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
 
   events.push({
     id: crypto.randomUUID(),
-    type: 'checkpoint',
-    label: 'Mash pH Check',
-    subLabel: 'Target: 5.2 - 5.5 pH at room temp.',
-    targetValue: 5.4,
-    unit: 'pH',
-    completed: false
-  });
-
-  events.push({
-    id: crypto.randomUUID(),
     type: 'water',
     label: 'Collect Wort & Sparge',
     subLabel: `Sparge with ${volumes.spargeWater.toFixed(1)}L.`,
@@ -124,18 +145,50 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 4. Pre-boil Checkpoint
+  return events;
+};
+
+const getBoilEvents = (recipe: Recipe): BrewEvent[] => {
+  const events: BrewEvent[] = [];
+  const kettleHops = recipe.kettleHops || [];
+  
+  // First Wort Hops occur before the boil starts, right after collection
+  const firstWortHops = kettleHops.filter(h => h.use === 'first_wort');
+  firstWortHops.forEach((hop: Hop) => {
+    events.push({
+      id: crypto.randomUUID(),
+      type: 'hop',
+      label: `Add Hop: ${hop.name}`,
+      subLabel: 'First Wort',
+      targetValue: hop.weight,
+      unit: 'g',
+      hopUse: hop.use,
+      hopTime: hop.time,
+      hopTemp: hop.temp,
+      metadata: { hopDetails: { id: hop.id, name: hop.name, weight: hop.weight, alpha: hop.alphaAcid } },
+      completed: false
+    });
+  });
+
+  // Calculate predicted pre-boil gravity based on recipe targets
+  const preBoilGravity = calculateOG(
+    recipe.fermentables || [],
+    recipe.efficiency,
+    recipe.boilVolume,
+    recipe.type,
+    recipe.trubLoss || recipe.equipment.trubLoss
+  );
+
   events.push({
     id: crypto.randomUUID(),
     type: 'checkpoint',
     label: 'Pre-boil Measurements',
-    subLabel: `Target: ${recipe.boilVolume.toFixed(1)}L`,
+    subLabel: `Target Vol: ${recipe.boilVolume.toFixed(1)}L | Target SG: ${preBoilGravity.toFixed(3)}`,
     targetValue: recipe.boilVolume,
     unit: 'L',
     completed: false
   });
 
-  // 5. Boil Phase
   events.push({
     id: crypto.randomUUID(),
     type: 'boil',
@@ -147,28 +200,31 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  const kettleHops = recipe.kettleHops.filter(h => h.use !== 'dry_hop');
-  const sortedKettleHops = [...kettleHops].sort((a, b) => b.time - a.time);
+  const boilAndWhirlpoolHops = kettleHops.filter(h => h.use !== 'dry_hop' && h.use !== 'first_wort');
+  const sortedHops = [...boilAndWhirlpoolHops].sort((a, b) => b.time - a.time);
   
-  let whirlpoolPhaseAdded = false;
+  let currentTemp = DEFAULT_SETTINGS.boilingTemp;
 
-  sortedKettleHops.forEach((hop: Hop) => {
+  sortedHops.forEach((hop: Hop) => {
     let timingLabel = '';
-    if (hop.use === 'boil') timingLabel = `${hop.time}m remaining`;
-    else if (hop.use === 'first_wort') timingLabel = 'First Wort';
-    else if (hop.use === 'whirlpool' || hop.use === 'aroma' || hop.use === 'hopstand') {
-      if (!whirlpoolPhaseAdded) {
+    
+    if (hop.use === 'boil') {
+      timingLabel = `${hop.time}m remaining`;
+    } else if (hop.use === 'whirlpool' || hop.use === 'aroma' || hop.use === 'hopstand') {
+      const hopTargetTemp = hop.temp || DEFAULT_SETTINGS.whirlpoolTemp;
+      
+      if (hopTargetTemp < currentTemp) {
         events.push({
           id: crypto.randomUUID(),
           type: 'cooling',
-          label: 'Reduce to Whirlpool Temperature',
-          subLabel: `Chill wort to ${hop.temp || 80}°C.`,
-          targetTemp: hop.temp || 80,
+          label: 'Reduce Wort Temperature',
+          subLabel: `Chill wort to ${hopTargetTemp}°C for hop additions.`,
+          targetTemp: hopTargetTemp,
           completed: false
         });
-        whirlpoolPhaseAdded = true;
+        currentTemp = hopTargetTemp;
       }
-      timingLabel = `${hop.time}m whirlpool at ${hop.temp || 80}°C`;
+      timingLabel = `${hop.time}m whirlpool at ${hopTargetTemp}°C`;
     }
 
     events.push({
@@ -186,13 +242,25 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     });
   });
 
-  // 6. Post-boil / Cooling
+  return events;
+};
+
+const getFermentationEvents = (recipe: Recipe): BrewEvent[] => {
+  const events: BrewEvent[] = [];
+  const fermenters = recipe.fermenters || [];
+  const primaryFermenter = fermenters[0];
+  
+  let pitchTemp = DEFAULT_SETTINGS.pitchTemp;
+  if (primaryFermenter?.yeast?.[0]?.customVariety?.tempRange?.c?.[0]) {
+    pitchTemp = primaryFermenter.yeast[0].customVariety.tempRange.c[0];
+  }
+
   events.push({
     id: crypto.randomUUID(),
     type: 'cooling',
     label: 'Chill Wort',
-    subLabel: 'Chill to pitching temperature.',
-    targetTemp: 20, 
+    subLabel: `Chill to pitching temperature (${pitchTemp}°C).`,
+    targetTemp: pitchTemp, 
     unit: '°C',
     completed: false
   });
@@ -207,22 +275,20 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 7. Yeast & Fermentation
-  recipe.fermenters.forEach(f => {
-    f.yeast.forEach(y => {
+  fermenters.forEach((f: FermenterEntity) => {
+    (f.yeast || []).forEach(y => {
       events.push({
         id: crypto.randomUUID(),
         type: 'yeast',
         label: `Pitch ${y.name}`,
-        subLabel: `Fermenter: ${f.name}`,
+        subLabel: `Fermenter: ${f.name} at ${pitchTemp}°C`,
         metadata: { yeastDetails: { name: y.name } },
         completed: false
       });
     });
   });
 
-  // 8. Dry Hops (After Pitching)
-  const dryHops = recipe.kettleHops.filter(h => h.use === 'dry_hop');
+  const dryHops = (recipe.kettleHops || []).filter(h => h.use === 'dry_hop');
   dryHops.forEach(hop => {
     events.push({
       id: crypto.randomUUID(),
@@ -238,14 +304,33 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     });
   });
 
-  // 9. Packaging
   events.push({
     id: crypto.randomUUID(),
     type: 'packaging',
     label: 'Packaging',
-    subLabel: `Carbonate to ${recipe.fermenters[0]?.volume || 2.5} vols CO2. Bottle or Keg.`,
+    subLabel: `Carbonate to ${primaryFermenter?.volume ? DEFAULT_SETTINGS.co2Volumes : 2.5} vols CO2. Bottle or Keg.`,
     completed: false
   });
 
   return events;
+};
+
+export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
+  const volumes = calculateWaterVolumes(
+    recipe.equipment, 
+    recipe.fermentables, 
+    recipe.boilTime, 
+    recipe.type, 
+    recipe.batchVolume, 
+    recipe.waterSettings?.manualStrikeVolume, 
+    recipe.waterSettings?.manualSpargeVolume,
+    recipe.trubLoss
+  );
+
+  return [
+    ...getWaterEvents(recipe, volumes),
+    ...getMashEvents(recipe, volumes),
+    ...getBoilEvents(recipe),
+    ...getFermentationEvents(recipe)
+  ];
 };

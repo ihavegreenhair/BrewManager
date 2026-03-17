@@ -139,29 +139,49 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
   events.push({
     id: crypto.randomUUID(),
     type: 'boil',
-    label: 'Bring to Boil',
-    subLabel: `Total boil time: ${recipe.boilTime} minutes.`,
+    label: 'Boil & Hops',
+    subLabel: `Total boil time: ${recipe.boilTime} minutes. Start timer when it hits a rolling boil.`,
     duration: recipe.boilTime,
     targetValue: recipe.boilTime,
     unit: 'min',
     completed: false
   });
 
-  const sortedHops = [...recipe.kettleHops].sort((a, b) => b.time - a.time);
-  sortedHops.forEach((hop: Hop) => {
+  const kettleHops = recipe.kettleHops.filter(h => h.use !== 'dry_hop');
+  const sortedKettleHops = [...kettleHops].sort((a, b) => b.time - a.time);
+  
+  let whirlpoolPhaseAdded = false;
+
+  sortedKettleHops.forEach((hop: Hop) => {
     let timingLabel = '';
     if (hop.use === 'boil') timingLabel = `${hop.time}m remaining`;
     else if (hop.use === 'first_wort') timingLabel = 'First Wort';
-    else if (hop.use === 'whirlpool' || hop.use === 'aroma') timingLabel = 'Flameout / Whirlpool';
+    else if (hop.use === 'whirlpool' || hop.use === 'aroma' || hop.use === 'hopstand') {
+      if (!whirlpoolPhaseAdded) {
+        events.push({
+          id: crypto.randomUUID(),
+          type: 'cooling',
+          label: 'Reduce to Whirlpool Temperature',
+          subLabel: `Chill wort to ${hop.temp || 80}°C.`,
+          targetTemp: hop.temp || 80,
+          completed: false
+        });
+        whirlpoolPhaseAdded = true;
+      }
+      timingLabel = `${hop.time}m whirlpool at ${hop.temp || 80}°C`;
+    }
 
     events.push({
       id: crypto.randomUUID(),
       type: 'hop',
-      label: `Add ${hop.name}`,
+      label: `Add Hop: ${hop.name}`,
       subLabel: timingLabel,
       targetValue: hop.weight,
       unit: 'g',
-      metadata: { hopDetails: { name: hop.name, weight: hop.weight, alpha: hop.alphaAcid } },
+      hopUse: hop.use,
+      hopTime: hop.time,
+      hopTemp: hop.temp,
+      metadata: { hopDetails: { id: hop.id, name: hop.name, weight: hop.weight, alpha: hop.alphaAcid } },
       completed: false
     });
   });
@@ -172,7 +192,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     type: 'cooling',
     label: 'Chill Wort',
     subLabel: 'Chill to pitching temperature.',
-    targetTemp: 20, // Default target pitch temp
+    targetTemp: 20, 
     unit: '°C',
     completed: false
   });
@@ -187,7 +207,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 7. Yeast
+  // 7. Yeast & Fermentation
   recipe.fermenters.forEach(f => {
     f.yeast.forEach(y => {
       events.push({
@@ -199,6 +219,32 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
         completed: false
       });
     });
+  });
+
+  // 8. Dry Hops (After Pitching)
+  const dryHops = recipe.kettleHops.filter(h => h.use === 'dry_hop');
+  dryHops.forEach(hop => {
+    events.push({
+      id: crypto.randomUUID(),
+      type: 'hop',
+      label: `Dry Hop: ${hop.name}`,
+      subLabel: `Add on fermentation day ${hop.time}.`,
+      targetValue: hop.weight,
+      unit: 'g',
+      hopUse: hop.use,
+      hopTime: hop.time,
+      metadata: { hopDetails: { id: hop.id, name: hop.name, weight: hop.weight, alpha: hop.alphaAcid } },
+      completed: false
+    });
+  });
+
+  // 9. Packaging
+  events.push({
+    id: crypto.randomUUID(),
+    type: 'packaging',
+    label: 'Packaging',
+    subLabel: `Carbonate to ${recipe.fermenters[0]?.volume || 2.5} vols CO2. Bottle or Keg.`,
+    completed: false
   });
 
   return events;

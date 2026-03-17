@@ -13,9 +13,9 @@ import {
   FlaskConical,
   GripVertical
 } from 'lucide-react';
-import type { Session, BrewEvent } from '../types/brewing';
+import type { Session, BrewEvent, Hop, Fermentable } from '../types/brewing';
 import { StyleMatchSidebar } from '../components/recipe-builder';
-import { calculateABV, calculateFG } from '../utils/brewingMath';
+import { calculateABV, calculateFG, calculateIBU, calculateSRM, calculateOG } from '../utils/brewingMath';
 
 export const BrewDay = () => {
   const { sessionId } = useParams();
@@ -93,7 +93,13 @@ export const BrewDay = () => {
     if (!session || !activeEvent) return;
     const newEvents = [...session.events];
     newEvents[activeEventIndex] = { ...activeEvent, ...updates };
-    updateSession(session.id, { events: newEvents });
+    
+    // If hop properties changed, we need to trigger reordering
+    if ('hopUse' in updates || 'hopTime' in updates || 'hopTemp' in updates) {
+      reorderHopEvents(session.id, newEvents);
+    } else {
+      updateSession(session.id, { events: newEvents });
+    }
   };
 
   const updateDetailedActual = (actualId: string, value: number) => {
@@ -102,6 +108,54 @@ export const BrewDay = () => {
       da.id === actualId ? { ...da, actual: value } : da
     );
     updateActiveEvent({ detailedActuals: newDetailed });
+  };
+
+  const reorderHopEvents = (sid: string, currentEvents: BrewEvent[]) => {
+    // Extract non-hop events and hop events separately
+    const otherEvents = currentEvents.filter(e => e.type !== 'hop');
+    const kettleHopEvents = currentEvents.filter(e => e.type === 'hop' && e.hopUse !== 'dry_hop');
+    const dryHopEvents = currentEvents.filter(e => e.type === 'hop' && e.hopUse === 'dry_hop');
+
+    // Sort kettle hops
+    kettleHopEvents.sort((a, b) => (b.hopTime || 0) - (a.hopTime || 0));
+    
+    // Construct new sequence
+    const finalEvents: BrewEvent[] = [];
+    
+    // 1. Water to Boil
+    const boilIndex = otherEvents.findIndex(e => e.type === 'boil');
+    finalEvents.push(...otherEvents.slice(0, boilIndex + 1));
+
+    // 2. Add Hops (handling whirlpool cooling)
+    let whirlpoolPhaseStarted = false;
+    kettleHopEvents.forEach(h => {
+      if ((h.hopUse === 'whirlpool' || h.hopUse === 'aroma' || h.hopUse === 'hopstand') && !whirlpoolPhaseStarted) {
+        // Insert a cooling step if not present
+        finalEvents.push({
+          id: crypto.randomUUID(),
+          type: 'cooling',
+          label: 'Reduce to Whirlpool Temperature',
+          subLabel: `Chill wort to ${h.hopTemp || 80}°C.`,
+          targetTemp: h.hopTemp || 80,
+          completed: false
+        });
+        whirlpoolPhaseStarted = true;
+      }
+      finalEvents.push(h);
+    });
+
+    // 3. Cooling to Yeast
+    const coolingIndex = otherEvents.findIndex(e => e.type === 'cooling');
+    const yeastIndex = otherEvents.findIndex(e => e.type === 'yeast');
+    finalEvents.push(...otherEvents.slice(coolingIndex, yeastIndex + 1));
+
+    // 4. Dry Hops
+    finalEvents.push(...dryHopEvents);
+
+    // 5. Checkpoints & Packaging
+    finalEvents.push(...otherEvents.slice(yeastIndex + 1));
+
+    updateSession(sid, { events: finalEvents });
   };
 
   const handleDragStart = (e: React.DragEvent, index: number) => {
@@ -145,7 +199,25 @@ export const BrewDay = () => {
     if (!session) return null;
     const recipe = session.recipeSnapshot;
     
-    // Pull actuals from events if they exist to drive prediction
+    // 1. Reconstruct Ingredients from Actuals
+    const actualFermentables: Fermentable[] = recipe.fermentables.map(f => {
+      const mashInStep = session.events.find(e => e.label === 'Mash In');
+      const actualWeight = mashInStep?.detailedActuals?.find(da => da.id === f.id)?.actual;
+      return { ...f, weight: actualWeight ?? f.weight };
+    });
+
+    const actualHops: Hop[] = session.events
+      .filter(e => e.type === 'hop')
+      .map(e => ({
+        id: e.metadata?.hopDetails?.id || e.id,
+        name: e.metadata?.hopDetails?.name || e.label,
+        weight: e.actualValue ?? e.targetValue ?? 0,
+        alphaAcid: e.metadata?.hopDetails?.alpha || 0,
+        use: e.hopUse || 'boil',
+        time: e.hopTime ?? 0,
+        temp: e.hopTemp
+      }));
+
     const eventActuals: Partial<Session['actuals']> = {};
     session.events.forEach(e => {
       if (e.label.includes('Post-boil Measurements') && e.actualValue) eventActuals.og = e.actualValue;
@@ -154,12 +226,17 @@ export const BrewDay = () => {
 
     const mergedActuals = { ...session.actuals, ...eventActuals };
 
-    let targetOG = recipe.targetOG;
+    // 2. Re-calculate Metrics
+    const equipment = recipe.equipment;
+    const boilTime = recipe.boilTime;
+    const efficiency = recipe.efficiency;
+
+    let targetOG = calculateOG(actualFermentables, efficiency, recipe.batchVolume, recipe.type, recipe.trubLoss || equipment.trubLoss);
     let targetVolume = recipe.batchVolume;
 
     if (mergedActuals.preBoilGravity && mergedActuals.preBoilVolume) {
       const preBoilPoints = (mergedActuals.preBoilGravity - 1) * mergedActuals.preBoilVolume;
-      const expectedPostBoilVol = mergedActuals.postBoilVolume || (mergedActuals.preBoilVolume - (recipe.boilOffRate ?? recipe.equipment.boilOffRate) * (recipe.boilTime / 60));
+      const expectedPostBoilVol = mergedActuals.postBoilVolume || (mergedActuals.preBoilVolume - (recipe.boilOffRate ?? equipment.boilOffRate) * (boilTime / 60));
       if (expectedPostBoilVol > 0) {
         targetOG = 1 + (preBoilPoints / expectedPostBoilVol);
         targetVolume = expectedPostBoilVol;
@@ -169,6 +246,9 @@ export const BrewDay = () => {
     if (mergedActuals.og) targetOG = mergedActuals.og;
     if (mergedActuals.postBoilVolume) targetVolume = mergedActuals.postBoilVolume;
 
+    const targetSRM = calculateSRM(actualFermentables, targetVolume);
+    const targetIBU = calculateIBU(actualHops, targetOG, targetVolume, recipe.boilVolume);
+
     const primaryFermenter = recipe.fermenters[0];
     let fg = primaryFermenter.targetFG;
     let abv = primaryFermenter.targetABV;
@@ -176,17 +256,19 @@ export const BrewDay = () => {
     if (mergedActuals.fg) {
       fg = mergedActuals.fg;
       abv = calculateABV(targetOG, fg);
-    } else if (targetOG !== recipe.targetOG) {
+    } else {
        fg = calculateFG(targetOG, primaryFermenter.yeast);
        abv = calculateABV(targetOG, fg);
     }
 
     return {
-      sharedTargets: { targetOG, targetSRM: recipe.targetSRM, targetIBU: recipe.targetIBU },
+      sharedTargets: { targetOG, targetSRM, targetIBU },
       primaryFermenter: { ...primaryFermenter, targetFG: fg, targetABV: abv },
-      batchVolume: targetVolume
+      batchVolume: targetVolume,
+      fermentables: actualFermentables,
+      hops: actualHops
     };
-  }, [session?.actuals, session?.events, session?.recipeSnapshot]);
+  }, [session?.events, session?.actuals, session?.recipeSnapshot]);
 
   if (!session) return <div style={{ padding: '2rem', textAlign: 'center' }}>Session not found.</div>;
 
@@ -201,7 +283,7 @@ export const BrewDay = () => {
     <div className="brew-day-container">
       <style>{`
         .brew-day-container {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
           padding-bottom: 5rem;
           display: grid;
@@ -210,7 +292,7 @@ export const BrewDay = () => {
         }
         @media (min-width: 1024px) {
           .brew-day-container {
-            grid-template-columns: 1.6fr 1fr;
+            grid-template-columns: 1fr 380px;
           }
         }
         .brew-header {
@@ -267,16 +349,6 @@ export const BrewDay = () => {
           border-color: var(--accent-primary);
           background: var(--accent-soft);
         }
-        .actuals-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-          gap: 1rem;
-          margin-top: 1rem;
-          padding: 1.5rem;
-          background: var(--bg-main);
-          border-radius: 12px;
-          border: 1px solid var(--border-color);
-        }
         .actual-input-group {
           display: flex;
           flex-direction: column;
@@ -289,17 +361,13 @@ export const BrewDay = () => {
           color: var(--text-muted);
           font-weight: bold;
         }
-        .actual-input-group input {
+        .actual-input-group input, .actual-input-group select {
           background: rgba(255,255,255,0.05);
           border: 1px solid var(--border-color);
           padding: 0.6rem;
           border-radius: 6px;
           color: white;
           font-weight: bold;
-        }
-        .actual-input-group input:focus {
-          border-color: var(--accent-primary);
-          outline: none;
         }
         .detailed-actuals-grid {
           display: grid;
@@ -332,11 +400,36 @@ export const BrewDay = () => {
             <h1 style={{ margin: '0.5rem 0', fontSize: '2rem' }}>{activeEvent.label}</h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{activeEvent.subLabel}</p>
 
-            {/* Standard Variable Actuals */}
+            {/* Editable Hop Stage/Time/Temp */}
+            {activeEvent.type === 'hop' && (
+              <div className="detailed-actuals-grid" style={{ marginBottom: '1rem', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
+                <div className="actual-input-group">
+                  <label>Stage</label>
+                  <select value={activeEvent.hopUse} onChange={e => updateActiveEvent({ hopUse: e.target.value as any })}>
+                    <option value="boil">Boil</option>
+                    <option value="whirlpool">Whirlpool</option>
+                    <option value="dry_hop">Dry Hop</option>
+                    <option value="first_wort">First Wort</option>
+                  </select>
+                </div>
+                <div className="actual-input-group">
+                  <label>{activeEvent.hopUse === 'dry_hop' ? 'Day' : 'Mins'}</label>
+                  <input type="number" value={activeEvent.hopTime ?? ''} onChange={e => updateActiveEvent({ hopTime: Number(e.target.value) })} />
+                </div>
+                {(activeEvent.hopUse === 'whirlpool' || activeEvent.hopUse === 'aroma') && (
+                  <div className="actual-input-group">
+                    <label>Temp °C</label>
+                    <input type="number" value={activeEvent.hopTemp ?? ''} onChange={e => updateActiveEvent({ hopTemp: Number(e.target.value) })} />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Variables */}
             <div className="detailed-actuals-grid">
               {activeEvent.targetValue !== undefined && (
                 <div className="actual-input-group">
-                  <label>Actual {activeEvent.unit || 'Value'} (Target: {activeEvent.targetValue})</label>
+                  <label>Actual {activeEvent.unit || 'Weight/Vol'} (Target: {activeEvent.targetValue})</label>
                   <input type="number" step="any" value={activeEvent.actualValue || ''} onChange={e => updateActiveEvent({ actualValue: Number(e.target.value) })} placeholder={activeEvent.targetValue.toString()} />
                 </div>
               )}
@@ -354,7 +447,7 @@ export const BrewDay = () => {
               )}
             </div>
 
-            {/* Complex Detailed Actuals (Salts, Grains) */}
+            {/* Detailed Actuals (Grain weights, Salts) */}
             {activeEvent.detailedActuals && activeEvent.detailedActuals.length > 0 && (
               <div className="detailed-actuals-grid" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
                 {activeEvent.detailedActuals.map(da => (
@@ -366,10 +459,9 @@ export const BrewDay = () => {
               </div>
             )}
 
-            {/* Step Notes */}
             <div className="actual-input-group" style={{ marginTop: '1.5rem' }}>
-              <label>Step Notes / Comments</label>
-              <textarea style={{ width: '100%', minHeight: '60px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.6rem', color: 'white', resize: 'vertical', outline: 'none' }} placeholder="Any issues or observations for this step?" value={activeEvent.notes || ''} onChange={e => updateActiveEvent({ notes: e.target.value })} />
+              <label>Step Notes</label>
+              <textarea style={{ width: '100%', minHeight: '60px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.6rem', color: 'white', resize: 'vertical', outline: 'none' }} placeholder="Any observations?" value={activeEvent.notes || ''} onChange={e => updateActiveEvent({ notes: e.target.value })} />
             </div>
 
             {/* Timer */}
@@ -403,12 +495,11 @@ export const BrewDay = () => {
           </div>
         )}
 
-        {/* Timeline */}
         <div>
           <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem' }}>Timeline (Drag to Reorder)</h3>
           <div className="event-list">
             {session.events.map((event, idx) => (
-              <div key={event.id} draggable onDragStart={(e) => handleDragStart(e, idx)} onDragOver={(e) => handleDragOver(e, idx)} onDragEnd={handleDragEnd} className={`event-item ${event.completed ? 'completed' : ''} ${idx === activeEventIndex ? 'active' : ''} ${idx === draggedItemIndex ? 'dragging' : ''}`} onClick={() => setActiveEventIndex(idx)}>
+              <div key={event.id} draggable onDragStart={(e) => handleDragStart(e, idx)} onDragOver={(e) => handleDragOver(e, idx)} onDragEnd={handleDragEnd} className={`event-item ${event.completed ? 'completed' : ''} ${idx === activeEventIndex ? 'active' : ''}`} onClick={() => setActiveEventIndex(idx)}>
                 <div style={{ cursor: 'grab', color: 'var(--text-muted)' }}><GripVertical size={20} /></div>
                 {event.completed ? <CheckCircle2 color="#4CAF50" size={24} /> : <Circle color="var(--border-color)" size={24} />}
                 <div style={{ flex: 1 }}>
@@ -421,7 +512,6 @@ export const BrewDay = () => {
           </div>
         </div>
 
-        {/* Global Actuals */}
         <div>
           <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FlaskConical size={18} /> Global Measured Actuals
@@ -436,7 +526,6 @@ export const BrewDay = () => {
           </div>
         </div>
 
-        {/* Notes */}
         <div>
           <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ClipboardList size={18} /> Session Notes
@@ -451,7 +540,6 @@ export const BrewDay = () => {
         </div>
       </div>
 
-      {/* Sidebar with Updated Summary */}
       <div style={{ alignSelf: 'start', position: 'sticky', top: '5rem' }}>
          <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem' }}>Predicted Result</h3>
          {updatedTargets && (
@@ -459,8 +547,8 @@ export const BrewDay = () => {
             activeStyle={session.recipeSnapshot.styleId ? { id: 'style', name: 'Target Style', category: '...', stats: { og: {min:1, max:1.2}, fg: {min:1, max:1.2}, abv: {min:0, max:20}, ibu: {min:0, max:150}, srm: {min:0, max:50} } } as any : null} 
             sharedTargets={updatedTargets.sharedTargets}
             primaryFermenter={updatedTargets.primaryFermenter}
-            fermentables={session.recipeSnapshot.fermentables}
-            kettleHops={session.recipeSnapshot.kettleHops}
+            fermentables={updatedTargets.fermentables}
+            kettleHops={updatedTargets.hops}
             mashSteps={session.recipeSnapshot.mashSteps}
             activeTargetWater={session.recipeSnapshot.targetWaterProfile || session.recipeSnapshot.waterProfile || { id: 'w', name: 'W', calcium:0, magnesium:0, sodium:0, sulfate:0, chloride:0, bicarbonate:0 }}
             measurementSystem="metric"

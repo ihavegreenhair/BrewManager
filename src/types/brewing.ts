@@ -282,7 +282,7 @@ export interface BrewEventActual {
 
 export interface BrewEvent {
   id: string;
-  type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint';
+  type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint' | 'packaging';
   label: string;
   subLabel?: string;
   targetValue?: number;
@@ -299,10 +299,15 @@ export interface BrewEvent {
   notes?: string;
   detailedActuals?: BrewEventActual[];
 
+  // Editable fields for dynamic reordering
+  hopUse?: HopUse;
+  hopTime?: number;
+  hopTemp?: number;
+
   // Rich data for display
   metadata?: {
     salts?: { name: string; amount: number; unit: string }[];
-    hopDetails?: { name: string; weight: number; alpha: number };
+    hopDetails?: { id: string; name: string; weight: number; alpha: number };
     yeastDetails?: { name: string; amount?: string };
     mashDetails?: { name: string; temp: number; time: number };
   };

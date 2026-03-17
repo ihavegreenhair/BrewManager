@@ -525,11 +525,44 @@ export const RecipeBuilder = () => {
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', paddingBottom: '5rem' }}>
+    <div className="recipe-builder-container">
+      <style>{`
+        .recipe-builder-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding-bottom: 5rem;
+        }
+        .recipe-builder-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+          .recipe-builder-grid {
+            grid-template-columns: 1.8fr 1.2fr;
+            gap: 2rem;
+          }
+        }
+        .main-sections {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          min-width: 0;
+        }
+        .sidebar-container {
+          position: relative;
+        }
+        @media (min-width: 1024px) {
+          .sidebar-container {
+            position: sticky;
+            top: 2rem;
+          }
+        }
+      `}</style>
       {/* Water Profile Change Modal */}
       {showWaterConfirm && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
-          <div style={{ backgroundColor: 'var(--bg-surface)', padding: '2rem', borderRadius: 'var(--border-radius)', maxWidth: '400px', textAlign: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
+          <div style={{ backgroundColor: 'var(--bg-surface)', padding: '2rem', borderRadius: 'var(--border-radius)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
             <h3 style={{ marginBottom: '1rem' }}>Update Water Profile?</h3>
             <p style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>You've selected a new style. Would you like to automatically switch to the recommended water profile for this style?</p>
             <div style={{ display: 'flex', gap: '1rem' }}>
@@ -549,8 +582,8 @@ export const RecipeBuilder = () => {
       />
       <input type="file" accept=".json" style={{ display: 'none' }} ref={fileInputRef} onChange={handleImportJSON} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1.2fr', gap: '2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', minWidth: 0 }}>
+      <div className="recipe-builder-grid">
+        <div className="main-sections">
           
           <CoreProfileSection 
             name={name} setName={setName}
@@ -663,7 +696,7 @@ export const RecipeBuilder = () => {
           />
         </div>
 
-        <div style={{ position: 'relative' }}>
+        <div className="sidebar-container">
           <StyleMatchSidebar 
             activeStyle={activeStyle}
             sharedTargets={sharedTargets}

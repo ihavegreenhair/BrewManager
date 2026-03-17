@@ -19,7 +19,7 @@ import { calculateABV, calculateFG, calculateIBU, calculateSRM, calculateOG, cal
 import { calculateProfileFromSalts } from '../utils/waterChemistry';
 import { HopVarietyPicker } from '../components/recipe-builder/HopVarietyPicker';
 import { YeastVarietyPicker } from '../components/recipe-builder/YeastVarietyPicker';
-import { fermentables as fermentableLibrary } from '../data/fermentables';
+import { FermentableVarietyPicker } from '../components/recipe-builder/FermentableVarietyPicker';
 
 export const BrewDay = () => {
   const { sessionId } = useParams();
@@ -33,8 +33,6 @@ export const BrewDay = () => {
   const timerRef = useRef<any>(null);
   
   const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
-  const [maltSearch, setMaltSearch] = useState('');
-  const [activeMaltSwapId, setActiveMaltSwapId] = useState<string | null>(null);
 
   useEffect(() => {
     if (session) {
@@ -59,7 +57,7 @@ export const BrewDay = () => {
     const newEvents = [...session.events];
     newEvents[activeEventIndex] = {
       ...activeEvent,
-      label: activeEvent.label.replace(activeEvent.metadata.hopDetails.name, newVariety.name),
+      label: `Add Hop: ${newVariety.name}`,
       metadata: {
         ...activeEvent.metadata,
         hopDetails: {
@@ -85,7 +83,7 @@ export const BrewDay = () => {
     const newEvents = [...session.events];
     newEvents[activeEventIndex] = {
       ...activeEvent,
-      label: activeEvent.label.replace(activeEvent.metadata.yeastDetails.name, newVariety.name),
+      label: `Pitch Yeast: ${newVariety.name}`,
       metadata: {
         ...activeEvent.metadata,
         yeastDetails: {
@@ -119,14 +117,7 @@ export const BrewDay = () => {
       recipeSnapshot: newRecipe,
       events: session.events.map(e => e.id === activeEvent.id ? { ...e, detailedActuals: newDetailed } : e)
     });
-    setActiveMaltSwapId(null);
-    setMaltSearch('');
   };
-
-  const filteredMalts = useMemo(() => {
-    if (!maltSearch) return [];
-    return fermentableLibrary.filter(f => f.name.toLowerCase().includes(maltSearch.toLowerCase())).slice(0, 10);
-  }, [maltSearch]);
 
   // Timer Logic
   useEffect(() => {
@@ -597,44 +588,28 @@ export const BrewDay = () => {
               <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem', marginTop: '1.5rem' }}>
                 <div className="detailed-actuals-grid" style={{ marginTop: 0 }}>
                   {activeEvent.detailedActuals.map(da => (
-                    <div key={da.id} className="actual-input-group" style={{ position: 'relative' }}>
-                      <label style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span>{da.label} ({da.unit})</span>
+                    <div key={da.id} className="actual-input-group">
+                      <label style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <span>{activeEvent.label === 'Mash In' ? 'Grain Variety' : da.label} ({da.unit})</span>
                         <span>Target: {da.target}</span>
                       </label>
-                      <input type="number" step="any" value={da.actual || ''} onChange={e => updateDetailedActual(da.id, Number(e.target.value))} placeholder={da.target.toString()} />
                       
-                      {activeEvent.label === 'Mash In' && (
-                        <button 
-                          onClick={() => setActiveMaltSwapId(activeMaltSwapId === da.id ? null : da.id)}
-                          style={{ position: 'absolute', right: '0.5rem', top: '2.2rem', background: 'transparent', border: 'none', color: 'var(--accent-primary)', fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold' }}
-                        >
-                          SWAP
-                        </button>
-                      )}
-                      
-                      {activeMaltSwapId === da.id && (
-                        <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 50, background: 'var(--bg-surface)', border: '1px solid var(--accent-primary)', borderRadius: '6px', padding: '0.5rem', marginTop: '0.2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-                          <input 
-                            autoFocus
-                            placeholder="Search malts..." 
-                            value={maltSearch} 
-                            onChange={e => setMaltSearch(e.target.value)} 
-                            style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}
+                      {activeEvent.label === 'Mash In' ? (
+                        <div style={{ marginBottom: '0.5rem' }}>
+                          <FermentableVarietyPicker 
+                            value={da.label}
+                            onChange={(v) => handleSwapMalt(da.id, v)}
                           />
-                          <div style={{ maxHeight: '150px', overflowY: 'auto' }}>
-                            {filteredMalts.map(m => (
-                              <div 
-                                key={m.id} 
-                                onClick={() => handleSwapMalt(da.id, m)}
-                                style={{ padding: '0.5rem', cursor: 'pointer', borderBottom: '1px solid rgba(255,255,255,0.05)', fontSize: '0.8rem' }}
-                              >
-                                {m.name} <span style={{ color: 'var(--text-muted)' }}>({m.yield} PPG, {m.color} SRM)</span>
-                              </div>
-                            ))}
-                          </div>
                         </div>
-                      )}
+                      ) : null}
+
+                      <input 
+                        type="number" 
+                        step="any" 
+                        value={da.actual || ''} 
+                        onChange={e => updateDetailedActual(da.id, Number(e.target.value))} 
+                        placeholder={da.target.toString()} 
+                      />
                     </div>
                   ))}
                 </div>

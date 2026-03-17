@@ -131,6 +131,7 @@ const getMashEvents = (recipe: Recipe, volumes: any): BrewEvent[] => {
       subLabel: instruction,
       duration: step.stepTime,
       targetTemp: step.stepTemp,
+      metadata: { mashDetails: { name: step.name, temp: step.stepTemp, time: step.stepTime } },
       completed: false
     });
   });

@@ -272,6 +272,14 @@ export interface BeerStyle {
 // ---------------------------------------------------------
 // Active Brew Session
 // ---------------------------------------------------------
+export interface BrewEventActual {
+  id: string;
+  label: string;
+  target: number;
+  unit: string;
+  actual?: number;
+}
+
 export interface BrewEvent {
   id: string;
   type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint';
@@ -287,7 +295,9 @@ export interface BrewEvent {
   // Real-time tracking
   actualValue?: number;
   actualTemp?: number;
+  actualDuration?: number; // Minutes
   notes?: string;
+  detailedActuals?: BrewEventActual[];
 
   // Rich data for display
   metadata?: {

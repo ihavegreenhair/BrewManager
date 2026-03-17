@@ -34,7 +34,7 @@ export const BrewDay = () => {
     if (session) {
       setActiveEventIndex(session.currentEventIndex);
     }
-  }, [session?.id]); // Only run when session ID changes to avoid losing active index on update
+  }, [session?.id]);
 
   const activeEvent = session?.events[activeEventIndex];
 
@@ -46,7 +46,6 @@ export const BrewDay = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       setTimerRunning(false);
-      // Play sound or notification?
       if (timerRef.current) clearInterval(timerRef.current);
     }
     return () => {
@@ -71,7 +70,6 @@ export const BrewDay = () => {
     newEvents[index].completed = !newEvents[index].completed;
     newEvents[index].timestamp = newEvents[index].completed ? new Date().toISOString() : undefined;
     
-    // Also move to next step if completing
     let nextIndex = activeEventIndex;
     if (newEvents[index].completed && index === activeEventIndex) {
       nextIndex = Math.min(index + 1, newEvents.length - 1);
@@ -98,6 +96,14 @@ export const BrewDay = () => {
     updateSession(session.id, { events: newEvents });
   };
 
+  const updateDetailedActual = (actualId: string, value: number) => {
+    if (!session || !activeEvent?.detailedActuals) return;
+    const newDetailed = activeEvent.detailedActuals.map(da => 
+      da.id === actualId ? { ...da, actual: value } : da
+    );
+    updateActiveEvent({ detailedActuals: newDetailed });
+  };
+
   const handleDragStart = (e: React.DragEvent, index: number) => {
     setDraggedItemIndex(index);
     e.dataTransfer.effectAllowed = "move";
@@ -107,14 +113,12 @@ export const BrewDay = () => {
     e.preventDefault();
     if (draggedItemIndex === null || draggedItemIndex === index) return;
     
-    // Reorder array
     if (!session) return;
     const newEvents = [...session.events];
     const draggedItem = newEvents[draggedItemIndex];
     newEvents.splice(draggedItemIndex, 1);
     newEvents.splice(index, 0, draggedItem);
     
-    // Adjust active index if necessary
     let newActiveIndex = activeEventIndex;
     if (activeEventIndex === draggedItemIndex) newActiveIndex = index;
     else if (draggedItemIndex < activeEventIndex && index >= activeEventIndex) newActiveIndex--;
@@ -137,51 +141,54 @@ export const BrewDay = () => {
     }
   };
 
-  // Recalculated Targets based on actuals
   const updatedTargets = useMemo(() => {
     if (!session) return null;
     const recipe = session.recipeSnapshot;
+    
+    // Pull actuals from events if they exist to drive prediction
+    const eventActuals: Partial<Session['actuals']> = {};
+    session.events.forEach(e => {
+      if (e.label.includes('Post-boil Measurements') && e.actualValue) eventActuals.og = e.actualValue;
+      if (e.label.includes('Pre-boil Measurements') && e.actualValue) eventActuals.preBoilVolume = e.actualValue;
+    });
+
+    const mergedActuals = { ...session.actuals, ...eventActuals };
+
     let targetOG = recipe.targetOG;
     let targetVolume = recipe.batchVolume;
 
-    // If pre-boil gravity and volume are known, we can predict OG
-    if (session.actuals.preBoilGravity && session.actuals.preBoilVolume) {
-      const preBoilPoints = (session.actuals.preBoilGravity - 1) * session.actuals.preBoilVolume;
-      const expectedPostBoilVol = session.actuals.postBoilVolume || (session.actuals.preBoilVolume - (recipe.boilOffRate ?? recipe.equipment.boilOffRate) * (recipe.boilTime / 60));
+    if (mergedActuals.preBoilGravity && mergedActuals.preBoilVolume) {
+      const preBoilPoints = (mergedActuals.preBoilGravity - 1) * mergedActuals.preBoilVolume;
+      const expectedPostBoilVol = mergedActuals.postBoilVolume || (mergedActuals.preBoilVolume - (recipe.boilOffRate ?? recipe.equipment.boilOffRate) * (recipe.boilTime / 60));
       if (expectedPostBoilVol > 0) {
         targetOG = 1 + (preBoilPoints / expectedPostBoilVol);
         targetVolume = expectedPostBoilVol;
       }
     }
     
-    // If post-boil (OG) is measured, use it directly
-    if (session.actuals.og) targetOG = session.actuals.og;
-    if (session.actuals.postBoilVolume) targetVolume = session.actuals.postBoilVolume;
+    if (mergedActuals.og) targetOG = mergedActuals.og;
+    if (mergedActuals.postBoilVolume) targetVolume = mergedActuals.postBoilVolume;
 
     const primaryFermenter = recipe.fermenters[0];
     let fg = primaryFermenter.targetFG;
     let abv = primaryFermenter.targetABV;
 
-    if (session.actuals.fg) {
-      fg = session.actuals.fg;
+    if (mergedActuals.fg) {
+      fg = mergedActuals.fg;
       abv = calculateABV(targetOG, fg);
     } else if (targetOG !== recipe.targetOG) {
        fg = calculateFG(targetOG, primaryFermenter.yeast);
        abv = calculateABV(targetOG, fg);
     }
 
-    const updatedFermenter = { ...primaryFermenter, targetFG: fg, targetABV: abv };
-
     return {
       sharedTargets: { targetOG, targetSRM: recipe.targetSRM, targetIBU: recipe.targetIBU },
-      primaryFermenter: updatedFermenter,
+      primaryFermenter: { ...primaryFermenter, targetFG: fg, targetABV: abv },
       batchVolume: targetVolume
     };
-  }, [session?.actuals, session?.recipeSnapshot]);
+  }, [session?.actuals, session?.events, session?.recipeSnapshot]);
 
-  if (!session) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Session not found.</div>;
-  }
+  if (!session) return <div style={{ padding: '2rem', textAlign: 'center' }}>Session not found.</div>;
 
   const progress = session.events.length > 0 ? (session.events.filter(e => e.completed).length / session.events.length) * 100 : 0;
 
@@ -194,7 +201,7 @@ export const BrewDay = () => {
     <div className="brew-day-container">
       <style>{`
         .brew-day-container {
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
           padding-bottom: 5rem;
           display: grid;
@@ -203,14 +210,14 @@ export const BrewDay = () => {
         }
         @media (min-width: 1024px) {
           .brew-day-container {
-            grid-template-columns: 1.5fr 1fr;
+            grid-template-columns: 1.6fr 1fr;
           }
         }
         .brew-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           padding: 1rem;
           background: var(--bg-surface);
           border-radius: 12px;
@@ -260,9 +267,6 @@ export const BrewDay = () => {
           border-color: var(--accent-primary);
           background: var(--accent-soft);
         }
-        .event-item.dragging {
-          opacity: 0.5;
-        }
         .actuals-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -280,7 +284,7 @@ export const BrewDay = () => {
           text-align: left;
         }
         .actual-input-group label {
-          font-size: 0.7rem;
+          font-size: 0.65rem;
           text-transform: uppercase;
           color: var(--text-muted);
           font-weight: bold;
@@ -297,14 +301,12 @@ export const BrewDay = () => {
           border-color: var(--accent-primary);
           outline: none;
         }
-        .metadata-box {
-          background: rgba(0,0,0,0.2);
-          padding: 1rem;
-          border-radius: 8px;
-          margin-top: 1rem;
+        .detailed-actuals-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+          gap: 1rem;
+          margin-top: 1.5rem;
           text-align: left;
-          font-size: 0.85rem;
-          border: 1px solid rgba(255,255,255,0.05);
         }
       `}</style>
 
@@ -316,17 +318,12 @@ export const BrewDay = () => {
             {new Date(session.date).toLocaleDateString()} • {Math.round(progress)}% Complete
           </div>
         </div>
-        <button 
-          onClick={handleFinish}
-          className="primary" 
-          style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', background: '#4CAF50', borderColor: '#4CAF50' }}
-        >
+        <button onClick={handleFinish} className="primary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', background: '#4CAF50', borderColor: '#4CAF50' }}>
           FINISH BREW
         </button>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        {/* Hero Card / Active Action */}
         {activeEvent && (
           <div className="hero-card">
             <div style={{ color: 'var(--accent-primary)', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>
@@ -335,90 +332,61 @@ export const BrewDay = () => {
             <h1 style={{ margin: '0.5rem 0', fontSize: '2rem' }}>{activeEvent.label}</h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{activeEvent.subLabel}</p>
 
-            {/* Rich Metadata Display */}
-            {activeEvent.metadata?.salts && (
-              <div className="metadata-box">
-                <strong style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase' }}>Salts to Add:</strong>
-                <ul style={{ margin: '0.5rem 0 0 0', paddingLeft: '1.2rem', color: 'var(--accent-primary)', fontWeight: 'bold' }}>
-                  {activeEvent.metadata.salts.map((s, i) => <li key={i}>{s.amount.toFixed(1)}{s.unit} {s.name}</li>)}
-                </ul>
-              </div>
-            )}
-            
-            {activeEvent.metadata?.hopDetails && (
-              <div className="metadata-box">
-                <strong style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase' }}>Hop Details:</strong>
-                <div style={{ marginTop: '0.5rem' }}>
-                  <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold' }}>{activeEvent.metadata.hopDetails.weight}g</span> {activeEvent.metadata.hopDetails.name} ({activeEvent.metadata.hopDetails.alpha}% AA)
+            {/* Standard Variable Actuals */}
+            <div className="detailed-actuals-grid">
+              {activeEvent.targetValue !== undefined && (
+                <div className="actual-input-group">
+                  <label>Actual {activeEvent.unit || 'Value'} (Target: {activeEvent.targetValue})</label>
+                  <input type="number" step="any" value={activeEvent.actualValue || ''} onChange={e => updateActiveEvent({ actualValue: Number(e.target.value) })} placeholder={activeEvent.targetValue.toString()} />
                 </div>
-              </div>
-            )}
+              )}
+              {activeEvent.targetTemp !== undefined && (
+                <div className="actual-input-group">
+                  <label>Actual Temp °C (Target: {activeEvent.targetTemp})</label>
+                  <input type="number" step="any" value={activeEvent.actualTemp || ''} onChange={e => updateActiveEvent({ actualTemp: Number(e.target.value) })} placeholder={activeEvent.targetTemp.toString()} />
+                </div>
+              )}
+              {activeEvent.duration !== undefined && (
+                <div className="actual-input-group">
+                  <label>Actual Time (min) (Target: {activeEvent.duration})</label>
+                  <input type="number" step="1" value={activeEvent.actualDuration || ''} onChange={e => updateActiveEvent({ actualDuration: Number(e.target.value) })} placeholder={activeEvent.duration.toString()} />
+                </div>
+              )}
+            </div>
 
-            {/* Editable Actuals for this step */}
-            {(activeEvent.targetValue !== undefined || activeEvent.targetTemp !== undefined) && (
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1.5rem' }}>
-                {activeEvent.targetValue !== undefined && (
-                  <div className="actual-input-group" style={{ flex: 1, maxWidth: '200px' }}>
-                    <label>Actual {activeEvent.unit ? `(${activeEvent.unit})` : 'Value'} (Target: {activeEvent.targetValue})</label>
-                    <input 
-                      type="number" 
-                      step="any"
-                      value={activeEvent.actualValue || ''} 
-                      onChange={e => updateActiveEvent({ actualValue: Number(e.target.value) })}
-                      placeholder={activeEvent.targetValue.toString()}
-                    />
+            {/* Complex Detailed Actuals (Salts, Grains) */}
+            {activeEvent.detailedActuals && activeEvent.detailedActuals.length > 0 && (
+              <div className="detailed-actuals-grid" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+                {activeEvent.detailedActuals.map(da => (
+                  <div key={da.id} className="actual-input-group">
+                    <label>{da.label} ({da.unit}) • Target: {da.target}</label>
+                    <input type="number" step="any" value={da.actual || ''} onChange={e => updateDetailedActual(da.id, Number(e.target.value))} placeholder={da.target.toString()} />
                   </div>
-                )}
-                {activeEvent.targetTemp !== undefined && (
-                  <div className="actual-input-group" style={{ flex: 1, maxWidth: '200px' }}>
-                    <label>Actual Temp °C (Target: {activeEvent.targetTemp})</label>
-                    <input 
-                      type="number" 
-                      step="any"
-                      value={activeEvent.actualTemp || ''} 
-                      onChange={e => updateActiveEvent({ actualTemp: Number(e.target.value) })}
-                      placeholder={activeEvent.targetTemp.toString()}
-                    />
-                  </div>
-                )}
+                ))}
               </div>
             )}
 
             {/* Step Notes */}
             <div className="actual-input-group" style={{ marginTop: '1.5rem' }}>
               <label>Step Notes / Comments</label>
-              <textarea 
-                style={{ width: '100%', minHeight: '60px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.6rem', color: 'white', resize: 'vertical', outline: 'none' }}
-                placeholder="Any issues or observations for this step?"
-                value={activeEvent.notes || ''}
-                onChange={e => updateActiveEvent({ notes: e.target.value })}
-              />
+              <textarea style={{ width: '100%', minHeight: '60px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.6rem', color: 'white', resize: 'vertical', outline: 'none' }} placeholder="Any issues or observations for this step?" value={activeEvent.notes || ''} onChange={e => updateActiveEvent({ notes: e.target.value })} />
             </div>
 
             {/* Timer */}
             {activeEvent.duration && (
               <div style={{ marginTop: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
                 {timeLeft === null ? (
-                  <button 
-                    onClick={() => startTimer(activeEvent.duration!)}
-                    style={{ padding: '1rem 2rem', fontSize: '1.2rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}
-                  >
+                  <button onClick={() => startTimer(activeEvent.duration!)} style={{ padding: '1rem 2rem', fontSize: '1.2rem', borderRadius: '50px', display: 'inline-flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}>
                     <Play fill="var(--accent-primary)" color="var(--accent-primary)" /> START {activeEvent.duration}m TIMER
                   </button>
                 ) : (
                   <div>
                     <div className="timer-display">{formatTime(timeLeft)}</div>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                      <button 
-                        onClick={() => setTimerRunning(!timerRunning)}
-                        style={{ padding: '0.75rem 1.5rem', borderRadius: '8px', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}
-                      >
+                      <button onClick={() => setTimerRunning(!timerRunning)} style={{ padding: '0.75rem 1.5rem', borderRadius: '8px', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}>
                         {timerRunning ? <Pause fill="currentColor" /> : <Play fill="currentColor" />} {timerRunning ? 'PAUSE' : 'RESUME'}
                       </button>
-                      <button 
-                        onClick={() => setTimeLeft(activeEvent.duration! * 60)}
-                        style={{ padding: '0.75rem 1.5rem', borderRadius: '8px', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}
-                      >
+                      <button onClick={() => setTimeLeft(activeEvent.duration! * 60)} style={{ padding: '0.75rem 1.5rem', borderRadius: '8px', cursor: 'pointer', background: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'white' }}>
                         <RotateCcw size={20} /> RESET
                       </button>
                     </div>
@@ -428,11 +396,7 @@ export const BrewDay = () => {
             )}
 
             <div style={{ marginTop: '2rem' }}>
-              <button 
-                className="primary"
-                onClick={() => toggleEventCompletion(activeEventIndex)}
-                style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
-              >
+              <button className="primary" onClick={() => toggleEventCompletion(activeEventIndex)} style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                 {activeEvent.completed ? 'MARK INCOMPLETE' : 'DONE • NEXT STEP'} {!activeEvent.completed && <ChevronRight size={20} />}
               </button>
             </div>
@@ -441,26 +405,12 @@ export const BrewDay = () => {
 
         {/* Timeline */}
         <div>
-          <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem' }}>Timeline</h3>
+          <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem' }}>Timeline (Drag to Reorder)</h3>
           <div className="event-list">
             {session.events.map((event, idx) => (
-              <div 
-                key={event.id} 
-                draggable
-                onDragStart={(e) => handleDragStart(e, idx)}
-                onDragOver={(e) => handleDragOver(e, idx)}
-                onDragEnd={handleDragEnd}
-                className={`event-item ${event.completed ? 'completed' : ''} ${idx === activeEventIndex ? 'active' : ''} ${idx === draggedItemIndex ? 'dragging' : ''}`}
-                onClick={() => setActiveEventIndex(idx)}
-              >
-                <div style={{ cursor: 'grab', color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}>
-                  <GripVertical size={20} />
-                </div>
-                {event.completed ? (
-                  <CheckCircle2 color="#4CAF50" size={24} />
-                ) : (
-                  <Circle color="var(--border-color)" size={24} />
-                )}
+              <div key={event.id} draggable onDragStart={(e) => handleDragStart(e, idx)} onDragOver={(e) => handleDragOver(e, idx)} onDragEnd={handleDragEnd} className={`event-item ${event.completed ? 'completed' : ''} ${idx === activeEventIndex ? 'active' : ''} ${idx === draggedItemIndex ? 'dragging' : ''}`} onClick={() => setActiveEventIndex(idx)}>
+                <div style={{ cursor: 'grab', color: 'var(--text-muted)' }}><GripVertical size={20} /></div>
+                {event.completed ? <CheckCircle2 color="#4CAF50" size={24} /> : <Circle color="var(--border-color)" size={24} />}
                 <div style={{ flex: 1 }}>
                   <div style={{ fontWeight: 'bold', fontSize: '0.9rem', color: event.completed ? 'var(--text-muted)' : 'white' }}>{event.label}</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{event.subLabel}</div>
@@ -471,54 +421,33 @@ export const BrewDay = () => {
           </div>
         </div>
 
-        {/* Actuals Global Section */}
-        <div style={{ marginTop: '1rem' }}>
+        {/* Global Actuals */}
+        <div>
           <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FlaskConical size={18} /> Global Measured Actuals
           </h3>
           <div className="actuals-grid">
-            <div className="actual-input-group">
-              <label>Mash pH</label>
-              <input type="number" step="0.01" value={session.actuals.mashPh || ''} onChange={e => handleActualChange('mashPh', Number(e.target.value))} placeholder="5.40" />
-            </div>
-            <div className="actual-input-group">
-              <label>Pre-boil Vol (L)</label>
-              <input type="number" step="0.1" value={session.actuals.preBoilVolume || ''} onChange={e => handleActualChange('preBoilVolume', Number(e.target.value))} placeholder="24.0" />
-            </div>
-            <div className="actual-input-group">
-              <label>Pre-boil SG</label>
-              <input type="number" step="0.001" value={session.actuals.preBoilGravity || ''} onChange={e => handleActualChange('preBoilGravity', Number(e.target.value))} placeholder="1.045" />
-            </div>
-            <div className="actual-input-group">
-              <label>Post-boil Vol (L)</label>
-              <input type="number" step="0.1" value={session.actuals.postBoilVolume || ''} onChange={e => handleActualChange('postBoilVolume', Number(e.target.value))} placeholder="19.0" />
-            </div>
-            <div className="actual-input-group">
-              <label>Measured OG</label>
-              <input type="number" step="0.001" value={session.actuals.og || ''} onChange={e => handleActualChange('og', Number(e.target.value))} placeholder="1.050" />
-            </div>
+            {(['mashPh', 'preBoilVolume', 'preBoilGravity', 'postBoilVolume', 'og', 'fg'] as const).map(key => (
+              <div key={key} className="actual-input-group">
+                <label>{key.replace(/([A-Z])/g, ' $1')}</label>
+                <input type="number" step="any" value={session.actuals[key] || ''} onChange={e => handleActualChange(key, Number(e.target.value))} placeholder="..." />
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Notes Section */}
-        <div style={{ marginTop: '1rem' }}>
+        {/* Notes */}
+        <div>
           <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ClipboardList size={18} /> Session Notes
           </h3>
-          
           {aggregatedNotes && (
             <div style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)', whiteSpace: 'pre-wrap', borderLeft: '3px solid var(--accent-primary)' }}>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 'bold' }}>Step Comments</div>
               {aggregatedNotes}
             </div>
           )}
-
-          <textarea 
-            style={{ width: '100%', minHeight: '120px', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1rem', color: 'white', resize: 'vertical', outline: 'none' }}
-            placeholder="Record overall observations, deviations, or smells..."
-            value={session.notes}
-            onChange={e => updateSession(session.id, { notes: e.target.value })}
-          />
+          <textarea style={{ width: '100%', minHeight: '120px', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1rem', color: 'white', resize: 'vertical', outline: 'none' }} placeholder="Record overall observations..." value={session.notes} onChange={e => updateSession(session.id, { notes: e.target.value })} />
         </div>
       </div>
 
@@ -539,7 +468,6 @@ export const BrewDay = () => {
            />
          )}
       </div>
-
     </div>
   );
 };

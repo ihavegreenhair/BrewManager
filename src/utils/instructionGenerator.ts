@@ -36,20 +36,20 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
   const totalWaterVolumeLiters = volumes.mashWater + volumes.spargeWater;
   if (recipe.targetWaterProfile && recipe.waterProfile) {
     const saltMath = calculateWaterAdditions(recipe.waterProfile, recipe.targetWaterProfile, totalWaterVolumeLiters);
-    const saltList = [
-      { name: 'Gypsum', amount: saltMath.additions.gypsum, unit: 'g' },
-      { name: 'Calcium Chloride', amount: saltMath.additions.cacl2, unit: 'g' },
-      { name: 'Epsom Salt', amount: saltMath.additions.epsom, unit: 'g' },
-      { name: 'Baking Soda', amount: saltMath.additions.bakingSoda, unit: 'g' }
-    ].filter(s => s.amount > 0);
+    const detailedSalts = [
+      { id: 'gypsum', label: 'Gypsum', target: saltMath.additions.gypsum, unit: 'g' },
+      { id: 'cacl2', label: 'Calcium Chloride', target: saltMath.additions.cacl2, unit: 'g' },
+      { id: 'epsom', label: 'Epsom Salt', target: saltMath.additions.epsom, unit: 'g' },
+      { id: 'bakingSoda', label: 'Baking Soda', target: saltMath.additions.bakingSoda, unit: 'g' }
+    ].filter(s => s.target > 0);
 
-    if (saltList.length > 0) {
+    if (detailedSalts.length > 0) {
       events.push({
         id: crypto.randomUUID(),
         type: 'water',
         label: 'Add Water Salts',
-        subLabel: 'Add salts to strike water.',
-        metadata: { salts: saltList },
+        subLabel: 'Add calculated minerals to strike water.',
+        detailedActuals: detailedSalts,
         completed: false
       });
     }
@@ -59,7 +59,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     events.push({
       id: crypto.randomUUID(),
       type: 'water',
-      label: 'Acidify Mash Water',
+      label: `Acidify Mash (${recipe.acidAddition.type})`,
       subLabel: `Add ${recipe.acidAddition.volumeMl}ml of ${recipe.acidAddition.type} acid.`,
       targetValue: recipe.acidAddition.volumeMl,
       unit: 'ml',
@@ -67,13 +67,30 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     });
   }
 
-  // 2. Mash Phase
+  // 2. Mash In Phase
+  const grainActuals = recipe.fermentables.map(f => ({
+    id: f.id,
+    label: f.name,
+    target: f.weight,
+    unit: 'kg'
+  }));
+
+  events.push({
+    id: crypto.randomUUID(),
+    type: 'mash',
+    label: 'Mash In',
+    subLabel: 'Mix milled grains with strike water. Ensure no dough balls.',
+    detailedActuals: grainActuals,
+    completed: false
+  });
+
+  // 3. Mash Rests Phase
   recipe.mashSteps.forEach((step: MashStep, idx: number) => {
     const prevTemp = idx > 0 ? recipe.mashSteps[idx-1].stepTemp : strikeTemp;
     const tempChange = step.stepTemp - prevTemp;
     
     let instruction = `Rest at ${step.stepTemp}°C.`;
-    if (tempChange > 0) instruction = `Heat water ${tempChange.toFixed(1)}°C, then rest at ${step.stepTemp}°C.`;
+    if (tempChange > 0) instruction = `Heat wort ${tempChange.toFixed(1)}°C, then rest at ${step.stepTemp}°C.`;
     else if (tempChange < 0) instruction = `Cool/Wait for ${Math.abs(tempChange).toFixed(1)}°C drop, then rest at ${step.stepTemp}°C.`;
 
     events.push({
@@ -82,10 +99,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
       label: `Mash Step: ${step.name}`,
       subLabel: instruction,
       duration: step.stepTime,
-      targetValue: step.stepTime,
       targetTemp: step.stepTemp,
-      unit: 'min',
-      metadata: { mashDetails: { name: step.name, temp: step.stepTemp, time: step.stepTime } },
       completed: false
     });
   });
@@ -94,7 +108,9 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     id: crypto.randomUUID(),
     type: 'checkpoint',
     label: 'Mash pH Check',
-    subLabel: 'Measure and record mash pH after 15-20 minutes.',
+    subLabel: 'Target: 5.2 - 5.5 pH at room temp.',
+    targetValue: 5.4,
+    unit: 'pH',
     completed: false
   });
 
@@ -108,7 +124,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 3. Pre-boil Checkpoint
+  // 4. Pre-boil Checkpoint
   events.push({
     id: crypto.randomUUID(),
     type: 'checkpoint',
@@ -119,7 +135,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 4. Boil Phase
+  // 5. Boil Phase
   events.push({
     id: crypto.randomUUID(),
     type: 'boil',
@@ -131,9 +147,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // Sort hops by time (descending for boil additions)
   const sortedHops = [...recipe.kettleHops].sort((a, b) => b.time - a.time);
-  
   sortedHops.forEach((hop: Hop) => {
     let timingLabel = '';
     if (hop.use === 'boil') timingLabel = `${hop.time}m remaining`;
@@ -143,7 +157,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     events.push({
       id: crypto.randomUUID(),
       type: 'hop',
-      label: `Add ${hop.weight}g ${hop.name}`,
+      label: `Add ${hop.name}`,
       subLabel: timingLabel,
       targetValue: hop.weight,
       unit: 'g',
@@ -152,12 +166,14 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     });
   });
 
-  // 5. Post-boil / Cooling
+  // 6. Post-boil / Cooling
   events.push({
     id: crypto.randomUUID(),
     type: 'cooling',
     label: 'Chill Wort',
     subLabel: 'Chill to pitching temperature.',
+    targetTemp: 20, // Default target pitch temp
+    unit: '°C',
     completed: false
   });
 
@@ -171,7 +187,7 @@ export const generateBrewEvents = (recipe: Recipe): BrewEvent[] => {
     completed: false
   });
 
-  // 6. Yeast
+  // 7. Yeast
   recipe.fermenters.forEach(f => {
     f.yeast.forEach(y => {
       events.push({

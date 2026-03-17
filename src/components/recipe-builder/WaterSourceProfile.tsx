@@ -11,22 +11,48 @@ export const WaterSourceProfile = ({
 }: WaterSourceProfileProps) => {
   return (
     <div style={{ marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px dashed var(--border-color)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-        <label style={{ color: 'var(--text-secondary)' }}>Source Water</label>
-        <div>
-          <button type="button" onClick={() => setSourceWater({ ...sourceWater, calcium: 0, magnesium: 0, sodium: 0, sulfate: 0, chloride: 0, bicarbonate: 0 })} style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem', marginRight: '0.5rem', backgroundColor: 'transparent', border: '1px solid var(--border-color)' }}>Clear to RO</button>
-          <button type="button" onClick={onSaveDefault} style={{ fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}>Set as Global Default</button>
+      <style>{`
+        .source-water-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5rem;
+        }
+        @media (min-width: 768px) {
+          .source-water-grid {
+            grid-template-columns: repeat(6, 1fr);
+          }
+        }
+        .source-header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+        }
+        @media (min-width: 640px) {
+          .source-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+          }
+        }
+      `}</style>
+      <div className="source-header">
+        <label style={{ color: 'var(--text-secondary)', fontWeight: 'bold', fontSize: '0.75rem', textTransform: 'uppercase' }}>Source Water Profile</label>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button type="button" onClick={() => setSourceWater({ ...sourceWater, calcium: 0, magnesium: 0, sodium: 0, sulfate: 0, chloride: 0, bicarbonate: 0 })} style={{ flex: 1, fontSize: '0.7rem', padding: '0.4rem 0.6rem', backgroundColor: 'transparent', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}>Clear to RO</button>
+          <button type="button" onClick={onSaveDefault} style={{ flex: 1, fontSize: '0.7rem', padding: '0.4rem 0.6rem', borderRadius: '4px', cursor: 'pointer' }}>Set as Global Default</button>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.875rem' }}>
+      <div className="source-water-grid">
         {['calcium', 'magnesium', 'sodium', 'sulfate', 'chloride', 'bicarbonate'].map((key) => (
-          <div key={key} style={{ flex: 1 }}>
-            <span style={{ display: 'block', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-              {key === 'calcium' ? 'Ca+2' : key === 'magnesium' ? 'Mg+2' : key === 'sodium' ? 'Na+' : key === 'sulfate' ? 'SO4-2' : key === 'chloride' ? 'Cl-' : 'HCO3-'}
+          <div key={key}>
+            <span style={{ display: 'block', fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 'bold', marginBottom: '0.2rem', textAlign: 'center' }}>
+              {key === 'calcium' ? 'Ca' : key === 'magnesium' ? 'Mg' : key === 'sodium' ? 'Na' : key === 'sulfate' ? 'SO4' : key === 'chloride' ? 'Cl' : 'HCO3'}
             </span>
             <input 
               type="number" 
-              style={{ width: '100%', padding: '0.5rem' }} 
+              className="no-spinners"
+              style={{ width: '100%', padding: '0.5rem 0.25rem', textAlign: 'center', background: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: '4px', color: 'white', fontWeight: 'bold', fontSize: '0.85rem' }} 
               value={(sourceWater as any)[key]} 
               onChange={e => setSourceWater({ ...sourceWater, [key]: Number(e.target.value) })} 
             />

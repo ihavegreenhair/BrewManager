@@ -59,10 +59,49 @@ export const WaterFlavorTuning = ({
 
   return (
     <div style={{ marginBottom: '1.5rem' }}>
+      <style>{`
+        .tuning-sliders-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+          .tuning-sliders-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem 3rem;
+          }
+        }
+        .ions-output-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5rem;
+          text-align: center;
+        }
+        @media (min-width: 768px) {
+          .ions-output-grid {
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.75rem;
+          }
+        }
+        .tuning-header {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+        @media (min-width: 640px) {
+          .tuning-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+          }
+        }
+      `}</style>
       <div style={{ backgroundColor: 'var(--bg-main)', borderRadius: 'var(--border-radius)', border: '1px solid var(--border-color)', padding: '1.25rem' }}>
         
         {/* Header with 4-Word Summary */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+        <div className="tuning-header">
           <div>
             <h3 style={{ fontSize: '1rem', margin: 0, color: 'var(--text-main)' }}>Flavor Profile Tuning</h3>
           </div>
@@ -74,7 +113,7 @@ export const WaterFlavorTuning = ({
         </div>
 
         {/* Sliders Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem 3rem', marginBottom: '2rem' }}>
+        <div className="tuning-sliders-grid">
           
           {/* Slider 1: Balance */}
           <div>
@@ -131,8 +170,8 @@ export const WaterFlavorTuning = ({
         </div>
 
         {/* Final Output Panel */}
-        <div style={{ backgroundColor: 'rgba(0,0,0,0.2)', padding: '1.25rem', borderRadius: '8px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem', textAlign: 'center' }}>
+        <div style={{ backgroundColor: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '8px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="ions-output-grid">
             {['Ca', 'Mg', 'Na', 'SO4', 'Cl', 'HCO3'].map((ion, idx) => {
               const keys: (keyof WaterProfile)[] = ['calcium', 'magnesium', 'sodium', 'sulfate', 'chloride', 'bicarbonate'];
               const key = keys[idx];
@@ -173,7 +212,7 @@ export const WaterFlavorTuning = ({
                       border: 'none', 
                       textAlign: 'center', 
                       fontWeight: '900', 
-                      fontSize: '1rem',
+                      fontSize: '0.9rem',
                       color: isWarning ? 'var(--status-warning)' : 'inherit',
                       outline: 'none',
                       padding: 0,
@@ -193,8 +232,8 @@ export const WaterFlavorTuning = ({
               );
             })}
           </div>
-          <p style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textAlign: 'center', marginTop: '1rem', margin: '1rem 0 0', fontWeight: '500' }}>
-             SO4:Cl Ratio: <strong style={{color: 'var(--accent-primary)'}}>{so4ClRatio}</strong> | Tip: Directly edit the ion values below to manually override the sliders.
+          <p style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', textAlign: 'center', marginTop: '1rem', margin: '1rem 0 0', fontWeight: '500' }}>
+             SO4:Cl Ratio: <strong style={{color: 'var(--accent-primary)'}}>{so4ClRatio}</strong> | Tip: Directly edit values to override.
           </p>
         </div>
       </div>

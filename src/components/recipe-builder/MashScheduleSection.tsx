@@ -140,6 +140,57 @@ export const MashScheduleSection = ({
 
       {!collapsed && (
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <style>{`
+            .mash-controls-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+              padding: 1rem;
+              background-color: var(--bg-main);
+              borderRadius: 8px;
+              border: 1px solid var(--border-color);
+            }
+            @media (min-width: 1024px) {
+              .mash-controls-grid {
+                grid-template-columns: 1fr 1fr auto;
+                gap: 2rem;
+                align-items: center;
+              }
+            }
+            .mash-stats-container {
+              display: flex;
+              gap: 1.5rem;
+              align-items: flex-end;
+            }
+            @media (min-width: 1024px) {
+              .mash-stats-container {
+                border-left: 1px solid var(--border-color);
+                padding-left: 2rem;
+                gap: 2rem;
+              }
+            }
+            .mash-step-row {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0.75rem;
+              padding: 1rem;
+              background-color: rgba(255,255,255,0.02);
+              border-radius: 8px;
+              border: 1px solid rgba(255,255,255,0.05);
+            }
+            @media (min-width: 768px) {
+              .mash-step-row {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+              }
+            }
+            .step-name-col { grid-column: span 2; }
+            @media (min-width: 768px) { .step-name-col { flex: 3; } }
+            
+            .step-val-col { flex: 1; min-width: 0; }
+          `}</style>
           
           {mashNarrative && (
             <div style={{ marginBottom: '1.5rem', padding: '1.2rem', backgroundColor: 'var(--bg-main)', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
@@ -153,7 +204,7 @@ export const MashScheduleSection = ({
           )}
 
           {/* Controls Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '2rem', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--bg-main)', borderRadius: '8px', border: '1px solid var(--border-color)', alignItems: 'center' }}>
+          <div className="mash-controls-grid">
             <div>
               <label style={labelStyle}>Load Standard Profile</label>
               <div style={{ position: 'relative' }}>
@@ -173,16 +224,16 @@ export const MashScheduleSection = ({
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2rem', display: 'flex', gap: '2rem', alignItems: 'flex-end' }}>
+            <div className="mash-stats-container">
               <div>
-                <label style={labelStyle}>Total Mash Time</label>
+                <label style={labelStyle}>Total Time</label>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
                   <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white', lineHeight: 1 }}>{totalTime}</span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 'bold', textTransform: 'uppercase' }}>MIN</span>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 'bold', textTransform: 'uppercase' }}>MIN</span>
                 </div>
               </div>
               <div>
-                <label style={labelStyle}>Est. Fermentability</label>
+                <label style={labelStyle}>Est. Ferm.</label>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.15rem' }}>
                   <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white', lineHeight: 1 }}>{mashNarrative?.estFerm || 0}</span>
                   <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 'bold' }}>%</span>
@@ -193,7 +244,7 @@ export const MashScheduleSection = ({
             <button 
               type="button" 
               onClick={addStep}
-              style={{ backgroundColor: 'var(--accent-primary)', color: 'black', fontWeight: 'bold', padding: '0.6rem 1.2rem', borderRadius: '6px', border: 'none', cursor: 'pointer', height: 'fit-content' }}
+              style={{ backgroundColor: 'var(--accent-primary)', color: 'black', fontWeight: 'bold', padding: '0.6rem 1.2rem', borderRadius: '6px', border: 'none', cursor: 'pointer', width: '100%', height: 'fit-content' }}
             >
               + Add Custom Step
             </button>
@@ -205,13 +256,12 @@ export const MashScheduleSection = ({
               const rampTimeDisplay = calculateRampTime(step, idx, mashSteps);
               
               return (
-                <div key={step.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '0.75rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div key={step.id} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}>
                   
-                  {/* Top Half: Inputs */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--text-muted)', minWidth: '20px' }}>{idx + 1}</div>
+                  <div className="mash-step-row">
+                    <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--text-muted)', minWidth: '20px', alignSelf: 'center' }}>{idx + 1}</div>
                     
-                    <div style={{ flex: 3 }}>
+                    <div className="step-name-col">
                       <label style={labelStyle}>Step Name</label>
                       <input 
                         style={inputStyle} 
@@ -223,8 +273,8 @@ export const MashScheduleSection = ({
                       />
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                      <label style={labelStyle}>Temp (°{measurementSystem === 'metric' ? 'C' : 'F'})</label>
+                    <div className="step-val-col">
+                      <label style={labelStyle}>Temp</label>
                       <input 
                         type="number" 
                         className="no-spinners"
@@ -234,26 +284,22 @@ export const MashScheduleSection = ({
                           const val = Number(e.target.value);
                           updateStep(step.id, { stepTemp: measurementSystem === 'metric' ? val : fahrenheitToCelsius(val) });
                         }}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
                       />
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                      <label style={labelStyle}>Time (Min)</label>
+                    <div className="step-val-col">
+                      <label style={labelStyle}>Time</label>
                       <input 
                         type="number" 
                         className="no-spinners"
                         style={{ ...inputStyle, textAlign: 'right' }} 
                         value={step.stepTime} 
                         onChange={e => updateStep(step.id, { stepTime: Number(e.target.value) })}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
                       />
                     </div>
 
-                    <div style={{ flex: 1 }}>
-                      <label style={labelStyle}>Ramp (Min)</label>
+                    <div className="step-val-col">
+                      <label style={labelStyle}>Ramp</label>
                       <input 
                         type="number" 
                         className="no-spinners"
@@ -261,9 +307,6 @@ export const MashScheduleSection = ({
                         value={step.rampTime !== undefined && step.rampTime !== null ? step.rampTime : ''} 
                         placeholder={rampTimeDisplay.toString()}
                         onChange={e => updateStep(step.id, { rampTime: e.target.value === '' ? undefined : Number(e.target.value) })}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                        title="Time to heat to this step. Auto-calculates at 1°C/min if blank."
                       />
                     </div>
 
@@ -272,15 +315,13 @@ export const MashScheduleSection = ({
                         type="button" 
                         onClick={() => setMashSteps(mashSteps.filter(s => s.id !== step.id))}
                         style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.2rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.6 }}
-                        title="Remove Step"
                       >
                         ×
                       </button>
                     </div>
                   </div>
 
-                  {/* Bottom Half: Contextual Description */}
-                  <div style={{ paddingLeft: 'calc(20px + 1rem)', fontSize: '13px', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
+                  <div style={{ padding: '0 1rem 1rem 2.5rem', fontSize: '12px', color: 'var(--text-secondary)', fontStyle: 'italic' }}>
                     {getStepDescription(step.stepTemp)}
                   </div>
                 </div>

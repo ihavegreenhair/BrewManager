@@ -165,17 +165,68 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
       border: '1px solid var(--border-color)',
       marginBottom: '1.5rem'
     }}>
+      <style>{`
+        .hop-profile-header {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          cursor: pointer;
+          margin-bottom: ${isCollapsed ? 0 : '1.5rem'};
+        }
+        @media (min-width: 1024px) {
+          .hop-profile-header {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+          }
+        }
+        .hop-tabs-container {
+          display: flex;
+          gap: 0.4rem;
+          overflow-x: auto;
+          padding-bottom: 0.25rem;
+          -webkit-overflow-scrolling: touch;
+        }
+        .hop-tabs-container::-webkit-scrollbar {
+          height: 4px;
+        }
+        .hop-tabs-container::-webkit-scrollbar-thumb {
+          background: var(--border-color);
+          border-radius: 2px;
+        }
+        .hop-profile-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          align-items: start;
+        }
+        @media (min-width: 1024px) {
+          .hop-profile-grid {
+            grid-template-columns: 1fr 1.2fr;
+            gap: 1.5rem;
+          }
+        }
+        .oil-breakdown-card {
+          padding: 1rem;
+          background-color: rgba(255,255,255,0.02);
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+        .hop-intensity-grid {
+          padding: 1rem;
+          background-color: rgba(255,255,255,0.02);
+          border-radius: 8px;
+          border: 1px solid rgba(255,255,255,0.05);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+        }
+      `}</style>
       <div 
-        style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          cursor: 'pointer',
-          marginBottom: isCollapsed ? 0 : '1rem'
-        }}
+        className="hop-profile-header"
         onClick={() => setIsCollapsed(!isCollapsed)}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', justifyContent: 'space-between' }}>
           <h3 style={{ 
             margin: 0, 
             fontSize: '0.8rem', 
@@ -185,42 +236,42 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
           }}>
             Hop Flavor Profile
           </h3>
-          {!isCollapsed && (
-            <div style={{ display: 'flex', gap: '0.4rem' }}>
-              <TabButton id="overall" label="Overall" activeTab={activeTab} onClick={setActiveTab} />
-              <TabButton id="boil" label="Boil" activeTab={activeTab} onClick={setActiveTab} />
-              <TabButton id="whirlpool" label="WP / Stand / FW" activeTab={activeTab} onClick={setActiveTab} />
-              <TabButton id="dry" label="Dry Hop" activeTab={activeTab} onClick={setActiveTab} />
-            </div>
-          )}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {isCollapsed && (
-            <div style={{ display: 'flex', gap: '0.4rem' }}>
-              {overallProfile.topTags.map(tag => {
-                const colors = getTagColor(tag);
-                return (
-                  <span key={tag} style={{
-                    padding: '0.1rem 0.4rem',
-                    backgroundColor: colors.bg,
-                    color: colors.text,
-                    border: `1px solid ${colors.border}`,
-                    borderRadius: '3px',
-                    fontSize: '0.6rem',
-                    fontWeight: 'bold'
-                  }}>
-                    #{tag.replace(/_/g, ' ')}
-                  </span>
-                );
-              })}
-            </div>
-          )}
           <span style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>{isCollapsed ? '⊕' : '−'}</span>
         </div>
+        
+        {!isCollapsed && (
+          <div className="hop-tabs-container">
+            <TabButton id="overall" label="Overall" activeTab={activeTab} onClick={setActiveTab} />
+            <TabButton id="boil" label="Boil" activeTab={activeTab} onClick={setActiveTab} />
+            <TabButton id="whirlpool" label="WP/ST/FW" activeTab={activeTab} onClick={setActiveTab} />
+            <TabButton id="dry" label="Dry Hop" activeTab={activeTab} onClick={setActiveTab} />
+          </div>
+        )}
+
+        {isCollapsed && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+            {overallProfile.topTags.slice(0, 4).map(tag => {
+              const colors = getTagColor(tag);
+              return (
+                <span key={tag} style={{
+                  padding: '0.1rem 0.4rem',
+                  backgroundColor: colors.bg,
+                  color: colors.text,
+                  border: `1px solid ${colors.border}`,
+                  borderRadius: '3px',
+                  fontSize: '0.6rem',
+                  fontWeight: 'bold'
+                }}>
+                  #{tag.replace(/_/g, ' ')}
+                </span>
+              );
+            })}
+          </div>
+        )}
       </div>
       
       {!isCollapsed && activeProfile && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '1.5rem', alignItems: 'start' }}>
+        <div className="hop-profile-grid">
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
             <RadarChart scores={activeProfile.scores} size={180} />
             <div style={{ textAlign: 'center', width: '100%' }}>
@@ -250,7 +301,7 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
                 <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 'bold' }}>{getActiveTabLabel()} Contribution</div>
                 <div style={{ display: 'flex', gap: '0.25rem', backgroundColor: 'rgba(255,255,255,0.05)', padding: '2px', borderRadius: '4px' }}>
                   <button 
-                    onClick={() => setBreakdownView('bitterness')}
+                    onClick={(e) => { e.stopPropagation(); setBreakdownView('bitterness'); }}
                     style={{ 
                       padding: '0.2rem 0.5rem', 
                       fontSize: '0.6rem', 
@@ -265,7 +316,7 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
                     IBU
                   </button>
                   <button 
-                    onClick={() => setBreakdownView('aroma')}
+                    onClick={(e) => { e.stopPropagation(); setBreakdownView('aroma'); }}
                     style={{ 
                       padding: '0.2rem 0.5rem', 
                       fontSize: '0.6rem', 
@@ -291,18 +342,18 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
                     backgroundColor: 'rgba(255,255,255,0.03)', 
                     borderRadius: '4px' 
                   }}>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 'bold' }}>{h.name}</span>
-                      <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>({h.use === 'first_wort' ? 'FW' : `${h.time}m`})</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', minWidth: 0 }}>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.name}</span>
+                      <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)', flexShrink: 0 }}>({h.use === 'first_wort' ? 'FW' : `${h.time}m`})</span>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
                       <span style={{ color: 'var(--text-secondary)' }}>{h.ibu.toFixed(1)} IBU</span>
-                      <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', width: '40px', textAlign: 'right' }}>{h.ibuPercent.toFixed(1)}%</span>
+                      <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', width: '35px', textAlign: 'right' }}>{h.ibuPercent.toFixed(0)}%</span>
                     </div>
                   </div>
                 ))}
                 {breakdownView === 'bitterness' && sortedBitterness.length === 0 && (
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '0.5rem' }}>No bittering additions in this category.</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '0.5rem' }}>No bittering additions.</div>
                 )}
                 
                 {breakdownView === 'aroma' && sortedAroma.map((h, i) => (
@@ -314,25 +365,25 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
                     backgroundColor: 'rgba(255,255,255,0.03)', 
                     borderRadius: '4px' 
                   }}>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                      <span style={{ color: 'var(--text-primary)', fontWeight: 'bold' }}>{h.name}</span>
-                      <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)' }}>({h.use === 'dry_hop' ? `Day ${h.time}` : h.stage})</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', minWidth: 0 }}>
+                      <span style={{ color: 'var(--text-primary)', fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h.name}</span>
+                      <span style={{ fontSize: '0.6rem', color: 'var(--text-muted)', flexShrink: 0 }}>({h.use === 'dry_hop' ? `D${h.time}` : h.stage})</span>
                     </div>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                      <span style={{ color: 'var(--text-secondary)' }}>{h.oilPerLiter.toFixed(3)} mL/L</span>
-                      <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', width: '40px', textAlign: 'right' }}>{h.oilPercent.toFixed(1)}%</span>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>{h.oilPerLiter.toFixed(3)}</span>
+                      <span style={{ color: 'var(--accent-primary)', fontWeight: 'bold', width: '35px', textAlign: 'right' }}>{h.oilPercent.toFixed(0)}%</span>
                     </div>
                   </div>
                 ))}
                 {breakdownView === 'aroma' && sortedAroma.length === 0 && (
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '0.5rem' }}>No aroma additions in this category.</div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', padding: '0.5rem' }}>No aroma additions.</div>
                 )}
               </div>
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div style={{ padding: '1rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="oil-breakdown-card">
               <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', marginBottom: '1rem', textTransform: 'uppercase', fontWeight: 'bold' }}>Oil Breakdown: {getActiveTabLabel()}</div>
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -356,16 +407,16 @@ export const RecipeHopProfile: React.FC<RecipeHopProfileProps> = ({
               </div>
             </div>
 
-            <div style={{ padding: '1rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div className="hop-intensity-grid">
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.25rem', fontWeight: 'bold' }}>Aroma Intensity</div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 'bold', color: intensity.color, textTransform: 'uppercase' }}>{intensity.label}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{activeProfile.oilConcentration.perLiter.toFixed(3)} <span style={{ fontSize: '0.6rem' }}>mL/L</span></div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: intensity.color, textTransform: 'uppercase' }}>{intensity.label}</div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{activeProfile.oilConcentration.perLiter.toFixed(3)} <span style={{ fontSize: '0.6rem' }}>mL/L</span></div>
               </div>
               <div style={{ textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
                 <div style={{ fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.25rem', fontWeight: 'bold' }}>Bitterness Level</div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 'bold', color: ibuIntensity.color, textTransform: 'uppercase' }}>{ibuIntensity.label}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{activeTab === 'overall' ? kettleHops.reduce((sum, h) => sum + calculateSingleHopIBU(h, targetOG, batchVolume, boilVolume), 0).toFixed(1) : sortedBitterness.reduce((sum, h) => sum + h.ibu, 0).toFixed(1)} <span style={{ fontSize: '0.6rem' }}>IBU</span></div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: ibuIntensity.color, textTransform: 'uppercase' }}>{ibuIntensity.label}</div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{activeTab === 'overall' ? kettleHops.reduce((sum, h) => sum + calculateSingleHopIBU(h, targetOG, batchVolume, boilVolume), 0).toFixed(1) : sortedBitterness.reduce((sum, h) => sum + h.ibu, 0).toFixed(1)} <span style={{ fontSize: '0.6rem' }}>IBU</span></div>
               </div>
             </div>
           </div>

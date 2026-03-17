@@ -74,32 +74,84 @@ export const FermentationSection = ({
 
       {!collapsed && (
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <style>{`
+            .ferm-packaging-row {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+              padding: 1rem;
+              background-color: var(--bg-main);
+              border-radius: 8px;
+              border: 1px solid var(--border-color);
+            }
+            @media (min-width: 768px) {
+              .ferm-packaging-row {
+                grid-template-columns: 1.5fr 1fr;
+                align-items: center;
+                gap: 2rem;
+              }
+            }
+            .ferm-controls-grid {
+              display: grid;
+              grid-template-columns: 1fr;
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+              padding: 1rem;
+              background-color: var(--bg-main);
+              border-radius: 8px;
+              border: 1px solid var(--border-color);
+            }
+            @media (min-width: 1024px) {
+              .ferm-controls-grid {
+                grid-template-columns: 1fr 1fr auto;
+                gap: 2rem;
+                align-items: end;
+              }
+            }
+            .ferm-step-card {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0.75rem;
+              padding: 1rem;
+              background-color: rgba(255,255,255,0.02);
+              border-radius: 8px;
+              border: 1px solid rgba(255,255,255,0.05);
+            }
+            @media (min-width: 768px) {
+              .ferm-step-card {
+                grid-template-columns: 20px 3fr 1.5fr 1.5fr 1.2fr 40px;
+                align-items: center;
+                gap: 1rem;
+              }
+            }
+            .ferm-name-col { grid-column: span 2; }
+            @media (min-width: 768px) { .ferm-name-col { grid-column: span 1; } }
+          `}</style>
           
           {/* Packaging Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '2rem', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--bg-main)', borderRadius: '8px', border: '1px solid var(--border-color)', alignItems: 'center' }}>
-            <div style={{ display: 'flex', flex: 1, gap: '2rem', alignItems: 'center' }}>
-              <div>
-                <label style={labelStyle}>Carbonation Level</label>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <input 
-                    type="number" step="0.1" 
-                    style={{ ...inputStyle, width: '70px', textAlign: 'center', border: '1px solid var(--border-color)' }} 
-                    value={co2Volumes} 
-                    onChange={e => setCo2Volumes(Number(e.target.value))}
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                  />
-                  <span style={{ fontWeight: 'bold', color: 'var(--text-muted)' }}>Volumes CO2</span>
-                </div>
+          <div className="ferm-packaging-row">
+            <div>
+              <label style={labelStyle}>Carbonation Level</label>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <input 
+                  type="number" step="0.1" 
+                  style={{ ...inputStyle, width: '70px', textAlign: 'center', border: '1px solid var(--border-color)' }} 
+                  value={co2Volumes} 
+                  onChange={e => setCo2Volumes(Number(e.target.value))}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+                <span style={{ fontWeight: 'bold', color: 'var(--text-muted)', fontSize: '0.8rem' }}>VOLUMES CO2</span>
               </div>
-              <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontStyle: 'italic', maxWidth: '300px' }}>
-                Tip: Higher carbonation increases the crispness and aromatic lift of the beer.
-              </div>
+            </div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', fontStyle: 'italic' }}>
+              Tip: Higher carbonation increases the crispness and aromatic lift of the beer.
             </div>
           </div>
 
           {/* Controls Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '2rem', marginBottom: '1.5rem', padding: '1rem', backgroundColor: 'var(--bg-main)', borderRadius: '8px', border: '1px solid var(--border-color)', alignItems: 'end' }}>
+          <div className="ferm-controls-grid">
             <div>
               <label style={labelStyle}>Load Standard Profile</label>
               <div style={{ position: 'relative' }}>
@@ -119,15 +171,17 @@ export const FermentationSection = ({
               </div>
             </div>
 
-            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '2rem' }}>
-              <label style={labelStyle}>Total Duration</label>
-              <div style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--accent-primary)' }}>{totalDays} <span style={{ fontSize: '0.8rem' }}>DAYS</span></div>
+            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem', display: 'flex', gap: '2rem' }}>
+              <div>
+                <label style={labelStyle}>Total Duration</label>
+                <div style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--accent-primary)', lineHeight: 1 }}>{totalDays} <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>DAYS</span></div>
+              </div>
             </div>
 
             <button 
               type="button" 
               onClick={addStep}
-              style={{ alignSelf: 'center', backgroundColor: 'var(--accent-primary)', color: 'black', fontWeight: 'bold', padding: '0.6rem 1.2rem', borderRadius: '6px', border: 'none', cursor: 'pointer' }}
+              style={{ alignSelf: 'center', backgroundColor: 'var(--accent-primary)', color: 'black', fontWeight: 'bold', padding: '0.65rem 1.2rem', borderRadius: '6px', border: 'none', cursor: 'pointer', width: '100%' }}
             >
               + Add Custom Phase
             </button>
@@ -135,14 +189,14 @@ export const FermentationSection = ({
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {primaryFermenter.fermentationSteps.map((step, idx) => (
-              <div key={step.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--text-muted)', minWidth: '20px' }}>{idx + 1}</div>
+              <div key={step.id} className="ferm-step-card">
+                <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--text-muted)', minWidth: '20px', alignSelf: 'center' }}>{idx + 1}</div>
                 
-                <div style={{ flex: 3 }}>
+                <div className="ferm-name-col">
                   <label style={labelStyle}>Phase Name</label>
                   <input 
                     style={inputStyle} 
-                    placeholder="e.g. Primary or Diacetyl Rest" 
+                    placeholder="Phase name" 
                     value={step.name} 
                     onChange={e => updateStep(step.id, { name: e.target.value })} 
                     onFocus={handleFocus}
@@ -150,86 +204,81 @@ export const FermentationSection = ({
                   />
                 </div>
 
-                <div style={{ flex: 1 }}>
-                  <label style={labelStyle}>Temp (°{measurementSystem === 'metric' ? 'C' : 'F'})</label>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div>
+                  <label style={labelStyle}>Temp</label>
+                  <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '6px' }}>
                     <button 
                       onClick={() => updateStep(step.id, { stepTemp: step.stepTemp - (measurementSystem === 'metric' ? 1 : 0.5555) })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >−</button>
                     <input 
                       type="number" 
                       className="no-spinners"
-                      style={{ ...inputStyle, textAlign: 'center', padding: '0.5rem 0' }} 
+                      style={{ ...inputStyle, background: 'transparent', textAlign: 'center', padding: '0.4rem 0' }} 
                       value={Number((measurementSystem === 'metric' ? step.stepTemp : celsiusToFahrenheit(step.stepTemp)).toFixed(1))} 
                       onChange={e => {
                         const val = Number(e.target.value);
                         updateStep(step.id, { stepTemp: measurementSystem === 'metric' ? val : fahrenheitToCelsius(val) });
                       }}
-                      onFocus={handleFocus}
-                      onBlur={handleBlur}
                     />
                     <button 
                       onClick={() => updateStep(step.id, { stepTemp: step.stepTemp + (measurementSystem === 'metric' ? 1 : 0.5555) })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >+</button>
                   </div>
                 </div>
 
-                <div style={{ flex: 1 }}>
-                  <label style={labelStyle}>Pressure (PSI)</label>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div>
+                  <label style={labelStyle}>Pressure</label>
+                  <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '6px' }}>
                     <button 
                       onClick={() => updateStep(step.id, { pressure: Math.max(0, (step.pressure || 0) - 1) })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >−</button>
                     <input 
                       type="number" 
                       className="no-spinners"
-                      style={{ ...inputStyle, textAlign: 'center', padding: '0.5rem 0' }} 
+                      style={{ ...inputStyle, background: 'transparent', textAlign: 'center', padding: '0.4rem 0' }} 
                       value={step.pressure || 0} 
                       onChange={e => updateStep(step.id, { pressure: Number(e.target.value) })}
-                      onFocus={handleFocus}
-                      onBlur={handleBlur}
                     />
                     <button 
                       onClick={() => updateStep(step.id, { pressure: (step.pressure || 0) + 1 })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >+</button>
                   </div>
                 </div>
 
-                <div style={{ flex: 1 }}>
+                <div>
                   <label style={labelStyle}>Days</label>
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '6px' }}>
                     <button 
                       onClick={() => updateStep(step.id, { stepTime: Math.max(0, step.stepTime - 1) })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >−</button>
                     <input 
                       type="number" 
                       className="no-spinners"
-                      style={{ ...inputStyle, textAlign: 'center', padding: '0.5rem 0' }} 
+                      style={{ ...inputStyle, background: 'transparent', textAlign: 'center', padding: '0.4rem 0' }} 
                       value={step.stepTime} 
                       onChange={e => updateStep(step.id, { stepTime: Number(e.target.value) })}
-                      onFocus={handleFocus}
-                      onBlur={handleBlur}
                     />
                     <button 
                       onClick={() => updateStep(step.id, { stepTime: step.stepTime + 1 })}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.25rem', cursor: 'pointer' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-muted)', padding: '0.4rem', cursor: 'pointer' }}
                     >+</button>
                   </div>
                 </div>
 
-                <button 
-                  type="button" 
-                  onClick={() => setPrimaryFermenter(prev => ({ ...prev, fermentationSteps: prev.fermentationSteps.filter(s => s.id !== step.id) }))}
-                  style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.2rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.6 }}
-                  title="Remove Step"
-                >
-                  ×
-                </button>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <button 
+                    type="button" 
+                    onClick={() => setPrimaryFermenter(prev => ({ ...prev, fermentationSteps: prev.fermentationSteps.filter(s => s.id !== step.id) }))}
+                    style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.4rem', padding: '0.4rem', cursor: 'pointer', opacity: 0.6 }}
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
             ))}
           </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Save, Upload, Download } from 'lucide-react';
+import { Menu, X, Save, Upload, Download, Play } from 'lucide-react';
 
 interface RecipeHeaderProps {
   measurementSystem: string;
@@ -7,10 +7,12 @@ interface RecipeHeaderProps {
   onImport: () => void;
   onExport: () => void;
   onSave: () => void;
+  onStartBrewing?: () => void;
+  isNewRecipe?: boolean;
 }
 
 export const RecipeHeader = ({
-  measurementSystem, setMeasurementSystem, onImport, onExport, onSave
+  measurementSystem, setMeasurementSystem, onImport, onExport, onSave, onStartBrewing, isNewRecipe
 }: RecipeHeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -100,6 +102,15 @@ export const RecipeHeader = ({
         
         {/* Mobile Toggle & Save */}
         <div className="mobile-toggle">
+          {!isNewRecipe && onStartBrewing && (
+            <button 
+              className="primary" 
+              onClick={onStartBrewing} 
+              style={{ padding: '0.4rem 0.8rem', fontSize: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem', backgroundColor: '#4CAF50', borderColor: '#4CAF50' }}
+            >
+              <Play size={14} /> BREW
+            </button>
+          )}
           <button 
             className="primary" 
             onClick={onSave} 
@@ -117,6 +128,15 @@ export const RecipeHeader = ({
 
         {/* Desktop Actions */}
         <div className="desktop-actions">
+          {!isNewRecipe && onStartBrewing && (
+            <button 
+              className="primary" 
+              onClick={onStartBrewing} 
+              style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: '#4CAF50', borderColor: '#4CAF50' }}
+            >
+              <Play size={16} fill="currentColor" /> Start Brewing
+            </button>
+          )}
           <div className="unit-toggle">
             <button 
               type="button" 

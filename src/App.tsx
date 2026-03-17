@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
-import { Dashboard, Recipes, RecipeBuilder, Sessions, Calculators, Inventory } from './pages';
+import { Dashboard, Recipes, RecipeBuilder, Sessions, Calculators, Inventory, BrewDay } from './pages';
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
           <Route path="recipes" element={<Recipes />} />
           <Route path="recipes/new" element={<RecipeBuilder />} />
           <Route path="recipes/:id" element={<RecipeBuilder />} />
+          <Route path="brew-day/:sessionId" element={<BrewDay />} />
           <Route path="sessions" element={<Sessions />} />
           <Route path="calculators" element={<Calculators />} />
           <Route path="inventory" element={<Inventory />} />

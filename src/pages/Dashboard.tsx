@@ -62,7 +62,7 @@ export const Dashboard = () => {
         <div className="stat-card">
           <h3>Active Brews</h3>
           <p className="stat-value">
-            {sessions.filter(s => !s.measuredFG).length}
+            {sessions.filter(s => s.status === 'active').length}
           </p>
         </div>
         <div className="stat-card">
@@ -74,7 +74,7 @@ export const Dashboard = () => {
         <div className="stat-card">
           <h3>Completed Sessions</h3>
           <p className="stat-value">
-            {sessions.filter(s => s.measuredFG).length}
+            {sessions.filter(s => s.status === 'completed').length}
           </p>
         </div>
       </div>

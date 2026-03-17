@@ -496,32 +496,39 @@ export const RecipeBuilder = () => {
     reader.readAsText(file);
   };
 
-  const handleSave = () => {
-    const recipeData: Recipe = {
-      id: id || crypto.randomUUID(),
-      name: name || 'Unnamed Recipe',
-      author: author || 'BrewManager User',
-      version,
-      type: brewMethod,
-      styleId: selectedStyleId,
-      equipment,
-      batchVolume, boilVolume, boilTime, efficiency, grainAbsorptionRate,
-      fermentables,
-      kettleHops,
-      mashSteps, 
-      fermenters: [primaryFermenter],
-      waterProfile: sourceWater,
-      targetWaterProfile: activeTargetWater,
-      acidAddition,
-      ...sharedTargets
-    };
+  const getRecipeData = (): Recipe => ({
+    id: id || crypto.randomUUID(),
+    name: name || 'Unnamed Recipe',
+    author: author || 'BrewManager User',
+    version,
+    type: brewMethod,
+    styleId: selectedStyleId,
+    equipment,
+    batchVolume, boilVolume, boilTime, efficiency, grainAbsorptionRate,
+    fermentables,
+    kettleHops,
+    mashSteps, 
+    fermenters: [primaryFermenter],
+    waterProfile: sourceWater,
+    targetWaterProfile: activeTargetWater,
+    acidAddition,
+    ...sharedTargets
+  });
 
+  const handleSave = () => {
+    const recipeData = getRecipeData();
     if (id) {
       updateRecipe(id, recipeData);
     } else {
       addRecipe(recipeData);
     }
     navigate('/recipes');
+  };
+
+  const handleStartBrewing = () => {
+    const recipeData = getRecipeData();
+    const sessionId = useBrewStore.getState().startSession(recipeData, `${recipeData.name} Brew Day`);
+    navigate(`/brew-day/${sessionId}`);
   };
 
   return (
@@ -579,6 +586,8 @@ export const RecipeBuilder = () => {
         onImport={() => fileInputRef.current?.click()}
         onExport={handleExportJSON}
         onSave={handleSave}
+        onStartBrewing={handleStartBrewing}
+        isNewRecipe={!id}
       />
       <input type="file" accept=".json" style={{ display: 'none' }} ref={fileInputRef} onChange={handleImportJSON} />
 

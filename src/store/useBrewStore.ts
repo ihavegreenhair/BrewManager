@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Recipe, Session, MeasurementSystem, WaterProfile } from '../types/brewing';
+import { generateBrewEvents } from '../utils/instructionGenerator';
 
 export const defaultTapWater: WaterProfile = {
   id: 'wp-source', name: 'My Tap Water', calcium: 40, magnesium: 10, sodium: 15, sulfate: 40, chloride: 30, bicarbonate: 50
@@ -24,8 +25,9 @@ interface BrewState {
   deleteRecipe: (id: string) => void;
   
   // Session Actions
-  addSession: (session: Session) => void;
+  startSession: (recipe: Recipe, name: string) => string;
   updateSession: (id: string, session: Partial<Session>) => void;
+  completeSession: (id: string) => void;
   deleteSession: (id: string) => void;
 }
 
@@ -56,13 +58,35 @@ export const useBrewStore = create<BrewState>()(
           recipes: state.recipes.filter((r) => r.id !== id),
         })),
         
-      addSession: (session) =>
-        set((state) => ({ sessions: [...state.sessions, session] })),
+      startSession: (recipe, name) => {
+        const id = crypto.randomUUID();
+        const newSession: Session = {
+          id,
+          recipeId: recipe.id,
+          recipeSnapshot: JSON.parse(JSON.stringify(recipe)),
+          name: name || `${recipe.name} - ${new Date().toLocaleDateString()}`,
+          date: new Date().toISOString(),
+          status: 'active',
+          notes: '',
+          currentEventIndex: 0,
+          actuals: {},
+          events: generateBrewEvents(recipe)
+        };
+        set((state) => ({ sessions: [newSession, ...state.sessions] }));
+        return id;
+      },
         
       updateSession: (id, updatedSession) =>
         set((state) => ({
           sessions: state.sessions.map((s) =>
             s.id === id ? { ...s, ...updatedSession } : s
+          ),
+        })),
+
+      completeSession: (id) =>
+        set((state) => ({
+          sessions: state.sessions.map((s) =>
+            s.id === id ? { ...s, status: 'completed' as const } : s
           ),
         })),
         

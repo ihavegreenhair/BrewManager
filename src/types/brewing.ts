@@ -272,11 +272,42 @@ export interface BeerStyle {
 // ---------------------------------------------------------
 // Active Brew Session
 // ---------------------------------------------------------
+export interface BrewEvent {
+  id: string;
+  type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint';
+  label: string;
+  subLabel?: string;
+  targetValue?: number;
+  unit?: string;
+  duration?: number; // Minutes
+  completed: boolean;
+  timestamp?: string;
+}
+
 export interface Session {
   id: string;
   recipeId: string;
-  date: string; // ISO String
+  recipeSnapshot: Recipe;
+  name: string;
+  date: string;
+  status: 'active' | 'completed' | 'cancelled';
   notes: string;
-  measuredOG: number;
-  measuredFG: number; // Could be expanded to array for split batches in the future
+  
+  // Phase tracking
+  currentEventIndex: number;
+  
+  // High-fidelity actuals
+  actuals: {
+    strikeVolume?: number;
+    strikeTemp?: number;
+    mashPh?: number;
+    preBoilVolume?: number;
+    preBoilGravity?: number;
+    postBoilVolume?: number;
+    og?: number;
+    fg?: number;
+    pitchTemp?: number;
+  };
+  
+  events: BrewEvent[];
 }

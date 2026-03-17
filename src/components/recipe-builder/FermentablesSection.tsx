@@ -210,13 +210,77 @@ export const FermentablesSection = ({
       
       {!collapsed && (
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+          <style>{`
+            .grain-controls {
+              display: flex;
+              flex-direction: column;
+              gap: 1rem;
+              margin-bottom: 1.5rem;
+              padding-bottom: 1.5rem;
+              border-bottom: 1px dashed var(--border-color);
+            }
+            @media (min-width: 768px) {
+              .grain-controls {
+                flex-direction: row;
+                align-items: flex-end;
+              }
+            }
+            .grain-grid-header {
+              display: none;
+              grid-template-columns: 3fr 100px 140px 60px 60px 30px;
+              gap: 1rem;
+              margin-bottom: 0.5rem;
+              padding: 0 0.5rem;
+              font-size: 0.65rem;
+              color: var(--text-muted);
+              text-transform: uppercase;
+              font-weight: bold;
+            }
+            @media (min-width: 1024px) {
+              .grain-grid-header {
+                display: grid;
+              }
+            }
+            .grain-item {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0.75rem;
+              align-items: center;
+              background-color: rgba(255,255,255,0.015);
+              padding: 1rem;
+              border-radius: 6px;
+              border: 1px solid rgba(255,255,255,0.03);
+              transition: background-color 0.2s;
+            }
+            @media (min-width: 1024px) {
+              .grain-item {
+                grid-template-columns: 3fr 100px 140px 60px 60px 40px;
+                gap: 1rem;
+                padding: 0.5rem;
+              }
+            }
+            .mobile-label {
+              display: block;
+              font-size: 0.6rem;
+              color: var(--text-muted);
+              text-transform: uppercase;
+              margin-bottom: 0.25rem;
+            }
+            @media (min-width: 1024px) {
+              .mobile-label {
+                display: none;
+              }
+            }
+            .name-col { grid-column: span 2; }
+            @media (min-width: 1024px) { .name-col { grid-column: span 1; } }
+          `}</style>
           
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', alignItems: 'flex-end', paddingBottom: '1.5rem', borderBottom: '1px dashed var(--border-color)' }}>
+          <div className="grain-controls">
             <div style={{ flex: 1, position: 'relative' }}>
               <label style={labelStyle}>Add Fermentable</label>
               <input 
                 style={{ ...inputStyle, background: 'var(--bg-main)' }} 
-                placeholder="Search library (e.g. Maris Otter...)" 
+                placeholder="Search library..." 
                 value={fermentableSearch} 
                 onChange={e => setFermentableSearch(e.target.value)} 
                 onFocus={handleFocus}
@@ -242,13 +306,13 @@ export const FermentablesSection = ({
               )}
             </div>
             
-            <button type="button" onClick={() => {
-              setFermentables([...fermentables, { id: crypto.randomUUID(), name: 'Custom Grain', weight: 1.0, yield: 36, color: 2, percentage: 0, locked: false }]);
-              setFermentableSearch('');
-            }} style={{ padding: '0.6rem 1.5rem', backgroundColor: 'transparent', border: '1px solid var(--border-color)', borderRadius: '6px', color: 'var(--text-secondary)', fontWeight: 'bold', cursor: 'pointer' }}>+ Custom</button>
-            
-            <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem', marginLeft: '0.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button type="button" onClick={() => {
+                setFermentables([...fermentables, { id: crypto.randomUUID(), name: 'Custom Grain', weight: 1.0, yield: 36, color: 2, percentage: 0, locked: false }]);
+                setFermentableSearch('');
+              }} style={{ flex: 1, padding: '0.6rem 1rem', backgroundColor: 'transparent', border: '1px solid var(--border-color)', borderRadius: '6px', color: 'var(--text-secondary)', fontWeight: 'bold', cursor: 'pointer' }}>+ Custom</button>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--bg-main)', padding: '0 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
                 <input 
                   type="checkbox" 
                   id="scaleToAbvToggle"
@@ -257,15 +321,18 @@ export const FermentablesSection = ({
                   style={{ cursor: 'pointer', accentColor: 'var(--accent-primary)', width: '14px', height: '14px', margin: 0 }}
                 />
                 <label htmlFor="scaleToAbvToggle" style={{ fontSize: '0.65rem', color: grainBillMode === 'percentage' ? 'var(--text-primary)' : 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 'bold', cursor: 'pointer', margin: 0 }}>
-                  Scale to Target ABV
+                  Scale to ABV
                 </label>
               </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <input 
                   type="number" step="0.1" 
                   style={{ 
                     ...inputStyle, 
-                    width: '70px', 
+                    width: '60px', 
                     textAlign: 'center', 
                     border: isPercentError ? '1px solid var(--status-danger)' : (grainBillMode === 'percentage' ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)'), 
                     padding: '0.4rem', 
@@ -275,23 +342,21 @@ export const FermentablesSection = ({
                   value={targetABV} 
                   disabled={isPercentError || grainBillMode !== 'percentage'}
                   onChange={e => setTargetABV(Number(e.target.value))}
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
                 />
-                <span style={{ fontWeight: 'bold', color: grainBillMode === 'percentage' && !isPercentError ? 'var(--accent-primary)' : 'var(--text-muted)' }}>%</span>
+                <span style={{ fontWeight: 'bold', color: grainBillMode === 'percentage' && !isPercentError ? 'var(--accent-primary)' : 'var(--text-muted)', fontSize: '0.8rem' }}>% ABV</span>
               </div>
-            </div>
-            
-            <div style={{ textAlign: 'right', marginLeft: '1rem' }}>
-              <label style={labelStyle}>Total Weight</label>
-              <div style={{ fontSize: '1.25rem', fontWeight: 'bold', padding: '0.2rem 0' }}>
-                {displayTotalWeight.toFixed(2)} <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{weightUnit.toUpperCase()}</span>
+              
+              <div style={{ textAlign: 'right' }}>
+                <label style={labelStyle}>Total Weight</label>
+                <div style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
+                  {displayTotalWeight.toFixed(2)} <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{weightUnit.toUpperCase()}</span>
+                </div>
               </div>
             </div>
           </div>
           
           {fermentables.length > 0 && (
-            <div style={{ display: 'grid', gridTemplateColumns: '3fr 100px 140px 60px 60px 30px', gap: '1rem', marginBottom: '0.5rem', padding: '0 0.5rem', fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 'bold' }}>
+            <div className="grain-grid-header">
               <div>Ingredient Name</div>
               <div style={{ textAlign: 'right' }}>Weight ({weightUnit})</div>
               <div style={{ textAlign: 'right' }}>% / Scale</div>
@@ -307,61 +372,45 @@ export const FermentablesSection = ({
               const displayWeight = measurementSystem === 'metric' ? f.weight : kgToLbs(f.weight);
               const impact = getMouthfeelImpact(f.name);
               return (
-                <div key={f.id} className="hover-bg" style={{ display: 'grid', gridTemplateColumns: '3fr 100px 140px 60px 60px 40px', gap: '1rem', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.015)', padding: '0.5rem', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.03)', transition: 'background-color 0.2s' }}>
-                  <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-                    <input 
-                      style={{ ...inputStyle, padding: '0.4rem', background: 'transparent', border: 'none', color: 'white' }} 
-                      placeholder="Ingredient name" 
-                      value={f.name} 
-                      onChange={e => updateFermentable(f.id, { name: e.target.value })} 
-                      onFocus={handleFocus} 
-                      onBlur={handleBlur} 
-                    />
-                    {impact && (
-                      <span 
-                        onClick={() => updateFermentable(f.id, { ignoreMouthfeel: !f.ignoreMouthfeel })}
-                        style={{ 
-                          fontSize: '0.55rem', 
-                          padding: '0.1rem 0.3rem', 
-                          backgroundColor: f.ignoreMouthfeel ? 'transparent' : `${impact.color}20`, 
-                          color: f.ignoreMouthfeel ? 'var(--text-muted)' : impact.color, 
-                          border: `1px solid ${f.ignoreMouthfeel ? 'var(--border-color)' : `${impact.color}50`}`, 
-                          borderRadius: '3px', 
-                          fontWeight: 'bold',
-                          marginLeft: '0.5rem',
-                          textTransform: 'uppercase',
-                          whiteSpace: 'nowrap',
-                          cursor: 'pointer',
-                          textDecoration: f.ignoreMouthfeel ? 'line-through' : 'none',
-                          opacity: f.ignoreMouthfeel ? 0.5 : 1
-                        }}
-                        title={f.ignoreMouthfeel ? "Click to re-enable impact" : "Click to ignore this mouthfeel impact"}
-                      >
-                        {impact.label}
-                      </span>
-                    )}
+                <div key={f.id} className="grain-item">
+                  <div className="name-col">
+                    <span className="mobile-label">Ingredient</span>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <input 
+                        style={{ ...inputStyle, padding: '0.4rem', background: 'transparent', border: 'none', color: 'white' }} 
+                        placeholder="Ingredient name" 
+                        value={f.name} 
+                        onChange={e => updateFermentable(f.id, { name: e.target.value })} 
+                      />
+                      {impact && (
+                        <span 
+                          onClick={() => updateFermentable(f.id, { ignoreMouthfeel: !f.ignoreMouthfeel })}
+                          style={{ 
+                            fontSize: '0.55rem', 
+                            padding: '0.1rem 0.3rem', 
+                            backgroundColor: f.ignoreMouthfeel ? 'transparent' : `${impact.color}20`, 
+                            color: f.ignoreMouthfeel ? 'var(--text-muted)' : impact.color, 
+                            border: `1px solid ${f.ignoreMouthfeel ? 'var(--border-color)' : `${impact.color}50`}`, 
+                            borderRadius: '3px', 
+                            fontWeight: 'bold',
+                            marginLeft: '0.5rem',
+                            textTransform: 'uppercase',
+                            whiteSpace: 'nowrap',
+                            cursor: 'pointer',
+                            textDecoration: f.ignoreMouthfeel ? 'line-through' : 'none',
+                            opacity: f.ignoreMouthfeel ? 0.5 : 1
+                          }}
+                        >
+                          {impact.label}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   
-                  <input 
-                    type="number" step="0.01" 
-                    className="no-spinners"
-                    style={{ 
-                      ...inputStyle, 
-                      padding: '0.4rem', 
-                      textAlign: 'right', 
-                      border: '1px solid transparent',
-                      background: 'rgba(255,255,255,0.02)',
-                      color: 'white'
-                    }} 
-                    value={displayWeight || ''} 
-                    onChange={e => onWeightChange(f.id, Number(e.target.value))} 
-                    onFocus={handleFocus}
-                    onBlur={handleBlur}
-                  />
-
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.4rem' }}>
+                  <div>
+                    <span className="mobile-label">Weight ({weightUnit})</span>
                     <input 
-                      type="number" step="0.1"
+                      type="number" step="0.01" 
                       className="no-spinners"
                       style={{ 
                         ...inputStyle, 
@@ -369,40 +418,63 @@ export const FermentablesSection = ({
                         textAlign: 'right', 
                         border: '1px solid transparent',
                         background: 'rgba(255,255,255,0.02)',
-                        color: 'white',
-                        flex: 1 
+                        color: 'white'
                       }} 
-                      value={grainBillMode === 'percentage' ? (f.percentage || '') : Number(calcPercentage.toFixed(1))}
-                      onChange={e => onPercentageChange(f.id, Number(e.target.value))}
-                      onFocus={handleFocus}
-                      onBlur={handleBlur}
+                      value={displayWeight || ''} 
+                      onChange={e => onWeightChange(f.id, Number(e.target.value))} 
                     />
-                    <button 
-                      type="button"
-                      onClick={() => toggleLock(f.id)}
-                      style={{ 
-                        background: f.locked ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', 
-                        border: f.locked ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)',
-                        color: f.locked ? '#0F172A' : 'var(--text-secondary)', 
-                        fontSize: '0.6rem', 
-                        fontWeight: 'bold', 
-                        padding: '0.4rem 0.5rem', 
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s',
-                        minWidth: '45px',
-                        textAlign: 'center'
-                      }}
-                      title={f.locked ? "Unlock percentage" : "Lock percentage"}
-                    >
-                      {f.locked ? 'FIXED' : 'AUTO'}
-                    </button>
                   </div>
 
-                  <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.yield} onChange={e => updateFermentable(f.id, { yield: Number(e.target.value) })} onFocus={handleFocus} onBlur={handleBlur} />
-                  <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.color} onChange={e => updateFermentable(f.id, { color: Number(e.target.value) })} onFocus={handleFocus} onBlur={handleBlur} />
+                  <div>
+                    <span className="mobile-label">% / Mode</span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.4rem' }}>
+                      <input 
+                        type="number" step="0.1"
+                        className="no-spinners"
+                        style={{ 
+                          ...inputStyle, 
+                          padding: '0.4rem', 
+                          textAlign: 'right', 
+                          border: '1px solid transparent',
+                          background: 'rgba(255,255,255,0.02)',
+                          color: 'white',
+                          flex: 1 
+                        }} 
+                        value={grainBillMode === 'percentage' ? (f.percentage || '') : Number(calcPercentage.toFixed(1))}
+                        onChange={e => onPercentageChange(f.id, Number(e.target.value))}
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => toggleLock(f.id)}
+                        style={{ 
+                          background: f.locked ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)', 
+                          border: f.locked ? '1px solid var(--accent-primary)' : '1px solid var(--border-color)',
+                          color: f.locked ? '#0F172A' : 'var(--text-secondary)', 
+                          fontSize: '0.6rem', 
+                          fontWeight: 'bold', 
+                          padding: '0.4rem 0.5rem', 
+                          borderRadius: '4px',
+                          cursor: 'pointer',
+                          minWidth: '45px'
+                        }}
+                      >
+                        {f.locked ? 'FIXED' : 'AUTO'}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="mobile-label">Yield (PPG)</span>
+                    <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.yield} onChange={e => updateFermentable(f.id, { yield: Number(e.target.value) })} />
+                  </div>
+                  <div>
+                    <span className="mobile-label">Color (SRM)</span>
+                    <input type="number" className="no-spinners" style={{ ...inputStyle, padding: '0.4rem', textAlign: 'right', background: 'transparent', border: 'none', opacity: 0.6 }} value={f.color} onChange={e => updateFermentable(f.id, { color: Number(e.target.value) })} />
+                  </div>
                   
-                  <button type="button" onClick={() => removeFermentable(f.id)} style={{ background: 'none', border: 'none', color: 'var(--status-danger)', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.6, width: '30px', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+                  <div style={{ textAlign: 'right' }}>
+                    <button type="button" onClick={() => removeFermentable(f.id)} style={{ background: 'none', border: 'none', color: 'var(--status-danger)', cursor: 'pointer', fontSize: '1.2rem', opacity: 0.6 }}>×</button>
+                  </div>
                 </div>
               );
             })}

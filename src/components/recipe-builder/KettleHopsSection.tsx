@@ -125,6 +125,54 @@ export const KettleHopsSection = ({
 
       {!collapsed && (
         <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem', overflow: 'hidden' }}>
+          <style>{`
+            .hop-grid-header {
+              display: none;
+              grid-template-columns: ${gridTemplate};
+              gap: 0.5rem;
+              padding: 0 0.5rem 0.5rem 0.5rem;
+              align-items: center;
+            }
+            @media (min-width: 1024px) {
+              .hop-grid-header {
+                display: grid;
+              }
+            }
+            .hop-item {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0.75rem;
+              padding: 1rem;
+              background-color: rgba(255,255,255,0.015);
+              border-radius: 6px;
+              border: 1px solid rgba(255,255,255,0.03);
+              align-items: center;
+            }
+            @media (min-width: 1024px) {
+              .hop-item {
+                grid-template-columns: ${gridTemplate};
+                gap: 0.5rem;
+                padding: 0.6rem 0.5rem;
+              }
+            }
+            .hop-mobile-label {
+              display: block;
+              font-size: 0.6rem;
+              color: var(--text-muted);
+              text-transform: uppercase;
+              margin-bottom: 0.2rem;
+            }
+            @media (min-width: 1024px) {
+              .hop-mobile-label {
+                display: none;
+              }
+            }
+            .hop-variety-col { grid-column: span 2; }
+            @media (min-width: 1024px) { .hop-variety-col { grid-column: span 1; } }
+            
+            .hop-actions-col { grid-column: span 2; justify-content: flex-end; display: flex; gap: 0.5rem; }
+            @media (min-width: 1024px) { .hop-actions-col { grid-column: span 1; } }
+          `}</style>
           
           <RecipeHopProfile 
             kettleHops={kettleHops} 
@@ -133,14 +181,7 @@ export const KettleHopsSection = ({
             boilVolume={boilVolume}
           />
 
-          {/* Table Headers */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: gridTemplate, 
-            gap: '0.5rem', 
-            padding: '0 0.5rem 0.5rem 0.5rem',
-            alignItems: 'center'
-          }}>
+          <div className="hop-grid-header">
             <div />
             <div style={{ ...headerLabelStyle, textAlign: 'left' }}>Hop Variety</div>
             <div style={{ ...headerLabelStyle, textAlign: 'right' }}>Weight</div>
@@ -152,8 +193,7 @@ export const KettleHopsSection = ({
             <div />
           </div>
 
-          {/* Hops List */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {kettleHops.map((h, idx) => {
               const variety = h.customVariety || allHops.find(v => v.name.toLowerCase() === h.name.toLowerCase());
               const isExpanded = expandedVisualizers[h.id];
@@ -164,25 +204,19 @@ export const KettleHopsSection = ({
               const displayWeight = measurementSystem === 'metric' ? h.weight : gramsToOz(h.weight);
 
               return (
-                <div key={h.id} className="hover-bg" style={{ 
+                <div key={h.id} style={{ 
                   backgroundColor: 'rgba(255,255,255,0.015)', 
                   borderRadius: '6px', 
                   border: isRowActive ? '1px solid var(--accent-primary)' : '1px solid rgba(255,255,255,0.03)',
-                  position: 'relative',
-                  zIndex: isRowActive ? 100 : 1,
-                  overflow: 'hidden',
-                  transition: 'background-color 0.2s'
+                  overflow: 'hidden'
                 }}>
-                  <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: gridTemplate, 
-                    gap: '0.5rem', 
-                    padding: '0.6rem 0.5rem',
-                    alignItems: 'center'
-                  }}>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 'bold', color: 'var(--text-muted)' }}>{idx + 1}</div>
+                  <div className="hop-item">
+                    <div style={{ fontSize: '0.7rem', fontWeight: 'bold', color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}>
+                      <span style={{ marginRight: '0.5rem' }}>#{idx + 1}</span>
+                    </div>
                     
-                    <div style={{ minWidth: 0 }}>
+                    <div className="hop-variety-col">
+                      <span className="hop-mobile-label">Variety</span>
                       <HopVarietyPicker 
                         value={h.name}
                         onChange={(v) => {
@@ -195,11 +229,11 @@ export const KettleHopsSection = ({
                         }}
                         onFocus={() => handleFocus(h.id)}
                         onBlur={handleBlur}
-                        style={{ fontSize: '0.85rem' }}
                       />
                     </div>
 
                     <div>
+                      <span className="hop-mobile-label">Weight ({weightUnit})</span>
                       <input 
                         type="number" 
                         className="no-spinners"
@@ -211,12 +245,11 @@ export const KettleHopsSection = ({
                           const weightGrams = measurementSystem === 'metric' ? val : ozToGrams(val);
                           updateHop(h.id, { weight: weightGrams });
                         }}
-                        onFocus={() => handleFocus(h.id)}
-                        onBlur={handleBlur}
                       />
                     </div>
 
                     <div>
+                      <span className="hop-mobile-label">Alpha Acid %</span>
                       <input 
                         type="number" 
                         step="0.1"
@@ -225,12 +258,11 @@ export const KettleHopsSection = ({
                         value={h.alphaAcid === 0 ? '' : h.alphaAcid} 
                         placeholder="0.0"
                         onChange={e => updateHop(h.id, { alphaAcid: parseFloat(e.target.value) || 0 })}
-                        onFocus={() => handleFocus(h.id)}
-                        onBlur={handleBlur}
                       />
                     </div>
 
                     <div>
+                      <span className="hop-mobile-label">Addition Type</span>
                       <select 
                         style={{ ...inputStyle, textAlign: 'left', paddingLeft: '0.5rem', background: 'var(--bg-main)', cursor: 'pointer' }} 
                         value={h.use} 
@@ -242,8 +274,6 @@ export const KettleHopsSection = ({
                             time: newUse === 'dry_hop' ? (h.time > 14 ? 3 : h.time) : h.time
                           });
                         }}
-                        onFocus={() => handleFocus(h.id)}
-                        onBlur={handleBlur}
                       >
                         <option value="boil">Boil</option>
                         <option value="first_wort">First Wort</option>
@@ -254,20 +284,19 @@ export const KettleHopsSection = ({
                     </div>
 
                     <div>
+                      <span className="hop-mobile-label">{h.use === 'dry_hop' ? 'Day' : 'Mins'}</span>
                       <input 
                         type="number" 
                         className="no-spinners"
                         style={inputStyle} 
                         value={h.time === 0 ? '' : h.time} 
-                        placeholder={h.use === 'dry_hop' ? "Day" : "0"}
+                        placeholder="0"
                         onChange={e => updateHop(h.id, { time: parseInt(e.target.value) || 0 })}
-                        onFocus={() => handleFocus(h.id)}
-                        onBlur={handleBlur}
-                        title={h.use === 'dry_hop' ? "Day of fermentation to add" : "Minutes"}
                       />
                     </div>
 
                     <div>
+                      <span className="hop-mobile-label">Temp (°C)</span>
                       <input 
                         type="number" 
                         className="no-spinners"
@@ -276,33 +305,31 @@ export const KettleHopsSection = ({
                         placeholder={isWhirlpool ? "80" : "—"}
                         disabled={!isWhirlpool}
                         onChange={e => updateHop(h.id, { temp: parseFloat(e.target.value) || undefined })}
-                        onFocus={() => handleFocus(h.id)}
-                        onBlur={handleBlur}
                       />
                     </div>
 
                     <div style={{ textAlign: 'center' }}>
+                      <span className="hop-mobile-label">IBU</span>
                       <div 
                         style={{ 
                           fontSize: '0.85rem', 
                           fontWeight: 'bold', 
                           color: h.use === 'boil' ? 'var(--accent-primary)' : 'var(--text-muted)',
-                          cursor: h.use === 'boil' ? 'pointer' : 'default'
+                          cursor: h.use === 'boil' ? 'pointer' : 'default',
+                          padding: '0.5rem 0'
                         }}
                         onClick={() => h.use === 'boil' && handleTargetIBUClick(h)}
-                        title={h.use === 'boil' ? "Click to calculate weight for target IBU" : ""}
                       >
                         {individualIBU.toFixed(1)}
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.2rem', justifyContent: 'flex-end' }}>
+                    <div className="hop-actions-col">
                       {h.use === 'boil' && (
                          <button 
                             type="button"
                             onClick={() => handleTargetIBUClick(h)}
-                            style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.1rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.8, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                            title="Calculate weight to hit target IBU"
+                            style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.1rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.8 }}
                           >
                             ⌖
                           </button>
@@ -311,8 +338,7 @@ export const KettleHopsSection = ({
                         <button 
                           type="button" 
                           onClick={() => toggleVisualizer(h.id)}
-                          style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.3rem', padding: '0.5rem', cursor: 'pointer', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                          title={isExpanded ? "Collapse variety details" : "Expand variety details (Oil & Flavor)"}
+                          style={{ background: 'none', border: 'none', color: 'var(--accent-primary)', fontSize: '1.3rem', padding: '0.5rem', cursor: 'pointer' }}
                         >
                           {isExpanded ? '−' : '⊕'}
                         </button>
@@ -320,8 +346,7 @@ export const KettleHopsSection = ({
                       <button 
                         type="button" 
                         onClick={() => setKettleHops(kettleHops.filter(item => item.id !== h.id))}
-                        style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.4rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.7, width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        title="Remove this hop addition"
+                        style={{ background: 'none', border: 'none', color: 'var(--status-danger)', fontSize: '1.4rem', padding: '0.5rem', cursor: 'pointer', opacity: 0.7 }}
                       >
                         ×
                       </button>

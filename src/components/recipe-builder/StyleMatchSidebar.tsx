@@ -177,15 +177,6 @@ export const StyleMatchSidebar = ({
     };
   }, [tastingOutput]);
 
-  const statItemStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    flex: 1,
-    padding: '0.5rem',
-    borderRight: '1px solid rgba(255,255,255,0.05)'
-  };
-
   const statLabelStyle: React.CSSProperties = {
     fontSize: '0.55rem',
     color: 'var(--text-muted)',
@@ -203,6 +194,54 @@ export const StyleMatchSidebar = ({
 
   return (
     <div style={{ width: '100%' }}>
+      <style>{`
+        .stats-bar {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          background-color: var(--bg-main); 
+          border-radius: 8px; 
+          margin-bottom: 0.5rem; 
+          border: 1px solid rgba(255,255,255,0.05);
+          overflow: hidden;
+        }
+        @media (min-width: 640px) {
+          .stats-bar {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+        @media (min-width: 1024px) {
+          .stats-bar {
+            display: flex;
+          }
+        }
+        .stats-bar-two {
+          display: grid;
+          grid-template-columns: 1fr;
+          background-color: var(--bg-main); 
+          border-radius: 8px; 
+          margin-bottom: 1.5rem; 
+          border: 1px solid rgba(255,255,255,0.05);
+          overflow: hidden;
+        }
+        @media (min-width: 640px) {
+          .stats-bar-two {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 1024px) {
+          .stats-bar-two {
+            display: flex;
+          }
+        }
+        .stat-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex: 1;
+          padding: 0.5rem;
+          border: 1px solid rgba(255,255,255,0.05);
+        }
+      `}</style>
       <section style={{ 
         backgroundColor: 'var(--bg-surface)', 
         padding: '1.5rem', 
@@ -226,46 +265,32 @@ export const StyleMatchSidebar = ({
         </div>
 
         {/* Vital Stats Bar */}
-        <div style={{ 
-          display: 'flex', 
-          backgroundColor: 'var(--bg-main)', 
-          borderRadius: '8px', 
-          marginBottom: '0.5rem', 
-          border: '1px solid rgba(255,255,255,0.05)',
-          overflow: 'hidden'
-        }}>
-          <div style={statItemStyle}>
+        <div className="stats-bar">
+          <div className="stat-item">
             <span style={statLabelStyle}>OG</span>
             <span style={statValueStyle}>{sharedTargets.targetOG.toFixed(3)}</span>
           </div>
-          <div style={statItemStyle}>
+          <div className="stat-item">
             <span style={statLabelStyle}>FG</span>
             <span style={statValueStyle}>{primaryFermenter.targetFG.toFixed(3)}</span>
           </div>
-          <div style={statItemStyle}>
+          <div className="stat-item">
             <span style={statLabelStyle}>ABV</span>
             <span style={statValueStyle}>{primaryFermenter.targetABV.toFixed(1)}%</span>
           </div>
-          <div style={{ ...statItemStyle, borderRight: 'none' }}>
+          <div className="stat-item">
             <span style={statLabelStyle}>SRM</span>
             <span style={{ ...statValueStyle, color: `var(--srm-${Math.round(sharedTargets.targetSRM)})` }}>{sharedTargets.targetSRM.toFixed(1)}</span>
           </div>
         </div>
 
         {/* Efficiency & Balance Bar */}
-        <div style={{ 
-          display: 'flex', 
-          backgroundColor: 'var(--bg-main)', 
-          borderRadius: '8px', 
-          marginBottom: '1.5rem', 
-          border: '1px solid rgba(255,255,255,0.05)',
-          overflow: 'hidden'
-        }}>
-          <div style={statItemStyle}>
+        <div className="stats-bar-two">
+          <div className="stat-item">
             <span style={statLabelStyle}>Apparent Attenuation</span>
             <span style={statValueStyle}>{apparentAttenuation.toFixed(0)}%</span>
           </div>
-          <div style={{ ...statItemStyle, borderRight: 'none' }}>
+          <div className="stat-item">
             <span style={statLabelStyle}>Bitterness Ratio (BU:GU)</span>
             <span style={statValueStyle}>{buguRatio.toFixed(2)}</span>
           </div>

@@ -1,6 +1,20 @@
 import type { Fermentable, Hop, Yeast, FermenterEntity, WaterVolumes, Equipment, HopVariety } from '../types/brewing';
 
 /**
+ * Calculates the required strike water temperature
+ */
+export const calculateStrikeTemp = (
+  targetMashTemp: number, // Celsius
+  grainTemp: number, // Celsius
+  waterToGrainRatio: number, // L/kg
+): number => {
+  if (waterToGrainRatio <= 0) return targetMashTemp;
+  // Formula: Ts = (0.41 / R) * (Tm - Tg) + Tm
+  const strikeTemp = (0.41 / waterToGrainRatio) * (targetMashTemp - grainTemp) + targetMashTemp;
+  return Number(strikeTemp.toFixed(1));
+};
+
+/**
  * Calculates all water volumes for a brew day
  */
 export const calculateWaterVolumes = (

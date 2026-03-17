@@ -278,10 +278,24 @@ export interface BrewEvent {
   label: string;
   subLabel?: string;
   targetValue?: number;
+  targetTemp?: number;
   unit?: string;
   duration?: number; // Minutes
   completed: boolean;
   timestamp?: string;
+  
+  // Real-time tracking
+  actualValue?: number;
+  actualTemp?: number;
+  notes?: string;
+
+  // Rich data for display
+  metadata?: {
+    salts?: { name: string; amount: number; unit: string }[];
+    hopDetails?: { name: string; weight: number; alpha: number };
+    yeastDetails?: { name: string; amount?: string };
+    mashDetails?: { name: string; temp: number; time: number };
+  };
 }
 
 export interface Session {

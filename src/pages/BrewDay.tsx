@@ -11,7 +11,7 @@ import { useBrewCalculations } from '../hooks/useBrewCalculations';
 
 // Components
 import { StepHero } from '../components/brew-day/StepHero';
-import { FermentationMonitor } from '../components/brew-day/FermentationMonitor';
+import { FermentationDashboard } from '../components/brew-day/FermentationDashboard';
 import { RaptIntegrationSidebar } from '../components/brew-day/RaptIntegrationSidebar';
 
 import styles from './BrewDay.module.css';
@@ -381,13 +381,14 @@ export const BrewDay = () => {
                   ref={monitorRef}
                   className={styles.raptCard} 
                   style={{ 
-                    position: 'sticky', top: '5rem', zIndex: 10,
+                    position: 'relative', zIndex: 10,
                     marginTop: '0.5rem', borderLeft: `4px solid ${item.group.color}`,
                     border: isFermentActive ? `2px solid ${item.group.color}` : '1px solid var(--border-color)',
-                    boxShadow: isFermentActive ? `0 10px 30px rgba(0,0,0,0.4)` : 'none'
+                    boxShadow: isFermentActive ? `0 10px 30px rgba(0,0,0,0.4)` : 'none',
+                    padding: '0'
                   }}
                 >
-                  <FermentationMonitor 
+                  <FermentationDashboard 
                     session={session} insights={insights} projectedData={projectedData} pillTelemetry={pillTelemetry || undefined} timelineMilestones={timelineMilestones} fermentationSteps={fermentationSteps} syncing={syncing} activeMilestoneId={activeMilestoneId}
                     activeEvent={isFermentActive ? session.events[activeEventIndex] : null}
                     onStartLogging={startLogging} onSyncHistory={syncHistory} onStopLogging={stopLogging} onUpdateSession={handleUpdateSession} onUpdateFermentStep={handleUpdateFermentStep}

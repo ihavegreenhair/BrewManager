@@ -503,122 +503,120 @@
 .fermentContainer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
   background: var(--bg-surface);
-  border: none;
-  border-radius: 0;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
   padding: 1.5rem;
-  max-height: calc(100vh - 2rem);
-  overflow-y: auto;
-}
-@media (min-width: 1024px) {
-  .fermentContainer {
-    height: calc(100vh - 2rem);
-    overflow: hidden; /* No vertical stretching */
-  }
+  width: 100%;
 }
 
 .fermentHeader {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--bg-surface-hover);
-  flex-shrink: 0;
-}
-@media (min-width: 1024px) {
-  .fermentHeader {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-.fermentTopRow {
-  display: grid;
-  grid-template-columns: 1fr;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
   gap: 1rem;
-  flex-shrink: 0;
-}
-@media (min-width: 1024px) {
-  .fermentTopRow {
-    grid-template-columns: 1fr auto;
-    align-items: flex-start;
-  }
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--bg-surface-hover);
 }
 
 .fermentMetricsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-}
-@media (min-width: 768px) {
-  .fermentMetricsGrid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-  }
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
 }
 
 .fermentMetricCard {
   background: var(--bg-surface-inset);
-  padding: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--border-color);
+  text-align: center;
 }
 
 .fermentMetricValue {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--accent-primary);
   line-height: 1;
-  margin-bottom: 0.25rem;
-}
-@media (min-width: 768px) {
-  .fermentMetricValue {
-    font-size: 1.5rem;
-  }
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .fermentMetricLabel {
   font-family: var(--font-sans);
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   text-transform: uppercase;
   color: var(--text-secondary);
   letter-spacing: 0.05em;
   font-weight: 600;
 }
 
-.fermentMiddleRow {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  flex: 1;
-  min-height: 250px;
-}
-
 .fermentChartArea {
   background: var(--bg-main);
-  padding: 0.75rem;
+  padding: 1rem;
   border: 1px solid var(--border-color);
-  flex: 1;
-  min-height: 450px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
+  min-height: 500px;
+}
+
+.fermentBottomGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 1200px) {
+  .fermentBottomGrid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+  }
 }
 
 .fermentPhaseDetails {
   background: var(--bg-surface-inset);
-  border-left: 3px solid var(--accent-primary);
-  padding: 1rem;
+  border-left: 4px solid var(--accent-primary);
+  padding: 1.25rem;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  flex-shrink: 0;
+  gap: 1rem;
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+}
+
+.fermentTimelineSection {
+  background: var(--bg-surface-inset);
+  border-radius: 8px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+.fermentTimeline {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+.fermentTimeline::-webkit-scrollbar {
+  height: 8px;
+}
+.fermentTimeline::-webkit-scrollbar-track {
+  background: var(--bg-main);
+  border-radius: 4px;
+}
+.fermentTimeline::-webkit-scrollbar-thumb {
+  background: var(--accent-primary);
+  border-radius: 4px;
 }
 
 .modalOverlay {
@@ -674,20 +672,3 @@
   gap: 1rem;
 }
 
-.fermentTimeline {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding-bottom: 0.5rem;
-  flex-shrink: 0;
-}
-.fermentTimeline::-webkit-scrollbar {
-  height: 6px;
-}
-.fermentTimeline::-webkit-scrollbar-track {
-  background: var(--bg-main);
-}
-.fermentTimeline::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
-  border-radius: 3px;
-}

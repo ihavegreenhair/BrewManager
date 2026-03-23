@@ -1,18 +1,19 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { 
-  LineChart, 
   Line, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer, 
-  Legend,
   ReferenceArea,
   ReferenceLine,
   Brush,
-  Label
+  Label,
+  Area,
+  ComposedChart
 } from 'recharts';
+import { Filter, Eye, EyeOff, Activity, Droplets, Thermometer, FlaskConical, TrendingUp } from 'lucide-react';
 import type { FermentationStep } from '../../types/brewing';
 import { calculateABV, correctGravityForTemperature } from '../../utils/brewingMath';
 
@@ -53,14 +54,13 @@ export const RaptTelemetryChart: React.FC<Props> = ({
   targetFG, 
   onLagDetected,
   activePhaseId,
-  height = 450,
+  height = '100%',
   hideCard = false
 }) => {
-  const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set(['abv', 'attenuation', 'velocity', 'targetGravity', 'targetABV']));
+  const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set(['abv', 'attenuation', 'velocity']));
   const [showProjection, setShowProjection] = useState(true);
 
-  const toggleLine = (e: any) => {
-    const { dataKey } = e;
+  const toggleLine = (dataKey: string) => {
     setHiddenLines(prev => {
       const next = new Set(prev);
       if (next.has(dataKey)) next.delete(dataKey);
@@ -69,10 +69,9 @@ export const RaptTelemetryChart: React.FC<Props> = ({
     });
   };
 
-  const { chartData, stallRange, lagEnd, minUnix, maxUnix } = useMemo(() => {
+  const { chartData, lagEnd, minUnix, maxUnix } = useMemo(() => {
     const hasActualData = data && data.length > 0;
     
-    // 1. Initial Normalization & Chronological Sort for Actual Data
     let actualPoints: any[] = [];
     let lagEndTimestamp: number | null = null;
     let maxVelocity = 0;
@@ -111,9 +110,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
         actualPoints = smoothed.map((point) => {
           const velocity = Math.abs(point.gravityVelocity || 0);
           if (!lagEndTimestamp && velocity > 0.5) lagEndTimestamp = point.unix;
-          if (velocity > maxVelocity) {
-            maxVelocity = velocity;
-          }
+          if (velocity > maxVelocity) maxVelocity = velocity;
 
           const correctedGravity = correctGravityForTemperature(point.avgGravity, point.avgTemp);
 
@@ -156,16 +153,10 @@ export const RaptTelemetryChart: React.FC<Props> = ({
       });
     }
 
-    if (!mergedData.find(m => m.unix === startTime)) {
-      mergedData.push({ unix: startTime } as any);
-    }
-    if (!mergedData.find(m => m.unix === scheduleEnd)) {
-      mergedData.push({ unix: scheduleEnd } as any);
-    }
+    if (!mergedData.find(m => m.unix === startTime)) mergedData.push({ unix: startTime } as any);
+    if (!mergedData.find(m => m.unix === scheduleEnd)) mergedData.push({ unix: scheduleEnd } as any);
 
-    if (mergedData.length === 0) {
-      return { chartData: [], stallRange: null, activeRange: null, lagEnd: null, minUnix: 0, maxUnix: 0 };
-    }
+    if (mergedData.length === 0) return { chartData: [], stallRange: null, activeRange: null, lagEnd: null, minUnix: 0, maxUnix: 0 };
 
     mergedData.sort((a, b) => a.unix - b.unix);
 
@@ -177,11 +168,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
     if (actualPoints.length > 50) {
       const fortyEightHours = 48 * 60 * 60 * 1000;
       const checkPoint = [...actualPoints].reverse().find(p => actualMaxUnix - p.unix >= fortyEightHours);
-      // Only trigger stall if gravity is significantly above target and not moving much
-      if (checkPoint && 
-          Math.abs(actualPoints[actualPoints.length - 1].gravity - checkPoint.gravity) < 0.0008 && 
-          actualPoints[actualPoints.length - 1].gravity < og - 0.005 &&
-          actualPoints[actualPoints.length - 1].gravity > (Number(targetFG) || 1.010) + 0.002) {
+      if (checkPoint && Math.abs(actualPoints[actualPoints.length - 1].gravity - checkPoint.gravity) < 0.0008 && actualPoints[actualPoints.length - 1].gravity < og - 0.005 && actualPoints[actualPoints.length - 1].gravity > (Number(targetFG) || 1.010) + 0.002) {
         stallRange = { start: checkPoint.unix, end: actualMaxUnix };
       }
     }
@@ -197,7 +184,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
     const phases = [];
     const startTime = logStart ? new Date(logStart).getTime() : minUnix;
     const lagEndVal = lagEnd || (startTime + 24 * 60 * 60 * 1000);
-    phases.push({ id: 'lag-phase', name: 'LAG', start: startTime, end: lagEndVal, color: 'rgba(255, 255, 255, 0.03)' });
+    phases.push({ id: 'lag-phase', name: 'Lag Phase', start: startTime, end: lagEndVal, color: 'rgba(255, 255, 255, 0.02)' });
 
     let currentTime = lagEndVal;
     if (fermentationSteps) {
@@ -211,125 +198,191 @@ export const RaptTelemetryChart: React.FC<Props> = ({
     return phases;
   }, [logStart, fermentationSteps, minUnix, lagEnd]);
 
-  const renderLegendText = (value: string, entry: any) => {
-    const isHidden = hiddenLines.has(entry.dataKey);
-    return <span style={{ color: isHidden ? 'var(--text-muted)' : 'var(--text-primary)', opacity: isHidden ? 0.5 : 1, transition: 'all 0.2s' }}>{value}</span>;
-  };
-
   const hasNoData = (!data || data.length === 0) && (!projectedData || projectedData.length === 0);
   if (hasNoData) return null;
 
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{ background: 'rgba(17, 20, 24, 0.95)', backdropFilter: 'blur(10px)', border: '1px solid #374151', borderRadius: '12px', padding: '16px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', minWidth: '220px' }}>
+          <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid #374151', fontWeight: 600 }}>
+            {new Date(label).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {payload.map((entry: any, index: number) => {
+              const color = entry.color;
+              const name = entry.name;
+              let val = entry.value;
+              let unit = '';
+              
+              if (name.includes('Gravity')) { val = val.toFixed(4); unit = ' SG'; }
+              else if (name.includes('Temp')) { val = val.toFixed(1); unit = ' °C'; }
+              else if (name.includes('ABV')) { val = val.toFixed(2); unit = ' %'; }
+              else if (name.includes('Atten')) { val = val.toFixed(1); unit = ' %'; }
+              else if (name.includes('Velocity')) { val = val; unit = ' pts/d'; }
+
+              return (
+                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
+                  <span style={{ color: '#d1d5db', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '4px', background: color }} />
+                    {name}
+                  </span>
+                  <span style={{ fontWeight: 700, color: '#fff', fontFamily: 'var(--font-mono)' }}>
+                    {val}<span style={{ fontSize: '0.75rem', color: '#9ca3af', fontWeight: 400 }}>{unit}</span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const metrics = [
+    { key: 'gravity', label: 'Gravity', color: '#60a5fa', icon: <Droplets size={14} /> },
+    { key: 'temperature', label: 'Temperature', color: '#f87171', icon: <Thermometer size={14} /> },
+    { key: 'abv', label: 'ABV', color: '#34d399', icon: <FlaskConical size={14} /> },
+    { key: 'attenuation', label: 'Attenuation', color: '#a78bfa', icon: <Activity size={14} /> },
+    { key: 'velocity', label: 'Velocity', color: '#fbbf24', icon: <TrendingUp size={14} /> },
+    { key: 'phases', label: 'Phases', color: '#9ca3af', icon: <Filter size={14} /> }
+  ];
+
   const innerChart = (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.7rem', color: 'var(--text-muted)', cursor: 'pointer' }}>
-          <input 
-            type="checkbox" 
-            checked={showProjection} 
-            onChange={(e) => setShowProjection(e.target.checked)} 
-            style={{ accentColor: 'var(--accent-primary)', width: '12px', height: '12px' }}
-          />
-          Show Projected Profile
-        </label>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', position: 'relative' }}>
+      
+      {/* Sleek overlay controls */}
+      <div style={{ position: 'absolute', top: 10, right: 20, zIndex: 10, display: 'flex', gap: '8px', background: 'rgba(17, 20, 24, 0.8)', backdropFilter: 'blur(8px)', padding: '6px', borderRadius: '12px', border: '1px solid #2a2d35' }}>
+        <button 
+          onClick={() => setShowProjection(!showProjection)}
+          style={{ background: showProjection ? 'rgba(255,255,255,0.1)' : 'transparent', border: 'none', color: showProjection ? '#fff' : '#9ca3af', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+        >
+          {showProjection ? <Eye size={14} /> : <EyeOff size={14} />} Projection
+        </button>
+        <div style={{ width: '1px', background: '#374151', margin: '4px 2px' }} />
+        {metrics.map(m => {
+          const isActive = !hiddenLines.has(m.key);
+          return (
+            <button
+              key={m.key}
+              onClick={() => toggleLine(m.key)}
+              style={{
+                background: isActive ? `${m.color}20` : 'transparent',
+                border: 'none',
+                color: isActive ? m.color : '#6b7280',
+                padding: '6px 10px',
+                borderRadius: '6px',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                transition: 'all 0.2s'
+              }}
+            >
+              {m.icon} {m.label}
+            </button>
+          );
+        })}
       </div>
-      <div style={{ height: typeof height === 'number' ? `${height}px` : height }}>
+
+      <div style={{ flex: 1, minHeight: 0, marginTop: '10px' }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 20, right: 60, left: 100, bottom: 40 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
+          <ComposedChart data={chartData} margin={{ top: 40, right: 20, left: 20, bottom: 5 }}>
+            <defs>
+              <linearGradient id="colorGravity" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#60a5fa" stopOpacity={0}/>
+              </linearGradient>
+              <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#f87171" stopOpacity={0.2}/>
+                <stop offset="95%" stopColor="#f87171" stopOpacity={0}/>
+              </linearGradient>
+            </defs>
+
+            <CartesianGrid strokeDasharray="4 4" stroke="#2a2d35" vertical={false} />
+            
             <XAxis 
               dataKey="unix" 
               type="number" 
               domain={['dataMin', 'dataMax']} 
-              stroke="var(--text-muted)" 
+              stroke="#6b7280" 
               fontSize={10} 
               tickFormatter={(unix) => new Date(unix).toLocaleDateString([], { month: 'short', day: 'numeric' })} 
-              minTickGap={100} 
+              minTickGap={80} 
               axisLine={false} 
               tickLine={false}
-              dy={15}
+              dy={10}
             />
-            <YAxis 
-              yAxisId="gravity" 
-              domain={['auto', 'auto']} 
-              stroke="var(--accent-primary)" 
-              fontSize={9} 
-              tick={{ fill: 'var(--accent-primary)', fontWeight: 'bold' }} 
-              tickFormatter={(val) => val.toFixed(4)} 
-              axisLine={false} 
-              tickLine={false} 
-              width={90} 
-              padding={{ top: 40, bottom: 40 }}
-            />
-            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={9} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={40} />
-            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={9} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={40} hide={hiddenLines.has('abv')} />
-            <YAxis yAxisId="atten" orientation="right" domain={[0, 100]} stroke="#2196F3" fontSize={9} tick={{ fill: '#2196F3' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={45} hide={hiddenLines.has('attenuation')} />
-            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} stroke="#E91E63" fontSize={9} tick={{ fill: '#E91E63' }} tickFormatter={(val) => val} axisLine={false} tickLine={false} width={35} hide={hiddenLines.has('velocity')} />
+            
+            {/* Y Axes */}
+            <YAxis yAxisId="gravity" domain={['auto', 'auto']} stroke="#60a5fa" fontSize={11} tick={{ fill: '#60a5fa', fontWeight: 600 }} tickFormatter={(val) => val.toFixed(3)} axisLine={false} tickLine={false} width={50} />
+            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#f87171" fontSize={11} tick={{ fill: '#f87171' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={35} />
+            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} hide={hiddenLines.has('abv') && hiddenLines.has('attenuation')} width={0} />
+            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} hide={hiddenLines.has('velocity')} width={0} />
 
-            {chartPhases.map((p, i) => {
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#4b5563', strokeWidth: 1, strokeDasharray: '4 4' }} />
+            
+            {/* Background Phases */}
+            {!hiddenLines.has('phases') && chartPhases.map((p, i) => {
               const isActive = activePhaseId && p.id === activePhaseId;
-              const fill = isActive ? 'rgba(76, 175, 80, 0.15)' : (p.color || (i % 2 === 0 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.01)"));
+              const fill = isActive ? 'rgba(96, 165, 250, 0.08)' : p.color;
               return (
                 <ReferenceArea key={`area-${i}`} yAxisId="gravity" x1={p.start} x2={p.end} fill={fill} stroke="none">
-                  <Label value={p.name} position="insideTopLeft" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.7)"} fontSize={isActive ? 11 : 9} fontWeight="bold" offset={10} />
+                  <Label value={p.name} position="insideTop" fill={isActive ? "#60a5fa" : "#6b7280"} fontSize={11} fontWeight={isActive ? 700 : 500} offset={15} />
                 </ReferenceArea>
               );
             })}
 
-            {chartPhases.map((p, i) => {
+            {/* Phase Dividers */}
+            {!hiddenLines.has('phases') && chartPhases.map((p, i) => {
               const isActive = activePhaseId && p.id === activePhaseId;
-              return <ReferenceLine key={`line-${i}`} yAxisId="gravity" x={p.start} stroke={isActive ? "#4CAF50" : "rgba(255,255,255,0.15)"} strokeWidth={isActive ? 2 : 1} strokeDasharray="4 4" />;
+              return <ReferenceLine key={`line-${i}`} yAxisId="gravity" x={p.start} stroke={isActive ? "#60a5fa" : "#374151"} strokeWidth={1} strokeDasharray="4 4" />;
             })}
 
-            {timelineMilestones?.filter(m => m.type === 'hop').map((m, i) => {
+            {/* Hop Additions */}
+            {!hiddenLines.has('phases') && timelineMilestones?.filter(m => m.type === 'hop').map((m, i) => {
               const unixTime = m.date.getTime();
-              const isActive = activePhaseId && m.id === activePhaseId;
               if (unixTime >= minUnix && unixTime <= maxUnix) {
                 return (
-                  <ReferenceLine key={`hop-${i}`} yAxisId="gravity" x={unixTime} stroke={isActive ? "#4CAF50" : "#E91E63"} strokeWidth={isActive ? 2 : 1} strokeDasharray="3 3">
-                    <Label value={m.name} position="insideTopRight" fill={isActive ? "#4CAF50" : "#E91E63"} fontSize={isActive ? 12 : 10} fontWeight="bold" offset={10} />
+                  <ReferenceLine key={`hop-${i}`} yAxisId="gravity" x={unixTime} stroke="#10b981" strokeWidth={1} strokeDasharray="3 3">
+                    <Label value={`🌱 ${m.name}`} position="insideTopLeft" fill="#10b981" fontSize={10} fontWeight={600} offset={8} />
                   </ReferenceLine>
                 );
               }
               return null;
             })}
 
-            {stallRange && (
-              <ReferenceArea yAxisId="gravity" x1={stallRange.start} x2={stallRange.end} fill="rgba(244, 67, 54, 0.05)" stroke="#f44336" strokeDasharray="3 3">
-                <Label value="STALL DETECTED" position="insideBottom" fill="#f44336" fontSize={10} fontWeight="bold" offset={10} />
-              </ReferenceArea>
-            )}
+            {/* Target FG */}
+            {targetFG && <ReferenceLine yAxisId="gravity" y={targetFG} stroke="#34d399" strokeDasharray="4 4" opacity={0.6}><Label value={`Target FG ${targetFG.toFixed(3)}`} position="insideBottomRight" fill="#34d399" fontSize={10} offset={10} /></ReferenceLine>}
 
-            {targetFG && <ReferenceLine yAxisId="gravity" y={targetFG} stroke="rgba(76, 175, 80, 0.3)" strokeDasharray="3 3" />}
+            {/* Projections */}
+            <Line yAxisId="gravity" type="monotone" dataKey="targetGravity" name="Projected Gravity" stroke="#60a5fa" strokeWidth={2} strokeDasharray="4 4" opacity={0.5} dot={false} isAnimationActive={false} hide={hiddenLines.has('gravity') || !showProjection} />
+            <Line yAxisId="percent" type="monotone" dataKey="targetABV" name="Projected ABV" stroke="#34d399" strokeWidth={2} strokeDasharray="4 4" opacity={0.5} dot={false} isAnimationActive={false} hide={hiddenLines.has('abv') || !showProjection} />
 
-            <Tooltip isAnimationActive={false} labelFormatter={(unix) => `${new Date(unix).toLocaleDateString()} ${new Date(unix).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`} contentStyle={{ backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-color)', borderRadius: '12px', fontSize: '0.8rem', padding: '12px', boxShadow: '0 10px 40px rgba(0,0,0,0.6)' }} formatter={((val: any, name: any, props: any) => {
-              if (name === 'ABV' || name === 'Atten %' || name === 'Target ABV') return [`${val}%`, name];
-              if (name === 'Velocity') return [`${val} pts/day`, name];
-              const isG = name === 'Gravity' || name === 'Target Gravity';
-              const original = isG ? props.payload.originalGravity : props.payload.originalTemp;
-              return [<span><strong>{isG ? val.toFixed(4) : `${val.toFixed(1)}°C`}</strong>{original !== undefined && name === 'Gravity' && (<span style={{ opacity: 0.4, fontSize: '0.7rem', marginLeft: '6px' }}>({original.toFixed(4)})</span>)}</span>, name];
-            }) as any} />
-            
-            <Legend formatter={renderLegendText} onClick={toggleLine} iconType="circle" wrapperStyle={{ fontSize: '0.8rem', paddingTop: '40px', cursor: 'pointer' }} />
-            
-            <Line yAxisId="gravity" type="monotone" dataKey="gravity" name="Gravity" stroke="var(--accent-primary)" strokeWidth={3} dot={false} activeDot={{ r: 5 }} hide={hiddenLines.has('gravity')} isAnimationActive={false} />
-            <Line yAxisId="gravity" type="monotone" dataKey="targetGravity" name="Target Gravity" stroke="var(--accent-primary)" strokeWidth={2} strokeDasharray="5 5" opacity={0.4} dot={false} hide={hiddenLines.has('targetGravity')} isAnimationActive={false} />
-            <Line yAxisId="temp" type="monotone" dataKey="temperature" name="Temp (°C)" stroke="#ff7300" strokeWidth={2} strokeDasharray="4 4" dot={false} activeDot={{ r: 4 }} hide={hiddenLines.has('temperature')} isAnimationActive={false} />
-            <Line yAxisId="percent" type="monotone" dataKey="abv" name="ABV" stroke="#4CAF50" strokeWidth={2} dot={false} hide={hiddenLines.has('abv')} isAnimationActive={false} />
-            <Line yAxisId="percent" type="monotone" dataKey="targetABV" name="Target ABV" stroke="#4CAF50" strokeWidth={2} strokeDasharray="5 5" opacity={0.4} dot={false} hide={hiddenLines.has('targetABV')} isAnimationActive={false} />
-            <Line yAxisId="atten" type="monotone" dataKey="attenuation" name="Atten %" stroke="#2196F3" strokeWidth={2} dot={false} hide={hiddenLines.has('attenuation')} isAnimationActive={false} />
-            <Line yAxisId="vel" type="monotone" dataKey="velocity" name="Velocity" stroke="#E91E63" strokeWidth={2} dot={false} hide={hiddenLines.has('velocity')} isAnimationActive={false} />
+            {/* Actual Areas & Lines */}
+            <Area yAxisId="gravity" type="monotone" dataKey="gravity" fillOpacity={1} fill="url(#colorGravity)" stroke="none" hide={hiddenLines.has('gravity')} isAnimationActive={false} />
+            <Area yAxisId="temp" type="monotone" dataKey="temperature" fillOpacity={1} fill="url(#colorTemp)" stroke="none" hide={hiddenLines.has('temperature')} isAnimationActive={false} />
 
-            <Brush dataKey="unix" height={30} stroke="var(--border-color)" fill="var(--bg-main)" tickFormatter={() => ''} />
-          </LineChart>
+            <Line yAxisId="gravity" type="monotone" dataKey="gravity" name="Actual Gravity" stroke="#60a5fa" strokeWidth={3} dot={false} activeDot={{ r: 6, strokeWidth: 0 }} hide={hiddenLines.has('gravity')} isAnimationActive={false} />
+            <Line yAxisId="temp" type="monotone" dataKey="temperature" name="Actual Temp" stroke="#f87171" strokeWidth={2} dot={false} activeDot={{ r: 5, strokeWidth: 0 }} hide={hiddenLines.has('temperature')} isAnimationActive={false} />
+            <Line yAxisId="percent" type="monotone" dataKey="abv" name="Actual ABV" stroke="#34d399" strokeWidth={2} dot={false} activeDot={{ r: 4, strokeWidth: 0 }} hide={hiddenLines.has('abv')} isAnimationActive={false} />
+            <Line yAxisId="percent" type="monotone" dataKey="attenuation" name="Attenuation" stroke="#a78bfa" strokeWidth={2} dot={false} activeDot={{ r: 4, strokeWidth: 0 }} hide={hiddenLines.has('attenuation')} isAnimationActive={false} />
+            <Line yAxisId="vel" type="monotone" dataKey="velocity" name="Velocity" stroke="#fbbf24" strokeWidth={2} dot={false} activeDot={{ r: 4, strokeWidth: 0 }} hide={hiddenLines.has('velocity')} isAnimationActive={false} />
+
+            <Brush dataKey="unix" height={24} stroke="#4b5563" fill="rgba(255,255,255,0.02)" tickFormatter={() => ''} travellerWidth={8} />
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
-    </>
+    </div>
   );
 
   if (hideCard) return innerChart;
 
   return (
-    <div style={{ width: '100%', background: 'var(--bg-surface)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', marginTop: '1rem' }}>
+    <div style={{ width: '100%', height, background: 'var(--bg-surface)', padding: '1.5rem', borderRadius: '16px', border: '1px solid var(--border-color)', marginTop: '1rem', boxSizing: 'border-box' }}>
       {innerChart}
     </div>
   );

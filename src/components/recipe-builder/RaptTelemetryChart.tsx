@@ -204,11 +204,11 @@ export const RaptTelemetryChart: React.FC<Props> = ({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div style={{ background: 'rgba(17, 20, 24, 0.95)', backdropFilter: 'blur(10px)', border: '1px solid #374151', borderRadius: '12px', padding: '16px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', minWidth: '220px' }}>
-          <div style={{ fontSize: '0.8rem', color: '#9ca3af', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid #374151', fontWeight: 600 }}>
+        <div style={{ background: 'rgba(17, 20, 24, 0.95)', backdropFilter: 'blur(10px)', border: '1px solid #374151', borderRadius: '10px', padding: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', minWidth: '180px' }}>
+          <div style={{ fontSize: '0.65rem', color: '#9ca3af', marginBottom: '8px', paddingBottom: '6px', borderBottom: '1px solid #374151', fontWeight: 600 }}>
             {new Date(label).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {payload.map((entry: any, index: number) => {
               const color = entry.color;
               const name = entry.name;
@@ -222,13 +222,13 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               else if (name.includes('Velocity')) { val = val; unit = ' pts/d'; }
 
               return (
-                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
+                <div key={index} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem' }}>
                   <span style={{ color: '#d1d5db', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <div style={{ width: '8px', height: '8px', borderRadius: '4px', background: color }} />
+                    <div style={{ width: '6px', height: '6px', borderRadius: '3px', background: color }} />
                     {name}
                   </span>
                   <span style={{ fontWeight: 700, color: '#fff', fontFamily: 'var(--font-mono)' }}>
-                    {val}<span style={{ fontSize: '0.75rem', color: '#9ca3af', fontWeight: 400 }}>{unit}</span>
+                    {val}<span style={{ fontSize: '0.65rem', color: '#9ca3af', fontWeight: 400 }}>{unit}</span>
                   </span>
                 </div>
               );
@@ -241,26 +241,26 @@ export const RaptTelemetryChart: React.FC<Props> = ({
   };
 
   const metrics = [
-    { key: 'gravity', label: 'Gravity', color: '#60a5fa', icon: <Droplets size={14} /> },
-    { key: 'temperature', label: 'Temperature', color: '#f87171', icon: <Thermometer size={14} /> },
-    { key: 'abv', label: 'ABV', color: '#34d399', icon: <FlaskConical size={14} /> },
-    { key: 'attenuation', label: 'Attenuation', color: '#a78bfa', icon: <Activity size={14} /> },
-    { key: 'velocity', label: 'Velocity', color: '#fbbf24', icon: <TrendingUp size={14} /> },
-    { key: 'phases', label: 'Phases', color: '#9ca3af', icon: <Filter size={14} /> }
+    { key: 'gravity', label: 'Gravity', color: '#60a5fa', icon: <Droplets size={12} /> },
+    { key: 'temperature', label: 'Temperature', color: '#f87171', icon: <Thermometer size={12} /> },
+    { key: 'abv', label: 'ABV', color: '#34d399', icon: <FlaskConical size={12} /> },
+    { key: 'attenuation', label: 'Attenuation', color: '#a78bfa', icon: <Activity size={12} /> },
+    { key: 'velocity', label: 'Velocity', color: '#fbbf24', icon: <TrendingUp size={12} /> },
+    { key: 'phases', label: 'Phases', color: '#9ca3af', icon: <Filter size={12} /> }
   ];
 
   const innerChart = (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', position: 'relative' }}>
       
       {/* Sleek overlay controls */}
-      <div style={{ position: 'absolute', top: 10, right: 20, zIndex: 10, display: 'flex', gap: '8px', background: 'rgba(17, 20, 24, 0.8)', backdropFilter: 'blur(8px)', padding: '6px', borderRadius: '12px', border: '1px solid #2a2d35' }}>
+      <div style={{ position: 'absolute', top: 8, right: 16, zIndex: 10, display: 'flex', gap: '6px', background: 'rgba(17, 20, 24, 0.8)', backdropFilter: 'blur(8px)', padding: '4px', borderRadius: '10px', border: '1px solid #2a2d35' }}>
         <button 
           onClick={() => setShowProjection(!showProjection)}
-          style={{ background: showProjection ? 'rgba(255,255,255,0.1)' : 'transparent', border: 'none', color: showProjection ? '#fff' : '#9ca3af', padding: '6px 12px', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', transition: 'all 0.2s' }}
+          style={{ background: showProjection ? 'rgba(255,255,255,0.1)' : 'transparent', border: 'none', color: showProjection ? '#fff' : '#9ca3af', padding: '4px 10px', borderRadius: '5px', fontSize: '0.65rem', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', transition: 'all 0.2s' }}
         >
-          {showProjection ? <Eye size={14} /> : <EyeOff size={14} />} Projection
+          {showProjection ? <Eye size={12} /> : <EyeOff size={12} />} Projection
         </button>
-        <div style={{ width: '1px', background: '#374151', margin: '4px 2px' }} />
+        <div style={{ width: '1px', background: '#374151', margin: '3px 2px' }} />
         {metrics.map(m => {
           const isActive = !hiddenLines.has(m.key);
           return (
@@ -271,9 +271,9 @@ export const RaptTelemetryChart: React.FC<Props> = ({
                 background: isActive ? `${m.color}20` : 'transparent',
                 border: 'none',
                 color: isActive ? m.color : '#6b7280',
-                padding: '6px 10px',
-                borderRadius: '6px',
-                fontSize: '0.75rem',
+                padding: '4px 8px',
+                borderRadius: '5px',
+                fontSize: '0.65rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 display: 'flex',

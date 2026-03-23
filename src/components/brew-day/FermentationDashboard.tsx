@@ -76,7 +76,7 @@ export const FermentationDashboard: React.FC<Props> = React.memo(({
       {/* HEADER */}
       <div className={styles.header}>
         <h2 className={styles.title}>
-          <Activity size={28} color="#60a5fa" /> Fermentation
+          <Activity size={22} color="#60a5fa" /> Fermentation
         </h2>
         
         <div className={styles.actions}>

@@ -5,3 +5,4 @@ export { Sessions } from './Sessions';
 export { Calculators } from './Calculators';
 export { Inventory } from './Inventory';
 export { BrewDay } from './BrewDay';
+export { Settings } from './Settings';

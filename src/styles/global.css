@@ -15,6 +15,12 @@ body {
   min-height: 100vh;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
 a {
   color: var(--accent-primary);
   text-decoration: none;
@@ -25,47 +31,50 @@ a:hover {
 }
 
 button {
-  font-family: var(--font-sans); 
+  font-family: var(--font-display); 
+  text-transform: uppercase;
   cursor: pointer;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(64, 71, 82, 0.15);
   border-radius: var(--border-radius);
   padding: 0.5rem 1rem;
-  background-color: var(--bg-surface);
+  background-color: var(--bg-surface-hover);
   color: var(--text-primary);
   transition: all 0.15s ease;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 button:hover {
-  background-color: var(--bg-surface-hover);
-  border-color: var(--text-muted);
+  background-color: var(--bg-surface-highest);
+  border-color: rgba(64, 71, 82, 0.3);
 }
 
 button.primary {
   background-color: var(--accent-primary);
-  border: 1px solid var(--accent-primary);
-  color: #0F172A; /* Consistent dark text on bright accent */
-  font-weight: 600;
+  border: none;
+  color: #003258; /* text-on-primary */
+  font-weight: 700;
 }
 
 button.primary:hover {
   background-color: var(--accent-hover);
-  border-color: var(--accent-hover);
+  box-shadow: var(--accent-glow);
 }
 
 input, select, textarea {
   font-family: var(--font-sans);
-  background-color: var(--bg-main);
+  background-color: var(--bg-surface-inset);
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
+  border: none;
+  border-bottom: 2px solid var(--border-color);
   border-radius: var(--border-radius);
   padding: 0.5rem;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
 }
 
 /* Number inputs use monospace for readability */
@@ -79,6 +88,7 @@ input[type="number"] {
   margin: 0;
 }
 .no-spinners[type="number"] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
@@ -89,18 +99,21 @@ input[type="number"] {
 /* Technical Detail Styles */
 .card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
+  border: none;
+  border-left: 2px solid var(--accent-primary);
   border-radius: var(--border-radius);
   padding: 1.5rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: none;
+  margin-bottom: 1rem;
 }
 
 .card-header {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(64, 71, 82, 0.15);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--accent-primary);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }

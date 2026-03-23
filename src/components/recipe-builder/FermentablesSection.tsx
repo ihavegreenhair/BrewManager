@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Fermentable } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { kgToLbs, lbsToKg } from '../../utils/units';
@@ -19,7 +20,7 @@ interface FermentablesSectionProps {
   setTargetABV: (v: number) => void;
 }
 
-export const FermentablesSection = ({
+const FermentablesSectionComponent = ({
   fermentableSearch, setFermentableSearch, filteredLibraryFermentables,
   fermentables, setFermentables, totalGrainWeight, targetOG,
   measurementSystem, collapsed, onToggle,
@@ -492,3 +493,5 @@ export const FermentablesSection = ({
     </section>
   );
 };
+
+export const FermentablesSection = React.memo(FermentablesSectionComponent);

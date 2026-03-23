@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import type { MashStep } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { mashProfiles } from '../../data/profiles';
@@ -12,7 +12,7 @@ interface MashScheduleSectionProps {
   onToggle: (s: string) => void;
 }
 
-export const MashScheduleSection = ({
+const MashScheduleSectionComponent = ({
   mashSteps, setMashSteps, measurementSystem, collapsed, onToggle
 }: MashScheduleSectionProps) => {
 
@@ -339,3 +339,5 @@ export const MashScheduleSection = ({
     </section>
   );
 };
+
+export const MashScheduleSection = React.memo(MashScheduleSectionComponent);

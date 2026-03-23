@@ -10,12 +10,22 @@ export const Recipes = () => {
       <style>{`
         .recipes-container {
           max-width: 1200px;
+          margin: 0 auto;
+          padding: 1rem;
         }
         .recipes-header {
           display: flex;
           flex-direction: column;
           gap: 1rem;
-          margin-bottom: 2rem;
+          margin-bottom: 3rem;
+          border-left: 4px solid var(--accent-primary);
+          padding-left: 1rem;
+        }
+        .recipes-header h2 {
+          font-family: var(--font-display);
+          font-size: 2.5rem;
+          margin: 0;
+          line-height: 1;
         }
         @media (min-width: 640px) {
           .recipes-header {
@@ -27,55 +37,104 @@ export const Recipes = () => {
         .recipe-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 1rem;
+          gap: 1.5rem;
         }
         @media (min-width: 640px) {
           .recipe-grid {
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 2rem;
           }
         }
         .recipe-card {
-          background-color: var(--bg-surface); 
-          padding: 1.5rem; 
-          border-radius: var(--border-radius);
-          border: 1px solid var(--border-color);
-          transition: all 0.2s ease;
-          cursor: pointer;
-          height: 100%;
+           background: linear-gradient(180deg, var(--bg-surface-hover) 0%, var(--bg-surface) 100%);
+           padding: 2rem; 
+           border-radius: 0;
+           border: none;
+           border-left: 2px solid var(--border-color);
+           transition: all 0.2s ease;
+           cursor: pointer;
+           height: 100%;
         }
         .recipe-card:hover {
-          border-color: var(--accent-primary);
-          background-color: var(--bg-surface-hover);
+          border-left-color: var(--accent-primary);
+          box-shadow: var(--accent-glow);
+        }
+        .recipe-card h3 {
+          font-family: var(--font-display);
+          font-size: 1.5rem;
+          color: var(--text-primary);
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          letter-spacing: -0.02em;
+        }
+        .recipe-card-style {
+          color: var(--text-secondary);
+          margin-bottom: 1.5rem;
+          font-family: var(--font-sans);
+          font-size: 0.8rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+        }
+        .recipe-metrics {
+          display: flex;
+          gap: 1.5rem;
+          font-family: var(--font-mono);
+          font-size: 1rem;
+          color: var(--accent-primary);
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          padding-top: 1rem;
+        }
+        .recipe-metric-label {
+          font-size: 0.6rem;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.25rem;
+        }
+        .new-recipe-btn {
+          font-family: var(--font-display);
+          font-weight: 700;
+          border-radius: 0;
+          padding: 1rem 2rem;
+          letter-spacing: 0.05em;
         }
       `}</style>
       
       <div className="recipes-header">
         <h2>Recipe Book</h2>
         <Link to="/recipes/new" style={{ textDecoration: 'none' }}>
-          <button className="primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: '100%', justifyContent: 'center' }}>
-            <Plus size={16} /> New Recipe
+          <button className="primary new-recipe-btn" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%', justifyContent: 'center' }}>
+            <Plus size={18} strokeWidth={3} /> NEW RECIPE
           </button>
         </Link>
       </div>
 
       {recipes.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
-          <Beer size={48} style={{ opacity: 0.5, marginBottom: '1rem' }} />
-          <p>No recipes found. Create your first brew!</p>
+        <div style={{ textAlign: 'center', padding: '4rem', background: 'var(--bg-surface-inset)', borderLeft: '2px solid var(--border-color)' }}>
+          <Beer size={48} style={{ color: 'var(--text-muted)', marginBottom: '1rem' }} />
+          <p style={{ color: 'var(--text-secondary)', fontFamily: 'var(--font-display)', fontSize: '1.2rem', textTransform: 'uppercase' }}>No recipes found. Create your first brew.</p>
         </div>
       ) : (
         <div className="recipe-grid">
           {recipes.map(recipe => (
             <Link key={recipe.id} to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="recipe-card">
-                <h3 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{recipe.name}</h3>
-                <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>{recipe.styleId || 'No Style Selected'}</p>
+                <h3>{recipe.name}</h3>
+                <p className="recipe-card-style">{recipe.styleId || 'No Style Selected'}</p>
                 
-                <div style={{ display: 'flex', gap: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>
-                  <div>OG: {recipe.targetOG.toFixed(3)}</div>
-                  <div>IBU: {recipe.targetIBU}</div>
-                  <div>ABV: {recipe.fermenters[0]?.targetABV.toFixed(1) || 0}%</div>
+                <div className="recipe-metrics">
+                  <div>
+                    <div className="recipe-metric-label">Target OG</div>
+                    {recipe.targetOG.toFixed(3)}
+                  </div>
+                  <div>
+                    <div className="recipe-metric-label">Est. IBU</div>
+                    {recipe.targetIBU}
+                  </div>
+                  <div>
+                    <div className="recipe-metric-label">Target ABV</div>
+                    {recipe.fermenters[0]?.targetABV.toFixed(1) || 0}%
+                  </div>
                 </div>
               </div>
             </Link>

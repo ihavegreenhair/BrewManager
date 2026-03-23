@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
-import { Dashboard, Recipes, RecipeBuilder, Sessions, Calculators, Inventory, BrewDay } from './pages';
+import { Dashboard, Recipes, RecipeBuilder, Sessions, Calculators, Inventory, BrewDay, Settings } from './pages';
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route path="sessions" element={<Sessions />} />
           <Route path="calculators" element={<Calculators />} />
           <Route path="inventory" element={<Inventory />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>

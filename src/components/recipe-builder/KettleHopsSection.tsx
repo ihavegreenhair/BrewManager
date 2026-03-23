@@ -21,7 +21,7 @@ interface KettleHopsSectionProps {
   boilVolume: number;
 }
 
-export const KettleHopsSection = ({
+const KettleHopsSectionComponent = ({
   kettleHops, setKettleHops, measurementSystem, collapsed, onToggle, targetOG, batchVolume, boilVolume
 }: KettleHopsSectionProps) => {
   const [expandedVisualizers, setExpandedVisualizers] = useState<Record<string, boolean>>({});
@@ -433,3 +433,5 @@ export const KettleHopsSection = ({
     </section>
   );
 };
+
+export const KettleHopsSection = React.memo(KettleHopsSectionComponent);

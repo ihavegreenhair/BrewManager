@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { WaterProfile, WaterVolumes } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { WaterSourceProfile } from './WaterSourceProfile';
@@ -51,7 +51,7 @@ interface WaterChemistrySectionProps {
   onToggle: (s: string) => void;
 }
 
-export const WaterChemistrySection = ({
+const WaterChemistrySectionComponent = ({
   sourceWater, setSourceWater, handleSaveSourceWater,
   targetWaterId, setTargetWaterId, targetWaterProfiles,
   isCustomTarget, customTargetWater, setCustomTargetWater,
@@ -231,3 +231,5 @@ export const WaterChemistrySection = ({
     </section>
   );
 };
+
+export const WaterChemistrySection = React.memo(WaterChemistrySectionComponent);

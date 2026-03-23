@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { BrewMethod, Equipment, WaterVolumes } from '../../types/brewing';
 import { predefinedEquipment } from '../../data/equipment';
 import { SectionHeader } from './SectionHeader';
@@ -36,7 +36,7 @@ interface WaterQuantitiesSectionProps {
   onToggle: (s: string) => void;
 }
 
-export const WaterQuantitiesSection = ({
+const WaterQuantitiesSectionComponent = ({
   brewMethod, equipment, handleEquipmentChange,
   batchVolume, setBatchVolume, boilTime, setBoilTime,
   efficiency, setEfficiency, grainAbsorptionRate, setGrainAbsorptionRate,
@@ -288,3 +288,5 @@ export const WaterQuantitiesSection = ({
     </section>
   );
 };
+
+export const WaterQuantitiesSection = React.memo(WaterQuantitiesSectionComponent);

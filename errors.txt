@@ -1,0 +1,33 @@
+src/components/brew-day/FermentationMonitor.tsx(2,106): error TS6133: 'ChevronUp' is declared but its value is never read.
+src/components/recipe-builder/RaptTelemetryChart.tsx(72,34): error TS6133: 'activeRange' is declared but its value is never read.
+src/components/recipe-builder/RaptTelemetryChart.tsx(280,392): error TS2322: Type '(val: any, name: string, props: any) => [string, string] | [JSX.Element, string]' is not assignable to type 'Formatter<ValueType, NameType> & ((value: ValueType, name: NameType, item: TooltipPayloadEntry, index: number, payload: TooltipPayload) => ReactNode | [...])'.
+  Type '(val: any, name: string, props: any) => [string, string] | [JSX.Element, string]' is not assignable to type 'Formatter<ValueType, NameType>'.
+    Types of parameters 'name' and 'name' are incompatible.
+      Type 'NameType | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+src/hooks/useBrewCalculations.ts(130,102): error TS2339: Property 'stepDetails' does not exist on type '{ salts?: { name: string; amount: number; unit: string; }[] | undefined; hopDetails?: { id: string; name: string; weight: number; alpha: number; } | undefined; yeastDetails?: { name: string; amount?: string | undefined; } | undefined; mashDetails?: { ...; } | undefined; }'.
+src/hooks/useBrewCalculations.ts(130,158): error TS2339: Property 'id' does not exist on type '{ name: string; temp: number; time: number; }'.
+src/hooks/useBrewCalculations.ts(167,23): error TS2345: Argument of type '{ type: "hop"; id: string; name: string; weight: number; date: Date; isComplete: boolean; progress: number; }' is not assignable to parameter of type 'TimelineMilestone'.
+  Property 'days' is missing in type '{ type: "hop"; id: string; name: string; weight: number; date: Date; isComplete: boolean; progress: number; }' but required in type 'TimelineMilestone'.
+src/pages/BrewDay.tsx(128,75): error TS2339: Property 'stepDetails' does not exist on type '{ salts?: { name: string; amount: number; unit: string; }[] | undefined; hopDetails?: { id: string; name: string; weight: number; alpha: number; } | undefined; yeastDetails?: { name: string; amount?: string | undefined; } | undefined; mashDetails?: { ...; } | undefined; }'.
+src/pages/BrewDay.tsx(128,129): error TS2339: Property 'id' does not exist on type '{ name: string; temp: number; time: number; }'.
+src/pages/BrewDay.tsx(169,37): error TS2339: Property 'stepDetails' does not exist on type '{ salts?: { name: string; amount: number; unit: string; }[] | undefined; hopDetails?: { id: string; name: string; weight: number; alpha: number; } | undefined; yeastDetails?: { name: string; amount?: string | undefined; } | undefined; mashDetails?: { ...; } | undefined; }'.
+src/pages/BrewDay.tsx(169,81): error TS2339: Property 'id' does not exist on type '{ name: string; temp: number; time: number; }'.
+src/pages/BrewDay.tsx(265,9): error TS6133: 'updateDetailedActual' is declared but its value is never read.
+src/pages/BrewDay.tsx(380,89): error TS2322: Type 'RaptTelemetry | null' is not assignable to type 'RaptTelemetry | undefined'.
+  Type 'null' is not assignable to type 'RaptTelemetry | undefined'.
+src/pages/BrewDay.tsx(397,41): error TS2322: Type '(el: HTMLDivElement | null) => HTMLDivElement | null' is not assignable to type 'Ref<HTMLDivElement> | undefined'.
+  Type '(el: HTMLDivElement | null) => HTMLDivElement | null' is not assignable to type '(instance: HTMLDivElement | null) => void | (() => VoidOrUndefinedOnly)'.
+    Type 'HTMLDivElement | null' is not assignable to type 'void | (() => VoidOrUndefinedOnly)'.
+      Type 'null' is not assignable to type 'void | (() => VoidOrUndefinedOnly)'.
+src/pages/BrewDay.tsx(402,31): error TS2322: Type '(el: HTMLDivElement | null) => HTMLDivElement | null' is not assignable to type 'Ref<HTMLDivElement> | undefined'.
+  Type '(el: HTMLDivElement | null) => HTMLDivElement | null' is not assignable to type '(instance: HTMLDivElement | null) => void | (() => VoidOrUndefinedOnly)'.
+    Type 'HTMLDivElement | null' is not assignable to type 'void | (() => VoidOrUndefinedOnly)'.
+      Type 'null' is not assignable to type 'void | (() => VoidOrUndefinedOnly)'.
+src/pages/BrewDay.tsx(407,65): error TS2322: Type 'RaptTelemetry | null | undefined' is not assignable to type 'RaptTelemetry | undefined'.
+  Type 'null' is not assignable to type 'RaptTelemetry | undefined'.
+src/pages/BrewDay.tsx(452,81): error TS2322: Type 'RaptTelemetry | null' is not assignable to type 'RaptTelemetry | undefined'.
+  Type 'null' is not assignable to type 'RaptTelemetry | undefined'.
+src/pages/BrewDay.tsx(452,107): error TS2322: Type 'RaptTelemetry | null' is not assignable to type 'RaptTelemetry | undefined'.
+  Type 'null' is not assignable to type 'RaptTelemetry | undefined'.
+src/utils/brewingMath.ts(476,22): error TS2304: Cannot find name 'FermentationStep'.

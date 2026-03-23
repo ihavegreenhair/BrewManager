@@ -236,6 +236,7 @@ export interface Recipe {
   
   grainBillMode?: 'weight' | 'percentage';
   targetABV?: number;
+  co2Volumes?: number;
 
   // Base Ingredients (Shared across all split batches)
   fermentables: Fermentable[];
@@ -270,6 +271,33 @@ export interface BeerStyle {
 }
 
 // ---------------------------------------------------------
+// RAPT Integration Types
+// ---------------------------------------------------------
+export interface RaptSettings {
+  username?: string;
+  password?: string;
+  token?: string;
+  tokenExpiry?: string;
+}
+
+export interface RaptDevice {
+  id: string;
+  name: string;
+  type: 'BrewZilla' | 'RAPTPill' | 'Other';
+  macAddress?: string;
+}
+
+export interface RaptTelemetry {
+  temperature?: number;
+  targetTemperature?: number;
+  gravity?: number;
+  gravityVelocity?: number;
+  battery?: number;
+  rssi?: number;
+  lastSeen?: string;
+}
+
+// ---------------------------------------------------------
 // Active Brew Session
 // ---------------------------------------------------------
 export interface BrewEventActual {
@@ -282,7 +310,7 @@ export interface BrewEventActual {
 
 export interface BrewEvent {
   id: string;
-  type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint' | 'packaging';
+  type: 'water' | 'mash' | 'boil' | 'hop' | 'cooling' | 'yeast' | 'checkpoint' | 'packaging' | 'fermentation';
   label: string;
   subLabel?: string;
   targetValue?: number;
@@ -309,7 +337,8 @@ export interface BrewEvent {
     salts?: { name: string; amount: number; unit: string }[];
     hopDetails?: { id: string; name: string; weight: number; alpha: number };
     yeastDetails?: { name: string; amount?: string };
-    mashDetails?: { name: string; temp: number; time: number };
+    mashDetails?: { id?: string; name: string; temp: number; time: number };
+    stepDetails?: { id?: string; name: string; temp: number; time: number };
   };
 }
 
@@ -324,6 +353,15 @@ export interface Session {
   
   // Phase tracking
   currentEventIndex: number;
+  
+  // RAPT Integration
+  raptBrewZillaId?: string;
+  raptPillId?: string;
+  raptPillLinkedAt?: string;
+  raptBrewZillaLinkedAt?: string;
+  raptPillData?: { gravity: number; temperature: number; timestamp: string; gravityVelocity?: number }[];
+  raptLogStart?: string;
+  raptLogEnd?: string;
   
   // High-fidelity actuals
   actuals: {

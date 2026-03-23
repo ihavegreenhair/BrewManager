@@ -287,6 +287,19 @@ const getFermentationEvents = (recipe: Recipe): BrewEvent[] => {
         completed: false
       });
     });
+
+    (f.fermentationSteps || []).forEach(step => {
+      events.push({
+        id: crypto.randomUUID(),
+        type: 'fermentation',
+        label: `Phase: ${step.name}`,
+        subLabel: `${step.stepTime} days at ${step.stepTemp}°C`,
+        targetTemp: step.stepTemp,
+        unit: '°C',
+        metadata: { mashDetails: { name: step.name, temp: step.stepTemp, time: step.stepTime, id: step.id } as any },
+        completed: false
+      });
+    });
   });
 
   const dryHops = (recipe.kettleHops || []).filter(h => h.use === 'dry_hop');

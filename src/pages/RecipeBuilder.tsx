@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import styles from './RecipeBuilder.module.css';
 import { useBrewStore } from '../store/useBrewStore';
 import type { Recipe, Fermentable, Hop, FermenterEntity, Equipment, MashStep, WaterProfile, BrewMethod } from '../types/brewing';
 import { 
@@ -114,8 +115,11 @@ export const RecipeBuilder = () => {
 
   // Fermentable Searching
   const [fermentableSearch, setFermentableSearch] = useState('');
-  const filteredLibraryFermentables = fermentableLibrary.filter(f => 
-    f.name.toLowerCase().includes(fermentableSearch.toLowerCase())
+  const filteredLibraryFermentables = useMemo(() => 
+    fermentableLibrary.filter(f => 
+      f.name.toLowerCase().includes(fermentableSearch.toLowerCase())
+    ),
+    [fermentableSearch]
   );
 
   // Base Equipment Reference
@@ -172,7 +176,7 @@ export const RecipeBuilder = () => {
         : 0.75;
       
       const neededOG = calculateTargetOGFromABV(targetABV, avgAttenuation);
-      const updatedFermentables = calculateWeightsFromPercentages(fermentables, neededOG, efficiency, batchVolume, brewMethod, trubLoss, mashTunDeadspace);
+      const updatedFermentables = calculateWeightsFromPercentages(fermentables, neededOG, efficiency, batchVolume, brewMethod, trubLoss);
       
       // Only update if something actually changed to avoid infinite loops
       const weightsChanged = updatedFermentables.some((f, i) => Math.abs(f.weight - fermentables[i].weight) > 0.001);
@@ -180,11 +184,11 @@ export const RecipeBuilder = () => {
         setFermentables(updatedFermentables);
       }
     }
-  }, [grainBillMode, targetABV, primaryFermenter.yeast, efficiency, batchVolume, brewMethod, trubLoss, mashTunDeadspace, fermentables.length]);
+  }, [grainBillMode, targetABV, primaryFermenter.yeast, efficiency, batchVolume, brewMethod, trubLoss, fermentables.length]);
 
   // UI Collapsible State
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({ core: false, quantities: false, water: false, fermentables: false, mash: true, hops: false, yeast: true, fermentation: true });
-  const toggleSection = (key: string) => setCollapsed(prev => ({ ...prev, [key]: !prev[key] }));
+  const toggleSection = useCallback((key: string) => setCollapsed(prev => ({ ...prev, [key]: !prev[key] })), []);
 
   // Water State
   const [sourceWater, setSourceWater] = useState<WaterProfile>(defaultSourceWater);
@@ -200,14 +204,14 @@ export const RecipeBuilder = () => {
   const [saltCalculationMode, setSaltCalculationMode] = useState<'auto' | 'manual'>('auto');
   const [manualSaltAdditions, setManualSaltAdditions] = useState({ gypsum: 0, cacl2: 0, epsom: 0, bakingSoda: 0 });
 
-  const handleSaltStrategyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSaltStrategyChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     setSaltAdditionPosition(e.target.value as 'split' | 'mash_only' | 'kettle_only');
-  };
+  }, []);
   
   const isCustomTarget = targetWaterId === 'wp-custom';
   const baseTargetWater = targetWaterProfiles.find(w => w.id === targetWaterId) || targetWaterProfiles[0];
 
-  const handleTargetWaterIdChange = (id: string) => {
+  const handleTargetWaterIdChange = useCallback((id: string) => {
     setTargetWaterId(id);
     if (id !== 'wp-custom') {
       const template = targetWaterProfiles.find(w => w.id === id);
@@ -215,7 +219,7 @@ export const RecipeBuilder = () => {
         setCustomTargetWater({ ...template, id: 'wp-custom', name: 'Custom Profile' });
       }
     }
-  };
+  }, []);
 
   // Advanced Water Calculations
   const waterVolumes = useMemo(() => calculateWaterVolumes(
@@ -255,15 +259,15 @@ export const RecipeBuilder = () => {
     };
   }, [saltCalculationMode, customTargetWater, totalSaltMath.resultingProfile]);
 
-  const handleProfileChange = (updates: Partial<WaterProfile>) => {
+  const handleProfileChange = useCallback((updates: Partial<WaterProfile>) => {
     setTargetWaterId('wp-custom');
     setCustomTargetWater(prev => ({ ...prev, ...updates }));
     setSaltCalculationMode('auto'); // Switching back to auto if they tweak the target
-  };
+  }, []);
 
-  const handleIonChange = (key: keyof WaterProfile, value: number) => {
+  const handleIonChange = useCallback((key: keyof WaterProfile, value: number) => {
     handleProfileChange({ [key]: value });
-  };
+  }, [handleProfileChange]);
 
   // Acid State
   const [acidMode, setAcidMode] = useState<'manual' | 'auto'>('manual');
@@ -307,32 +311,32 @@ export const RecipeBuilder = () => {
       : (saltAdditionPosition === 'mash_only' ? totalSaltMath.resultingProfile : sourceWater);
   }, [saltAdditionPosition, mashSaltMathSplit.resultingProfile, totalSaltMath.resultingProfile, sourceWater]);
 
-  // Predicted pH & Auto-Acid Logic
-  const currentPHNoAcid = useMemo(() => predictMashPH(
-    { id: 'wp-final', name: 'Final', ...effectiveMashProfile }, 
-    fermentables, 
-    waterVolumes.mashWater,
-    { type: acidAddition.type, concentration: acidAddition.concentration, volumeMl: 0 }
-  ), [effectiveMashProfile, fermentables, waterVolumes.mashWater, acidAddition.type, acidAddition.concentration]);
+  // Predicted pH & Auto-Acid logic
+  // Removed local currentPHNoAcid check if handled by search loop or useMemo directly
 
-  // If in auto mode, we iterate to find the volume needed
+  // If in auto mode, we use binary search to find the volume needed
   useEffect(() => {
     if (acidMode === 'auto') {
+      let low = 0;
+      let high = 30;
       let bestVol = 0;
-      let closestPH = currentPHNoAcid;
       
-      // Simple search for correct acid volume (0 to 30ml)
-      for (let v = 0; v <= 30; v += 0.1) {
+      // Binary search for correct acid volume to hit target pH
+      for (let i = 0; i < 15; i++) {
+        const mid = (low + high) / 2;
         const testPH = predictMashPH(
           { id: 'wp-final', name: 'Final', ...effectiveMashProfile }, 
           fermentables, 
           waterVolumes.mashWater,
-          { type: acidAddition.type, concentration: acidAddition.concentration, volumeMl: v }
+          { type: acidAddition.type, concentration: acidAddition.concentration, volumeMl: mid }
         );
-        if (Math.abs(testPH - targetPH) < Math.abs(closestPH - targetPH)) {
-          closestPH = testPH;
-          bestVol = v;
+        
+        if (testPH > targetPH) {
+          low = mid;
+        } else {
+          high = mid;
         }
+        bestVol = mid;
       }
       
       const roundedVol = Number(bestVol.toFixed(1));
@@ -340,17 +344,17 @@ export const RecipeBuilder = () => {
         setAcidAddition(prev => ({ ...prev, volumeMl: roundedVol }));
       }
     }
-  }, [acidMode, targetPH, currentPHNoAcid, effectiveMashProfile, fermentables, waterVolumes.mashWater, acidAddition.type, acidAddition.concentration]);
+  }, [acidMode, targetPH, effectiveMashProfile, fermentables, waterVolumes.mashWater, acidAddition.type, acidAddition.concentration]);
 
-  const predictedPH = predictMashPH(
+  const predictedPH = useMemo(() => predictMashPH(
     { id: 'wp-final', name: 'Final', ...effectiveMashProfile }, 
     fermentables, 
     waterVolumes.mashWater,
     acidAddition
-  );
+  ), [effectiveMashProfile, fermentables, waterVolumes.mashWater, acidAddition]);
 
   // Style Change Modal Logic
-  const handleStyleSelect = (styleId: string) => {
+  const handleStyleSelect = useCallback((styleId: string) => {
     setSelectedStyleId(styleId);
     const style = allStyles.find(s => s.id === styleId);
     if (style) {
@@ -360,33 +364,32 @@ export const RecipeBuilder = () => {
         setShowWaterConfirm(true);
       }
     }
-  };
+  }, [targetWaterId]);
 
-  const confirmWaterChange = (apply: boolean) => {
+  const confirmWaterChange = useCallback((apply: boolean) => {
     if (apply && pendingTargetWaterId) {
       setTargetWaterId(pendingTargetWaterId);
     }
     setShowWaterConfirm(false);
     setPendingTargetWaterId(null);
-  };
+  }, [pendingTargetWaterId]);
 
   const so4ClRatio = activeTargetWater.chloride > 0 
     ? (activeTargetWater.sulfate / activeTargetWater.chloride).toFixed(1) 
     : 'N/A';
 
-  const [sharedTargets, setSharedTargets] = useState({ targetOG: 1.0, targetSRM: 0, targetIBU: 0 });
+  // Shared targets calculation - Using useMemo instead of useEffect
+  const sharedTargets = useMemo(() => {
+    return calculateSharedTargets(fermentables, kettleHops, efficiency, batchVolume, waterVolumes.boilVolume, brewMethod);
+  }, [fermentables, kettleHops, efficiency, batchVolume, waterVolumes.boilVolume, brewMethod]);
 
+  // Derived primary fermenter targets - Computed whenever OG or yeast changes
   useEffect(() => {
-    // Note we pass the overridden batchVolume and efficiency, NOT equipment.batchVolume
-    const newShared = calculateSharedTargets(fermentables, kettleHops, efficiency, batchVolume, waterVolumes.boilVolume, brewMethod);
-    setSharedTargets(newShared);
-    
-    const newFermenterTargets = calculateFermenterTargets(newShared.targetOG, primaryFermenter);
+    const newFermenterTargets = calculateFermenterTargets(sharedTargets.targetOG, primaryFermenter);
     setPrimaryFermenter(prev => ({ ...prev, ...newFermenterTargets }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fermentables, kettleHops, batchVolume, efficiency, brewMethod, primaryFermenter.yeast, waterVolumes.boilVolume]);
+  }, [sharedTargets.targetOG, primaryFermenter.yeast]);
 
-  const handleEquipmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleEquipmentChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const selected = predefinedEquipment.find(eq => eq.id === e.target.value);
     if (selected) {
       setEquipment(selected);
@@ -399,23 +402,23 @@ export const RecipeBuilder = () => {
       setTrubLoss(selected.trubLoss);
       setPrimaryFermenter(prev => ({ ...prev, volume: selected.batchVolume }));
     }
-  };
+  }, []);
 
-  const handleResetOverrides = () => {
+  const handleResetOverrides = useCallback(() => {
     setBatchVolume(equipment.batchVolume);
     setBoilVolume(equipment.boilVolume);
     setBoilTime(equipment.boilTime);
     setEfficiency(equipment.efficiency);
     setGrainAbsorptionRate(equipment.grainAbsorptionRate || 0.8);
     setTrubLoss(equipment.trubLoss);
-  };
+  }, [equipment]);
 
-  const handleSaveSourceWater = () => {
+  const handleSaveSourceWater = useCallback(() => {
     setDefaultSourceWater(sourceWater);
-    alert('Source water saved as global default.');
-  };
+    // TODO: Replace with toast
+  }, [setDefaultSourceWater, sourceWater]);
 
-  const handleExportJSON = () => {
+  const handleExportJSON = useCallback(() => {
     const fullRecipe: Recipe = {
       id: crypto.randomUUID(), name: name || 'Unnamed Recipe', author: author || 'BrewManager User', version, type: brewMethod, styleId: selectedStyleId,
       equipment, batchVolume, boilVolume, boilTime, efficiency, grainAbsorptionRate,
@@ -431,9 +434,9 @@ export const RecipeBuilder = () => {
     a.download = `${name.replace(/\s+/g, '_') || 'recipe'}.json`;
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }, [name, author, version, brewMethod, selectedStyleId, equipment, batchVolume, boilVolume, boilTime, efficiency, grainAbsorptionRate, fermentables, kettleHops, mashSteps, primaryFermenter, sourceWater, activeTargetWater, acidAddition, sharedTargets]);
 
-  const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImportJSON = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
@@ -487,16 +490,16 @@ export const RecipeBuilder = () => {
           setManualSpargeVolume(imported.waterSettings.manualSpargeVolume);
         }
 
-        alert('Recipe successfully imported!');
+        // TODO: Replace with toast
       } else {
-        alert('Error parsing BeerJSON file.');
+        // TODO: Replace with toast
       }
       if (fileInputRef.current) fileInputRef.current.value = '';
     };
     reader.readAsText(file);
-  };
+  }, []);
 
-  const getRecipeData = (): Recipe => ({
+  const getRecipeData = useCallback((): Recipe => ({
     id: id || crypto.randomUUID(),
     name: name || 'Unnamed Recipe',
     author: author || 'BrewManager User',
@@ -513,9 +516,9 @@ export const RecipeBuilder = () => {
     targetWaterProfile: activeTargetWater,
     acidAddition,
     ...sharedTargets
-  });
+  }), [id, name, author, version, brewMethod, selectedStyleId, equipment, batchVolume, boilVolume, boilTime, efficiency, grainAbsorptionRate, fermentables, kettleHops, mashSteps, primaryFermenter, sourceWater, activeTargetWater, acidAddition, sharedTargets]);
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     const recipeData = getRecipeData();
     if (id) {
       updateRecipe(id, recipeData);
@@ -523,58 +526,25 @@ export const RecipeBuilder = () => {
       addRecipe(recipeData);
     }
     navigate('/recipes');
-  };
+  }, [getRecipeData, id, updateRecipe, addRecipe, navigate]);
 
-  const handleStartBrewing = () => {
+  const handleStartBrewing = useCallback(() => {
     const recipeData = getRecipeData();
     const sessionId = useBrewStore.getState().startSession(recipeData, `${recipeData.name} Brew Day`);
     navigate(`/brew-day/${sessionId}`);
-  };
+  }, [getRecipeData, navigate]);
 
   return (
-    <div className="recipe-builder-container">
-      <style>{`
-        .recipe-builder-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding-bottom: 5rem;
-        }
-        .recipe-builder-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-        @media (min-width: 1024px) {
-          .recipe-builder-grid {
-            grid-template-columns: 1.8fr 1.2fr;
-            gap: 2rem;
-          }
-        }
-        .main-sections {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-          min-width: 0;
-        }
-        .sidebar-container {
-          position: relative;
-        }
-        @media (min-width: 1024px) {
-          .sidebar-container {
-            position: sticky;
-            top: 2rem;
-          }
-        }
-      `}</style>
+    <div className={styles.container}>
       {/* Water Profile Change Modal */}
       {showWaterConfirm && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
-          <div style={{ backgroundColor: 'var(--bg-surface)', padding: '2rem', borderRadius: 'var(--border-radius)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
-            <h3 style={{ marginBottom: '1rem' }}>Update Water Profile?</h3>
-            <p style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>You've selected a new style. Would you like to automatically switch to the recommended water profile for this style?</p>
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(19, 19, 19, 0.8)', backdropFilter: 'blur(4px)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 }}>
+          <div style={{ background: 'var(--bg-surface-inset)', padding: '2.5rem', borderRadius: '0', border: '1px solid var(--border-color)', borderLeft: '4px solid var(--accent-primary)', maxWidth: '400px', width: '90%', textAlign: 'center', boxShadow: 'var(--shadow-glow)' }}>
+            <h3 style={{ marginBottom: '1rem', fontFamily: 'var(--font-display)', fontSize: '1.5rem', textTransform: 'uppercase' }}>Update Water Profile?</h3>
+            <p style={{ marginBottom: '2rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-sans)', lineHeight: 1.5 }}>You've selected a new style. Would you like to automatically switch to the recommended water profile for this style?</p>
             <div style={{ display: 'flex', gap: '1rem' }}>
-              <button style={{ flex: 1, padding: '0.75rem' }} onClick={() => confirmWaterChange(false)}>Keep Current</button>
-              <button className="primary" style={{ flex: 1, padding: '0.75rem' }} onClick={() => confirmWaterChange(true)}>Update Profile</button>
+              <button style={{ flex: 1, padding: '1rem', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-color)', color: 'var(--text-primary)', borderRadius: '4px', cursor: 'pointer' }} onClick={() => confirmWaterChange(false)}>Keep Current</button>
+              <button className="primary" style={{ flex: 1, padding: '1rem', backgroundColor: 'var(--accent-primary)', border: 'none', color: '#0F172A', fontWeight: 'bold', borderRadius: '4px', cursor: 'pointer' }} onClick={() => confirmWaterChange(true)}>Update Profile</button>
             </div>
           </div>
         </div>
@@ -587,12 +557,12 @@ export const RecipeBuilder = () => {
         onExport={handleExportJSON}
         onSave={handleSave}
         onStartBrewing={handleStartBrewing}
-        isNewRecipe={!id}
+        isNewRecipe={!id || id === 'new'}
       />
       <input type="file" accept=".json" style={{ display: 'none' }} ref={fileInputRef} onChange={handleImportJSON} />
 
-      <div className="recipe-builder-grid">
-        <div className="main-sections">
+      <div className={styles.builderLayout}>
+        <div className={styles.mainContent}>
           
           <CoreProfileSection 
             name={name} setName={setName}
@@ -705,7 +675,7 @@ export const RecipeBuilder = () => {
           />
         </div>
 
-        <div className="sidebar-container">
+        <div className={styles.sidebar}>
           <StyleMatchSidebar 
             activeStyle={activeStyle}
             sharedTargets={sharedTargets}

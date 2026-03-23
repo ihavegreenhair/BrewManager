@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleGauge } from './StyleGauge';
 import { RadarChart } from './RadarChart';
 import { BalanceBar } from './BalanceBar';
@@ -23,7 +24,7 @@ interface StyleMatchSidebarProps {
   predictedPH?: number;
 }
 
-export const StyleMatchSidebar = ({
+const StyleMatchSidebarComponent = ({
   activeStyle, sharedTargets, primaryFermenter, fermentables, kettleHops, mashSteps, activeTargetWater,
   co2Volumes = 2.5, predictedPH = 5.4
 }: StyleMatchSidebarProps) => {
@@ -54,23 +55,39 @@ export const StyleMatchSidebar = ({
         category = 'adjunct';
         fermentability = 0; // Mash aid, not fermentable
         proteinLevel = 'med';
+      } else if (name.includes('acidulated') || name.includes('sauermalz')) {
+        category = 'adjunct'; // pH adjustment, not a flavor contributor
+        fermentability = 0.7;
+        proteinLevel = 'med';
       } else if (name.includes('rice') || name.includes('corn') || name.includes('maize')) {
         category = 'adjunct';
         fermentability = 1.0;
         proteinLevel = 'low';
-      } else if (name.includes('sugar') || name.includes('dextrose') || name.includes('honey') || name.includes('candi') || name.includes('syrup')) {
+      } else if (name.includes('sugar') || name.includes('dextrose') || name.includes('honey') || name.includes('candi') || name.includes('syrup') || name.includes('invert') || name.includes('treacle') || name.includes('molasses')) {
         category = 'sugar';
         fermentability = 1.0;
         proteinLevel = 'low';
-      } else if (f.color >= 100 || name.includes('roast') || name.includes('chocolate') || name.includes('black')) {
+      } else if (name.includes('fruit') || name.includes('puree') || name.includes('juice')) {
+        category = 'fruit';
+        fermentability = 0.9;
+        proteinLevel = 'low';
+      } else if (name.includes('spice') || name.includes('coriander') || name.includes('orange peel') || name.includes('ginger')) {
+        category = 'spice';
+        fermentability = 0;
+        proteinLevel = 'low';
+      } else if (f.color >= 100 || name.includes('roast') || name.includes('chocolate') || name.includes('black') || name.includes('midnight')) {
         category = 'roasted';
         fermentability = 0.65;
-      } else if (f.color >= 20 || name.includes('crystal') || name.includes('caramel') || name.includes('cara')) {
+      } else if (f.color >= 20 || name.includes('crystal') || name.includes('caramel') || name.includes('cara') || name.includes('special b') || name.includes('special w')) {
         category = 'crystal';
         fermentability = 0.7;
       } else if (name.includes('wheat') || name.includes('oat') || name.includes('rye') || name.includes('flaked')) {
         category = 'adjunct';
         proteinLevel = 'high';
+      } else if (name.includes('smoked') || name.includes('rauch') || name.includes('peat')) {
+        // Smoked malts are base malts with a distinct smoke flavor overlay
+        category = 'base';
+        fermentability = 0.75;
       }
       
       return {
@@ -85,25 +102,51 @@ export const StyleMatchSidebar = ({
 
     const activeDryHop = kettleHops.some(h => h.use === 'dry_hop');
     
-    // Yeast mapping
-    let profile: 'clean' | 'fruity' | 'phenolic' = 'clean';
+    // Yeast mapping — expanded from 3 to 6 profiles
+    let profile: 'clean' | 'fruity' | 'phenolic' | 'kveik' | 'brett' | 'mixed' = 'clean';
     let biotransformation: 'low' | 'medium' | 'high' = 'low';
     const isLager = primaryFermenter.yeast[0]?.type === 'lager';
     
     if (yeastInfo) {
       const esterScore = yeastInfo.characteristicScores?.fruity || 0;
       const phenolScore = yeastInfo.characteristicScores?.funky || 0;
+      const yeastName = yeastInfo.name.toLowerCase();
+      const yeastTags = yeastInfo.tags || [];
+      const yeastType = primaryFermenter.yeast[0]?.type || '';
 
-      if (esterScore > 3 || yeastInfo.tags?.includes('fruity') || yeastInfo.styles.some(s => s.toLowerCase().includes('neipa') || s.toLowerCase().includes('hazy'))) {
+      // Check for Kveik first (unique high-temp, fast fermentation)
+      if (yeastType === 'kweik' || yeastName.includes('kveik') || yeastName.includes('voss') || yeastTags.includes('kveik')) {
+        profile = 'kveik';
+        biotransformation = esterScore > 3 ? 'high' : 'medium';
+      }
+      // Brett / Wild
+      else if (yeastName.includes('brett') || yeastName.includes('wild') || yeastName.includes('lambic') || yeastTags.includes('wild') || yeastTags.includes('brett')) {
+        profile = 'brett';
+        biotransformation = 'medium';
+      }
+      // Mixed fermentation
+      else if (yeastName.includes('blend') && (yeastName.includes('brett') || yeastName.includes('lacto') || yeastName.includes('sour'))) {
+        profile = 'mixed';
+        biotransformation = 'medium';
+      }
+      // Fruity esters
+      else if (esterScore > 3 || yeastTags.includes('fruity') || yeastInfo.styles.some(s => s.toLowerCase().includes('neipa') || s.toLowerCase().includes('hazy'))) {
         profile = 'fruity';
-        biotransformation = 'high';
-      } else if (phenolScore > 3 || yeastInfo.tags?.includes('phenolic') || yeastInfo.tags?.includes('spicy')) {
+        biotransformation = esterScore > 4 ? 'high' : 'medium';
+      }
+      // Phenolic / POF+
+      else if (phenolScore > 3 || yeastTags.includes('phenolic') || yeastTags.includes('spicy')) {
         profile = 'phenolic';
+        biotransformation = 'low';
+      }
+      // Clean default — assign biotransformation based on ester potential
+      else {
+        biotransformation = esterScore > 2 ? 'medium' : 'low';
       }
     }
 
     // Attempt to guess ferm temp if not specified
-    const fermTempC = isLager ? 12 : (profile === 'fruity' ? 21 : 18);
+    const fermTempC = isLager ? 12 : (profile === 'kveik' ? 35 : profile === 'fruity' ? 21 : 18);
 
     return {
       stats: {
@@ -358,3 +401,5 @@ export const StyleMatchSidebar = ({
     </div>
   );
 };
+
+export const StyleMatchSidebar = React.memo(StyleMatchSidebarComponent);

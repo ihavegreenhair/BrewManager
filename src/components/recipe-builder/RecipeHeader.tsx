@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Menu, X, Save, Upload, Download, Play } from 'lucide-react';
 
 interface RecipeHeaderProps {
@@ -11,7 +11,7 @@ interface RecipeHeaderProps {
   isNewRecipe?: boolean;
 }
 
-export const RecipeHeader = ({
+const RecipeHeaderComponent = ({
   measurementSystem, setMeasurementSystem, onImport, onExport, onSave, onStartBrewing, isNewRecipe
 }: RecipeHeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -204,3 +204,5 @@ export const RecipeHeader = ({
     </div>
   );
 };
+
+export const RecipeHeader = React.memo(RecipeHeaderComponent);

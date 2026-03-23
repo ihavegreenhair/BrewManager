@@ -22,54 +22,7 @@ const getTagColor = (tag: string) => {
   return { bg: 'rgba(var(--accent-primary-rgb, 255, 179, 0), 0.1)', text: 'var(--accent-primary)', border: 'rgba(var(--accent-primary-rgb, 255, 179, 0), 0.2)' };
 };
 
-const RadarChart: React.FC<{ scores: Record<string, number> }> = ({ scores }) => {
-  const categories = Object.keys(scores);
-  const size = 180;
-  const center = size / 2;
-  const radius = size * 0.3;
-
-  const points = categories.map((cat, i) => {
-    const angle = (i * 2 * Math.PI) / categories.length - Math.PI / 2;
-    const value = Math.min(1, scores[cat] / 5); // Scale 0-5
-    const x = center + radius * value * Math.cos(angle);
-    const y = center + radius * value * Math.sin(angle);
-    return `${x},${y}`;
-  }).join(' ');
-
-  const gridPoints = [0.2, 0.4, 0.6, 0.8, 1.0].map(r => {
-    return categories.map((_, i) => {
-      const angle = (i * 2 * Math.PI) / categories.length - Math.PI / 2;
-      const x = center + radius * r * Math.cos(angle);
-      const y = center + radius * r * Math.sin(angle);
-      return `${x},${y}`;
-    }).join(' ');
-  });
-
-  return (
-    <svg width={size} height={size} style={{ overflow: 'visible' }}>
-      {gridPoints.map((gp, i) => (
-        <polygon key={i} points={gp} fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
-      ))}
-      {categories.map((_, i) => {
-        const angle = (i * 2 * Math.PI) / categories.length - Math.PI / 2;
-        const x2 = center + radius * Math.cos(angle);
-        const y2 = center + radius * Math.sin(angle);
-        return <line key={i} x1={center} y1={center} x2={x2} y2={y2} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />;
-      })}
-      <polygon points={points} fill="rgba(var(--accent-primary-rgb, 255, 179, 0), 0.4)" stroke="var(--accent-primary)" strokeWidth="2" />
-      {categories.map((cat, i) => {
-        const angle = (i * 2 * Math.PI) / categories.length - Math.PI / 2;
-        const x = center + (radius + 18) * Math.cos(angle);
-        const y = center + (radius + 18) * Math.sin(angle);
-        return (
-          <text key={cat} x={x} y={y} fontSize="8" fill="#BBB" textAnchor="middle" dominantBaseline="middle" style={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
-            {cat}
-          </text>
-        );
-      })}
-    </svg>
-  );
-};
+import { RadarChart } from './RadarChart';
 
 export const RecipeYeastProfile: React.FC<RecipeYeastProfileProps> = ({ pitchedYeasts, compact }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);

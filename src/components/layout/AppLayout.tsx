@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { Zap, Book, Plus, Menu, X, LayoutDashboard, Calculator, Box, History } from 'lucide-react';
+import { Zap, Book, Plus, Menu, X, LayoutDashboard, Calculator, Box, History, Settings } from 'lucide-react';
 import styles from './AppLayout.module.css';
 
 const AppLayout: React.FC = () => {
@@ -16,6 +16,7 @@ const AppLayout: React.FC = () => {
     { to: '/sessions', label: 'Brew Sessions', icon: History },
     { to: '/calculators', label: 'Calculators', icon: Calculator },
     { to: '/inventory', label: 'Inventory', icon: Box },
+    { to: '/settings', label: 'Settings', icon: Settings },
   ];
 
   return (

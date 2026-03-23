@@ -12,7 +12,7 @@ interface YeastPitchSectionProps {
   onToggle: (s: string) => void;
 }
 
-export const YeastPitchSection = ({
+const YeastPitchSectionComponent = ({
   primaryFermenter, setPrimaryFermenter, collapsed, onToggle
 }: YeastPitchSectionProps) => {
 
@@ -142,3 +142,5 @@ export const YeastPitchSection = ({
     </section>
   );
 };
+
+export const YeastPitchSection = React.memo(YeastPitchSectionComponent);

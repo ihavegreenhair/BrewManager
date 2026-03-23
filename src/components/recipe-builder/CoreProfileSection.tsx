@@ -1,3 +1,4 @@
+import React from 'react';
 import type { BrewMethod, BeerStyle } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { StylePicker } from './StylePicker';
@@ -18,7 +19,7 @@ interface CoreProfileSectionProps {
   onToggle: (s: string) => void;
 }
 
-export const CoreProfileSection = ({
+const CoreProfileSectionComponent = ({
   name, setName, author, setAuthor, version, setVersion, brewMethod, setBrewMethod,
   selectedStyleId, handleStyleSelect, allStyles,
   collapsed, onToggle
@@ -75,3 +76,5 @@ export const CoreProfileSection = ({
     </section>
   );
 };
+
+export const CoreProfileSection = React.memo(CoreProfileSectionComponent);

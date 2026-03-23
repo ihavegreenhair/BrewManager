@@ -1,4 +1,4 @@
-import type { Fermentable, Hop, Yeast, FermenterEntity, WaterVolumes, Equipment, HopVariety } from '../types/brewing';
+import type { Fermentable, Hop, Yeast, FermenterEntity, WaterVolumes, Equipment, HopVariety, FermentationStep } from '../types/brewing';
 
 /**
  * Calculates the required strike water temperature
@@ -76,8 +76,7 @@ export const calculateOG = (
   efficiency: number,
   batchVolume: number, // in Liters (Target volume into fermenter)
   brewMethod: 'All Grain' | 'Extract' | 'Partial Mash' | 'BIAB' = 'All Grain',
-  trubLoss: number = 0, // Liters lost in kettle
-  _mashTunDeadspace: number = 0 // Liters lost in mash tun
+  trubLoss: number = 0 // Liters lost in kettle
 ): number => {
   // Total volume of wort that actually receives extracted sugars
   const totalWortVolume = batchVolume + trubLoss;
@@ -121,7 +120,23 @@ export const calculateABV = (og: number, fg: number): number => {
   if (og <= fg) return 0;
   // Advanced ABV formula for better accuracy at high gravities
   const abv = (76.08 * (og - fg) / (1.775 - og)) * (fg / 0.794);
-  return Number(abv.toFixed(1));
+  return Number(abv.toFixed(3)); // Increased precision for smoother telemetry curves
+};
+
+/**
+ * Math utility for Specific Gravity Temperature Correction 
+ * Uses standard polynomial approximation, assuming 20°C (68°F) hydrometer/pill calibration
+ */
+export const correctGravityForTemperature = (sg: number, tempC: number): number => {
+  if (!sg || !tempC) return sg;
+  const tempF = (tempC * 9) / 5 + 32;
+  const calF = 68; 
+
+  const correctionFactor = (t: number) =>
+    1.00130346 - 0.000134722124 * t + 0.00000204052596 * Math.pow(t, 2) - 0.00000000232820948 * Math.pow(t, 3);
+
+  const correctedSG = sg * (correctionFactor(tempF) / correctionFactor(calF));
+  return Number(correctedSG.toFixed(4));
 };
 
 /**
@@ -156,8 +171,8 @@ export const calculateSingleHopIBU = (
   // Only certain uses contribute significantly to IBU
   if (!['boil', 'first_wort', 'mash', 'whirlpool'].includes(hop.use)) return 0;
 
-  // Safety check for alpha acid (handle both whole numbers and decimals)
-  const aa = hop.alphaAcid > 1 ? hop.alphaAcid : hop.alphaAcid * 100;
+  // alphaAcid is always stored as a percentage (e.g. 12 = 12%)
+  const aa = hop.alphaAcid;
 
   // Physics upgrade: Use Average Boil Gravity instead of OG
   const averageBoilVolume = (batchVolume + boilVolume) / 2;
@@ -219,7 +234,8 @@ export const calculateWeightToHitIBU = (
   if (batchVolume <= 0 || hop.alphaAcid <= 0) return 0;
   if (!['boil', 'first_wort', 'mash', 'whirlpool'].includes(hop.use)) return 0;
 
-  const aa = hop.alphaAcid > 1 ? hop.alphaAcid : hop.alphaAcid * 100;
+  // alphaAcid is always stored as a percentage (e.g. 12 = 12%)
+  const aa = hop.alphaAcid;
 
   const averageBoilVolume = (batchVolume + boilVolume) / 2;
   const averageBoilGravity = 1 + ((og - 1) * (batchVolume / averageBoilVolume));
@@ -263,7 +279,7 @@ export const getHopRetention = (time: number, use: string, temp?: number): numbe
     return Number(retention.toFixed(2));
   } 
 
-  if (use === 'first_wort') return 0.15; // FW has surprisingly good retention compared to 60m
+  if (use === 'first_wort') return 0.10; // FW retains some aroma but is exposed to full boil
   if (use === 'mash') return 0.05;
   
   const retention = Math.exp(-0.1 * time);
@@ -311,13 +327,22 @@ export const calculateHopProfile = (
     weightedOils.caryophyllene += c * weightFactor;
     weightedOils.farnesene += f * weightFactor;
 
-    const scores = {
-      fruity: Math.min(5, (m / 15) + (variety.tags.includes('tropical_fruit') || variety.tags.includes('citrus') ? 1.5 : 0)),
-      floral: Math.min(5, (f / 3) + (variety.tags.includes('floral') ? 1.5 : 0.5)),
-      herbaceous: Math.min(5, (f / 5) + (c / 10) + (variety.tags.includes('herbal') ? 1 : 0.5)),
-      spicy: Math.min(5, (h_oil / 8) + (variety.tags.includes('spicy') ? 1 : 0.5)),
-      earthy: Math.min(5, (c / 6) + (h_oil / 15) + (variety.tags.includes('earthy') ? 1 : 0.5))
-    };
+    // Prefer pre-computed aromaScores when available; fall back to oil-derived heuristic
+    const scores = variety.aromaScores
+      ? {
+          fruity: Math.min(5, variety.aromaScores.fruity),
+          floral: Math.min(5, variety.aromaScores.floral),
+          herbaceous: Math.min(5, variety.aromaScores.herbaceous),
+          spicy: Math.min(5, variety.aromaScores.spicy),
+          earthy: Math.min(5, variety.aromaScores.earthy)
+        }
+      : {
+          fruity: Math.min(5, (m / 15) + (variety.tags.includes('tropical_fruit') || variety.tags.includes('citrus') ? 1.5 : 0)),
+          floral: Math.min(5, (f / 3) + (variety.tags.includes('floral') ? 1.5 : 0.5)),
+          herbaceous: Math.min(5, (f / 5) + (c / 10) + (variety.tags.includes('herbal') ? 1 : 0.5)),
+          spicy: Math.min(5, (h_oil / 8) + (variety.tags.includes('spicy') ? 1 : 0.5)),
+          earthy: Math.min(5, (c / 6) + (h_oil / 15) + (variety.tags.includes('earthy') ? 1 : 0.5))
+        };
 
     weightedScores.fruity += scores.fruity * weightFactor;
     weightedScores.floral += scores.floral * weightFactor;
@@ -368,19 +393,23 @@ export const calculateTargetOGFromABV = (
 ): number => {
   if (targetABV <= 0 || attenuation <= 0) return 1.040;
   
-  // Using an iterative approach to match the advanced ABV formula accurately
-  let og = 1.000;
-  let currentABV = 0;
-  let step = 0.001;
+  // Binary search to find OG that produces the target ABV via the advanced formula
+  let low = 1.000;
+  let high = 1.200;
   
-  // Binary search or simple iteration for OG
-  while (currentABV < targetABV && og < 1.200) {
-    og += step;
-    const fg = 1 + (og - 1) * (1 - attenuation);
-    currentABV = (76.08 * (og - fg) / (1.775 - og)) * (fg / 0.794);
+  for (let i = 0; i < 20; i++) {
+    const mid = (low + high) / 2;
+    const fg = 1 + (mid - 1) * (1 - attenuation);
+    const currentABV = (76.08 * (mid - fg) / (1.775 - mid)) * (fg / 0.794);
+    
+    if (currentABV < targetABV) {
+      low = mid;
+    } else {
+      high = mid;
+    }
   }
   
-  return Number(og.toFixed(3));
+  return Number(((low + high) / 2).toFixed(3));
 };
 
 /**
@@ -393,8 +422,7 @@ export const calculateWeightsFromPercentages = (
   efficiency: number,
   batchVolume: number, // in Liters
   brewMethod: 'All Grain' | 'Extract' | 'Partial Mash' | 'BIAB' = 'All Grain',
-  trubLoss: number = 0,
-  _mashTunDeadspace: number = 0
+  trubLoss: number = 0
 ): Fermentable[] => {
   const totalWortVolume = batchVolume + trubLoss;
   if (totalWortVolume <= 0 || targetOG <= 1.0) return fermentables;
@@ -435,10 +463,9 @@ export const calculateSharedTargets = (
   batchVolume: number, // in Liters
   boilVolume: number, // in Liters
   brewMethod: 'All Grain' | 'Extract' | 'Partial Mash' | 'BIAB' = 'All Grain',
-  trubLoss: number = 0,
-  mashTunDeadspace: number = 0
+  trubLoss: number = 0
 ) => {
-  const og = calculateOG(fermentables, efficiency, batchVolume, brewMethod, trubLoss, mashTunDeadspace);
+  const og = calculateOG(fermentables, efficiency, batchVolume, brewMethod, trubLoss);
   const srm = calculateSRM(fermentables, batchVolume);
   const ibu = calculateIBU(kettleHops, og, batchVolume, boilVolume);
   return { targetOG: og, targetSRM: srm, targetIBU: ibu };
@@ -454,4 +481,190 @@ export const calculateFermenterTargets = (
   const fg = calculateFG(og, fermenter.yeast);
   const abv = calculateABV(og, fg);
   return { targetFG: fg, targetABV: abv };
+};
+
+/**
+ * Advanced Fermentation Projection Model
+ * 
+ * Uses a modified Logistic Growth Curve (Sigmoid) that adapts its fermentation rate (k)
+ * based on temperature, yeast dynamics, and real-time gravity velocity.
+ */
+export interface ProjectionPoint {
+  unix: number;
+  gravity: number;
+  abv: number;
+  temperature: number;
+}
+
+export const calculateAdvancedFermentationProjection = (
+  og: number,
+  targetFG: number,
+  startTime: number, // unix timestamp
+  fermentationSteps: FermentationStep[],
+  rawActualDataPoints: { gravity: number; temperature: number; timestamp: string; gravityVelocity?: number }[] = [],
+  yeastAttenuation: number = 75
+): ProjectionPoint[] => {
+  if (og <= 1.0) return [];
+
+  // Pre-process real-time telemetry: normalize specific gravity to 20°C calibration to eliminate temperature-induced density noise.
+  const actualDataPoints = rawActualDataPoints.map(p => ({
+    ...p,
+    gravity: correctGravityForTemperature(p.gravity, p.temperature)
+  }));
+  const points: ProjectionPoint[] = [];
+  const fg = targetFG || (1 + (og - 1) * (1 - yeastAttenuation / 100));
+  
+  // 1. Detect Lag Phase
+  let lagDurationDays = 1.0; 
+  if (actualDataPoints.length > 1) {
+    const firstDrop = actualDataPoints.find(p => (og - p.gravity) > 0.001);
+    if (firstDrop) {
+      lagDurationDays = (new Date(firstDrop.timestamp).getTime() - startTime) / 86400000;
+    }
+  }
+
+  // 2. Base Model Params
+  const primaryStep = fermentationSteps[0];
+  const primaryDuration = primaryStep?.stepTime || 7;
+  const k_base = 0.7 + (yeastAttenuation / 100); 
+  
+  // 3. Anchoring & Kinetic FG Estimation
+  const lastActual = actualDataPoints[actualDataPoints.length - 1];
+  const lastActualTimeDays = lastActual ? (new Date(lastActual.timestamp).getTime() - startTime) / 86400000 : 0;
+
+  let projectedFG = fg;
+
+  if (actualDataPoints.length >= 2) { 
+    // Use up to the last 48 points (2 days if hourly) to judge recent velocity
+    const lookbackCount = Math.min(actualDataPoints.length, 48);
+    const recentPoints = actualDataPoints.slice(-lookbackCount);
+    const firstRecent = recentPoints[0];
+    const lastRecent = recentPoints[recentPoints.length - 1];
+    
+    const timeDeltaDays = (new Date(lastRecent.timestamp).getTime() - new Date(firstRecent.timestamp).getTime()) / 86400000;
+    const gravityDelta = firstRecent.gravity - lastRecent.gravity; 
+    
+    // Need at least 2.4 hours of data baseline to calculate a real trajectory vs noise
+    if (timeDeltaDays >= 0.1) {
+      const velocityPPD = gravityDelta / timeDeltaDays; // Gravity points dropped per day
+      
+      // Determine the current step's target temperature to find the current active k_adj
+      let currentAnchorTemp = 20;
+      let elapsed = 0;
+      for (const step of fermentationSteps) {
+        if (lastActualTimeDays <= (elapsed + lagDurationDays + step.stepTime)) {
+          currentAnchorTemp = step.stepTemp;
+          break;
+        }
+        elapsed += step.stepTime;
+      }
+
+      // Calculate the kinetic rate constant at this exact temperature
+      const T_ref = 20;
+      const Q10 = 2.5;
+      const k_adj_current = k_base * Math.pow(Q10, (currentAnchorTemp - T_ref) / 10);
+
+      if (velocityPPD < 0.0015 && lastActual.gravity < og - 0.005) {
+        // Fermentation has stalled or finished
+        projectedFG = lastActual.gravity;
+      } else if (velocityPPD > 0) {
+        // SUPER ADVANCED KINETICS: First-Order Velocity Derivative
+        // In exponential decay, dG/dt = -k * (G - FG)
+        // Therefore, velocity = k * (G - FG)  =>  FG = G - (velocity / k)
+        // This dynamically maps the exact theoretical FG based on current speed and temperature.
+        const kineticFG = lastActual.gravity - (velocityPPD / k_adj_current);
+        
+        // Sanity constraints: Even super-yeast won't usually go below 0.990, 
+        // and we don't want to forecast a stuck fermentation unhelpfully high if velocity is just a little noisy.
+        projectedFG = Math.max(0.990, Math.min(lastActual.gravity, kineticFG));
+      }
+    }
+  }
+
+  // Calculate base t0
+  let t0 = lagDurationDays + (primaryDuration * 0.4); 
+
+  // If we have data past the lag phase, solve for an "effective t0" that fits the curve to the last point
+  if (lastActual && lastActual.gravity < og - 0.001 && lastActual.gravity > projectedFG) {
+    // Find temperature at anchor point to get local k
+    let anchorTargetTemp = 20;
+    let anchorElapsed = 0;
+    for (const step of fermentationSteps) {
+      if (lastActualTimeDays <= (anchorElapsed + lagDurationDays + step.stepTime)) {
+        anchorTargetTemp = step.stepTemp;
+        break;
+      }
+      anchorElapsed += step.stepTime;
+    }
+    const Q10 = 2.5;
+    const T_ref = 20;
+    const anchor_k_adj = k_base * Math.pow(Q10, (anchorTargetTemp - T_ref) / 10);
+
+    // Solve G = FG + (OG - FG) / (1 + exp(k(t - t0))) for t0
+    // exp(k(t - t0)) = (OG - FG) / (G - FG) - 1 = (OG - G) / (G - FG)
+    const ratio = (og - lastActual.gravity) / (lastActual.gravity - projectedFG);
+    if (ratio > 0) {
+      t0 = lastActualTimeDays - (Math.log(ratio) / anchor_k_adj);
+    }
+  }
+
+  const T_ref = 20;
+  const Q10 = 2.5; 
+  const totalDurationDays = fermentationSteps.reduce((acc, s) => acc + s.stepTime, 0) + lagDurationDays;
+
+  for (let t = 0; t <= totalDurationDays + 3; t += (4/24)) {
+    let currentTargetTemp = 20;
+    let elapsed = 0;
+    for (const step of fermentationSteps) {
+      if (t <= (elapsed + lagDurationDays + step.stepTime)) {
+        currentTargetTemp = step.stepTemp;
+        break;
+      }
+      elapsed += step.stepTime;
+    }
+
+    // Logistic decay formula
+    const k_adj = k_base * Math.pow(Q10, (currentTargetTemp - T_ref) / 10);
+    
+    let gravity: number;
+    if (t < lagDurationDays && (!lastActual || lastActual.gravity >= og - 0.001)) {
+      // STRICT LAG PHASE: Flat line at OG
+      gravity = og;
+    } else {
+      // LOGISTIC CURVE starting from effective t0
+      const exponent = k_adj * (t - t0);
+      gravity = projectedFG + (og - projectedFG) / (1 + Math.exp(exponent));
+    }
+
+    // Anchoring logic for transition Smoothing (if needed)
+    // ...
+
+    // ENSURE MONOTONICITY: Gravity can never be higher than the previous point
+    const lastPoint = points[points.length - 1];
+    if (lastPoint && gravity > lastPoint.gravity) {
+      gravity = lastPoint.gravity;
+    }
+    
+    // Fermentation Halt: If temperature is very low (e.g. cold crash), 
+    // biological activity stops.
+    if (currentTargetTemp < 5 && lastPoint) {
+      gravity = lastPoint.gravity;
+    }
+    
+    gravity = Math.max(projectedFG, Math.min(og, gravity));
+
+    // Smooth the transition closely if we have actual data (epsilon = half a step)
+    if (lastActual && Math.abs(t - lastActualTimeDays) < (2/24)) {
+      gravity = lastActual.gravity;
+    }
+
+    points.push({
+      unix: startTime + (t * 86400000),
+      gravity: Number(gravity.toFixed(3)),
+      abv: calculateABV(og, gravity),
+      temperature: currentTargetTemp
+    });
+  }
+
+  return points;
 };

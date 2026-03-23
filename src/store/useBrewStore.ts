@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Recipe, Session, MeasurementSystem, WaterProfile } from '../types/brewing';
+import type { Recipe, Session, MeasurementSystem, WaterProfile, RaptSettings, RaptDevice } from '../types/brewing';
 import { generateBrewEvents } from '../utils/instructionGenerator';
 
 export const defaultTapWater: WaterProfile = {
@@ -14,6 +14,12 @@ interface BrewState {
   
   defaultSourceWater: WaterProfile;
   setDefaultSourceWater: (profile: WaterProfile) => void;
+
+  // RAPT Integration
+  raptSettings: RaptSettings;
+  updateRaptSettings: (settings: Partial<RaptSettings>) => void;
+  raptDevices: RaptDevice[];
+  setRaptDevices: (devices: RaptDevice[]) => void;
 
   // Data
   recipes: Recipe[];
@@ -39,6 +45,14 @@ export const useBrewStore = create<BrewState>()(
 
       defaultSourceWater: defaultTapWater,
       setDefaultSourceWater: (profile) => set({ defaultSourceWater: profile }),
+
+      raptSettings: {},
+      updateRaptSettings: (settings) => set((state) => ({ 
+        raptSettings: { ...state.raptSettings, ...settings } 
+      })),
+      
+      raptDevices: [],
+      setRaptDevices: (devices) => set({ raptDevices: devices }),
 
       recipes: [],
       sessions: [],

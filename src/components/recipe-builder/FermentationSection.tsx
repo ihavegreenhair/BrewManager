@@ -1,3 +1,4 @@
+import React from 'react';
 import type { FermenterEntity, FermentationStep } from '../../types/brewing';
 import { SectionHeader } from './SectionHeader';
 import { fermentationProfiles } from '../../data/profiles';
@@ -13,7 +14,7 @@ interface FermentationSectionProps {
   onToggle: (s: string) => void;
 }
 
-export const FermentationSection = ({
+const FermentationSectionComponent = ({
   primaryFermenter, setPrimaryFermenter, measurementSystem, co2Volumes, setCo2Volumes, collapsed, onToggle
 }: FermentationSectionProps) => {
 
@@ -293,3 +294,5 @@ export const FermentationSection = ({
     </section>
   );
 };
+
+export const FermentationSection = React.memo(FermentationSectionComponent);

@@ -32,7 +32,7 @@ export interface TastingInput {
   mashSteps: Array<{ tempC: number; durationMins: number }>;
   yeast: { 
     attenuation: number; 
-    profile: 'clean' | 'fruity' | 'phenolic'; 
+    profile: 'clean' | 'fruity' | 'phenolic' | 'kveik' | 'brett' | 'mixed'; 
     biotransformation: 'low' | 'medium' | 'high';
     fermTempC: number;
     isLager?: boolean;
@@ -72,8 +72,21 @@ const Synonyms = {
   finish: ["concludes with", "finishes with", "leaves a final impression of", "ends on"],
 };
 
-function getRandom(arr: string[]) {
-  return arr[Math.floor(Math.random() * arr.length)];
+/**
+ * Simple hash function to produce a deterministic index from recipe parameters.
+ * Avoids Math.random() which causes tasting notes to flicker on every render.
+ */
+function hashSeed(...values: number[]): number {
+  let hash = 0;
+  for (const v of values) {
+    // Multiply by a large prime and XOR to distribute bits
+    hash = ((hash << 5) - hash + Math.round(v * 1000)) | 0;
+  }
+  return Math.abs(hash);
+}
+
+function getSeeded(arr: string[], seed: number) {
+  return arr[seed % arr.length];
 }
 
 export function analyzeMash(steps: Array<{ tempC: number; durationMins: number }>): number {
@@ -83,12 +96,18 @@ export function analyzeMash(steps: Array<{ tempC: number; durationMins: number }
 
   for (const step of steps) {
     totalTime += step.durationMins;
-    if (step.tempC >= 60 && step.tempC <= 65) betaTime += step.durationMins;
-    else if (step.tempC >= 68 && step.tempC <= 72) alphaTime += step.durationMins;
-    else if (step.tempC >= 66 && step.tempC <= 67) {
-      betaTime += step.durationMins * 0.5;
-      alphaTime += step.durationMins * 0.5;
+    // Continuous blend: 60°C = 100% beta, 66°C = 50/50, 72°C = 100% alpha
+    // Scale linearly across the 60-72°C range
+    if (step.tempC >= 60 && step.tempC <= 72) {
+      const alphaFraction = Math.max(0, Math.min(1, (step.tempC - 60) / 12));
+      const betaFraction = 1 - alphaFraction;
+      betaTime += step.durationMins * betaFraction;
+      alphaTime += step.durationMins * alphaFraction;
+    } else if (step.tempC < 60) {
+      // Below enzyme activity range — minimal contribution
+      betaTime += step.durationMins * 0.1;
     }
+    // Above 72°C: denaturation — neither enzyme contributes meaningfully
   }
 
   if (totalTime === 0) return 0;
@@ -208,8 +227,22 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
   const phenolicScore = Math.min(10, (yeast.scores?.funky || 0) * 2);
 
   const hopAromaIndex = Math.min(10, hops.totalOilMl * 1.5 * (hops.activeDryHop && yeast.biotransformation === 'high' ? 1.3 : 1));
-  const yeastEsterIndex = Math.min(10, (yeast.profile === 'fruity' ? 7 : 2) * (yeast.fermTempC > 22 ? 1.4 : 1));
-  const yeastPhenolIndex = Math.min(10, (yeast.profile === 'phenolic' ? 8 : 0));
+  
+  // Yeast ester index varies by profile type
+  let yeastEsterBase = 2;
+  if (yeast.profile === 'fruity') yeastEsterBase = 7;
+  else if (yeast.profile === 'kveik') yeastEsterBase = 6; // Kveik produces strong tropical esters at high temps
+  else if (yeast.profile === 'brett') yeastEsterBase = 4; // Brett contributes fruity esters over time
+  else if (yeast.profile === 'mixed') yeastEsterBase = 5;
+  const tempBoost = yeast.fermTempC > 22 ? 1.4 : (yeast.profile === 'kveik' && yeast.fermTempC > 30 ? 1.5 : 1);
+  const yeastEsterIndex = Math.min(10, yeastEsterBase * tempBoost);
+  
+  // Yeast phenol index
+  let yeastPhenolBase = 0;
+  if (yeast.profile === 'phenolic') yeastPhenolBase = 8;
+  else if (yeast.profile === 'brett') yeastPhenolBase = 5; // Brett produces funky/earthy phenolics
+  else if (yeast.profile === 'mixed') yeastPhenolBase = 4;
+  const yeastPhenolIndex = Math.min(10, yeastPhenolBase);
 
   const matrix = {
     sweetnessIndex, bitternessIndex, bodyIndex, 
@@ -223,7 +256,13 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
   let haze = (proteinRich && hops.activeDryHop && yeast.biotransformation === 'high') ? "hazy, glowing " : (proteinRich && stats.srm < 10 ? "cloudy " : "");
   
   let appearance = stats.srm < 4 ? "pale straw" : stats.srm < 8 ? "golden hue" : stats.srm < 15 ? "deep amber" : stats.srm < 25 ? "deep mahogany" : "pitch black";
-  let head = (bodyBuildingPct > 0.1 || stats.totalIBU > 40) ? ", capped with a dense, rocky head" : "";
+  let head = "";
+  if (stats.co2Volumes > 3.5) head = ", capped with a vigorous, persistent mousse";
+  else if (stats.co2Volumes > 3.0) head = ", topped with a dense, effervescent head";
+  else if (stats.co2Volumes > 2.5 && (bodyBuildingPct > 0.1 || stats.totalIBU > 40)) head = ", capped with a dense, rocky head";
+  else if (stats.co2Volumes > 2.0 && bodyBuildingPct > 0.1) head = ", with a creamy, persistent cap";
+  else if (stats.co2Volumes < 1.8) head = ", beneath a thin, delicate cap";
+  else if (stats.co2Volumes < 2.2) head = ", with a soft, gentle head";
 
   const sensoryDrivers = [
     { label: 'fruity', value: matrix.fruityScore, desc: "vibrant, fruit-forward notes" },
@@ -278,18 +317,22 @@ export function generateOverallTastingNotes(recipe: TastingInput): TastingOutput
 
   const waterImpact = water.words ? `, rounded by its ${water.words.balance.toLowerCase()} and ${water.words.body.toLowerCase()} water profile` : "";
 
-  const s1 = `Pouring a ${haze}${appearance}${head}, this ${abvDesc} beer ${getRandom(Synonyms.entry)} ${isSubtle ? 'subtle' : 'pronounced'} ${aroma}.`;
+  const noteSeed = hashSeed(stats.og, stats.totalIBU, stats.srm, fermentables.length, stats.co2Volumes);
+
+  const s1 = `Pouring a ${haze}${appearance}${head}, this ${abvDesc} beer ${getSeeded(Synonyms.entry, noteSeed)} ${isSubtle ? 'subtle' : 'pronounced'} ${aroma}.`;
   
   let mouthfeelDesc = "medium-bodied";
   if (matrix.bodyIndex > 8) mouthfeelDesc = "heavy and chewy";
   else if (matrix.bodyIndex > 7) mouthfeelDesc = "thick and coating";
   else if (matrix.bodyIndex > 6) mouthfeelDesc = "full-bodied and smooth";
+  else if (matrix.bodyIndex > 5) mouthfeelDesc = "medium-bodied and rounded";
+  else if (matrix.bodyIndex > 4) mouthfeelDesc = "medium-light and approachable";
   else if (matrix.bodyIndex < 2) mouthfeelDesc = "very lean and highly attenuated";
   else if (matrix.bodyIndex < 3) mouthfeelDesc = "light and crisp";
   else if (matrix.bodyIndex < 4) mouthfeelDesc = "lean and refreshing";
 
   const s2 = `The palate is ${mouthfeelDesc}, anchored by ${maltParts.join(', ')}.`;
-  const s3 = `It ${getRandom(Synonyms.finish)} ${finish}${waterImpact}.`;
+  const s3 = `It ${getSeeded(Synonyms.finish, noteSeed + 1)} ${finish}${waterImpact}.`;
 
   return { notes: `${s1} ${s2} ${s3}`, matrix };
 }

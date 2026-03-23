@@ -1,47 +1,39 @@
+@import '@fontsource/space-grotesk';
+@import '@fontsource/inter';
+
 :root {
-  /* Default: Minimal Light Mode */
-  --bg-main: #FFFFFF;
-  --bg-surface: #F8FAFC;
-  --bg-surface-hover: #F1F5F9;
+  /* Kinetic Lab System - Industrial Precision */
+  --bg-main: #131313; /* Base Level / Chassis */
+  --bg-surface: #1C1B1B; /* Container Low */
+  --bg-surface-hover: #2A2A2A; /* Container High */
+  --bg-surface-highest: #353534; /* Active Modules */
+  --bg-surface-inset: #0E0E0E; /* Container Lowest */
   
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
+  --text-primary: #e5e2e1;
+  --text-secondary: #bfc7d4;
+  --text-muted: #89919d;
 
-  --accent-primary: #0284C7; /* Refined Blue */
-  --accent-hover: #0369A1;
-  --accent-soft: rgba(2, 132, 199, 0.1);
+  --accent-primary: #2196F3; /* Primary Blue */
+  --accent-secondary: #FF9800; /* Secondary Orange */
+  --accent-tertiary: #F44336; /* Tertiary Red */
+  --accent-hover: #9ecaff; /* Primary Light */
+  --accent-soft: rgba(33, 150, 243, 0.15);
+  --accent-glow: 0 0 12px rgba(33, 150, 243, 0.2);
   
-  --status-success: #10B981;
-  --status-warning: #F59E0B;
-  --status-danger: #EF4444;
-  --status-info: #0EA5E9;
-
-  --border-color: #E2E8F0;
-  --border-radius: 6px; 
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --status-prep: #FF9800; /* Mashing / Prep */
+  --status-boil: #F44336; /* Boiling */
+  --status-ferment: #2196F3; /* Fermentation */
+  --status-success: #4CAF50;
+  
+  --border-color: #404752;
+  --border-radius: 0px; /* Zero-radius mandate */
+  
+  /* Tonal layering instead of shadows */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-glow: 0 0 12px rgba(33, 150, 243, 0.2);
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-main: #0F172A; /* Slate 900 */
-    --bg-surface: #1E293B; /* Slate 800 */
-    --bg-surface-hover: #334155; /* Slate 700 */
-    
-    --text-primary: #F8FAFC; /* Slate 50 */
-    --text-secondary: #94A3B8; /* Slate 400 */
-    --text-muted: #475569; /* Slate 600 */
-
-    --accent-primary: #38BDF8; /* Sky 400 */
-    --accent-hover: #7DD3FC; /* Sky 300 */
-    --accent-soft: rgba(56, 189, 248, 0.15);
-    
-    --border-color: #334155;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
+  --font-mono: 'Space Grotesk', 'Fira Code', 'Courier New', Courier, monospace;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
 }

@@ -7,61 +7,83 @@ export const Dashboard = () => {
     <div className="dashboard-container">
       <style>{`
         .dashboard-container {
-          max-width: 1000px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 1rem;
         }
         .dashboard-header {
-          margin-bottom: 2rem;
+          margin-bottom: 3rem;
+          border-left: 4px solid var(--accent-primary);
+          padding-left: 1rem;
+        }
+        .dashboard-header h2 {
+          font-family: var(--font-display);
+          font-size: 2.5rem;
+          margin: 0;
+          line-height: 1;
+          letter-spacing: -0.02em;
         }
         .dashboard-welcome {
           color: var(--text-secondary);
-          margin-top: 1rem;
-          font-family: var(--font-mono);
-          font-size: 0.8rem;
+          margin-top: 0.5rem;
+          font-family: var(--font-sans);
+          font-size: 0.9rem;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.1em;
         }
         .stats-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 1rem;
+          gap: 1.5rem;
           margin-top: 2rem;
         }
-        @media (min-width: 640px) {
-          .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
           .stats-grid {
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
+            gap: 2rem;
           }
         }
         .stat-card {
-          background-color: var(--bg-surface);
-          padding: 1.5rem;
-          border-radius: var(--border-radius);
-          border: 1px solid var(--border-color);
+          background: linear-gradient(180deg, var(--bg-surface-hover) 0%, var(--bg-surface) 100%);
+          padding: 2rem;
+          border-radius: 0;
+          border-left: 2px solid var(--border-color);
+          position: relative;
+        }
+        .stat-card:hover {
+          border-left-color: var(--accent-primary);
+          box-shadow: var(--accent-glow);
+        }
+        .stat-card h3 {
+          font-family: var(--font-sans);
+          color: var(--text-muted);
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          margin-bottom: 0.5rem;
         }
         .stat-value {
-          font-size: 2rem;
-          color: var(--accent-primary);
-          font-weight: bold;
-          margin-top: 0.5rem;
+          font-family: var(--font-display);
+          font-size: 3.5rem;
+          color: var(--text-primary);
+          font-weight: 700;
+          line-height: 1;
         }
+        .stat-value.active { color: var(--accent-secondary); }
+        .stat-value.completed { color: var(--status-success); }
       `}</style>
       
       <div className="dashboard-header">
         <h2>Dashboard</h2>
         <p className="dashboard-welcome">
-          Welcome to Brewprint. Your engineering command center for technical brewing.
+          Brewprint Engineering Command Center
         </p>
       </div>
 
       <div className="stats-grid">
         <div className="stat-card">
           <h3>Active Brews</h3>
-          <p className="stat-value">
+          <p className="stat-value active">
             {sessions.filter(s => s.status === 'active').length}
           </p>
         </div>
@@ -73,7 +95,7 @@ export const Dashboard = () => {
         </div>
         <div className="stat-card">
           <h3>Completed Sessions</h3>
-          <p className="stat-value">
+          <p className="stat-value completed">
             {sessions.filter(s => s.status === 'completed').length}
           </p>
         </div>

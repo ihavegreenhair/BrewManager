@@ -1,1 +1,3 @@
+/rapt-auth  https://id.rapt.io/connect/token  200!
+/rapt-api/*  https://api.rapt.io/api/:splat  200!
 /*  /index.html  200

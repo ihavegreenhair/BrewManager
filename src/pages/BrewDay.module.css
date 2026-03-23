@@ -1,7 +1,9 @@
 .brewDayContainer {
   max-width: 1400px;
   margin: 0 auto;
-  padding-bottom: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem 5rem 1rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;

@@ -360,7 +360,7 @@ export const BrewDay = () => {
         <button onClick={handleFinish} className="primary" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', background: '#4CAF50', borderColor: '#4CAF50' }}>FINISH BREW</button>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', minWidth: 0 }}>
         <div className={styles.heroScrollList}>
           {renderedItems.map((item) => {
             const isActive = item.idx === activeEventIndex;

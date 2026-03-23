@@ -234,7 +234,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
       </div>
       <div style={{ height: typeof height === 'number' ? `${height}px` : height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 40, right: 30, left: 0, bottom: 5 }}>
+          <LineChart data={chartData} margin={{ top: 40, right: 40, left: 20, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
             <XAxis 
               dataKey="unix" 
@@ -243,9 +243,10 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               stroke="var(--text-muted)" 
               fontSize={9} 
               tickFormatter={(unix) => new Date(unix).toLocaleDateString([], { month: 'short', day: 'numeric' })} 
-              minTickGap={80} 
+              minTickGap={100} 
               axisLine={false} 
               tickLine={false} 
+              tick={{ dy: 10 }}
             />
             <YAxis 
               yAxisId="gravity" 
@@ -256,7 +257,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               tickFormatter={(val) => val.toFixed(4)} 
               axisLine={false} 
               tickLine={false} 
-              width={75} 
+              width={80} 
               padding={{ top: 20, bottom: 20 }}
             />
             <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={10} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={40} />
@@ -269,7 +270,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               const fill = isActive ? 'rgba(76, 175, 80, 0.15)' : (p.color || (i % 2 === 0 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.01)"));
               return (
                 <ReferenceArea key={`area-${i}`} yAxisId="gravity" x1={p.start} x2={p.end} fill={fill} stroke="none">
-                  <Label value={p.name} position="insideTop" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.6)"} fontSize={isActive ? 11 : 9} fontWeight="bold" offset={20} />
+                  <Label value={p.name} position="insideTopLeft" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.7)"} fontSize={isActive ? 11 : 9} fontWeight="bold" offset={10} />
                 </ReferenceArea>
               );
             })}

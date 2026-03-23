@@ -259,7 +259,7 @@ export const FermentationMonitor: React.FC<Props> = React.memo(({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <h5 style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>Telemetry Graph</h5>
           </div>
-          <div style={{ flex: 1, position: 'relative', width: '100%', minHeight: '350px' }}>
+          <div style={{ flex: 1, position: 'relative', width: '100%', minHeight: '400px', overflow: 'hidden' }}>
             <RaptTelemetryChart 
               data={session.raptPillData || []} 
               projectedData={projectedData}

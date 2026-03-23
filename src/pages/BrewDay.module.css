@@ -601,7 +601,7 @@
 
 .fermentChartArea {
   background: var(--bg-main);
-  padding: 1.5rem;
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
   flex: 1;
   min-height: 450px;

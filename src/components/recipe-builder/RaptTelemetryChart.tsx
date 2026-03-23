@@ -177,7 +177,11 @@ export const RaptTelemetryChart: React.FC<Props> = ({
     if (actualPoints.length > 50) {
       const fortyEightHours = 48 * 60 * 60 * 1000;
       const checkPoint = [...actualPoints].reverse().find(p => actualMaxUnix - p.unix >= fortyEightHours);
-      if (checkPoint && Math.abs(actualPoints[actualPoints.length - 1].gravity - checkPoint.gravity) < 0.0015 && actualPoints[actualPoints.length - 1].gravity < og - 0.005) {
+      // Only trigger stall if gravity is significantly above target and not moving much
+      if (checkPoint && 
+          Math.abs(actualPoints[actualPoints.length - 1].gravity - checkPoint.gravity) < 0.0008 && 
+          actualPoints[actualPoints.length - 1].gravity < og - 0.005 &&
+          actualPoints[actualPoints.length - 1].gravity > (Number(targetFG) || 1.010) + 0.002) {
         stallRange = { start: checkPoint.unix, end: actualMaxUnix };
       }
     }
@@ -243,18 +247,29 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               axisLine={false} 
               tickLine={false} 
             />
-            <YAxis yAxisId="gravity" domain={['auto', 'auto']} stroke="var(--accent-primary)" fontSize={10} tick={{ fill: 'var(--accent-primary)' }} tickFormatter={(val) => val.toFixed(4)} axisLine={false} tickLine={false} width={55} />
-            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={10} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={30} />
-            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={10} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={30} hide={hiddenLines.has('abv')} />
-            <YAxis yAxisId="atten" orientation="right" domain={[0, 100]} stroke="#2196F3" fontSize={10} tick={{ fill: '#2196F3' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={35} hide={hiddenLines.has('attenuation')} />
-            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} stroke="#E91E63" fontSize={10} tick={{ fill: '#E91E63' }} tickFormatter={(val) => val} axisLine={false} tickLine={false} width={25} hide={hiddenLines.has('velocity')} />
+            <YAxis 
+              yAxisId="gravity" 
+              domain={['auto', 'auto']} 
+              stroke="var(--accent-primary)" 
+              fontSize={10} 
+              tick={{ fill: 'var(--accent-primary)', fontWeight: 'bold' }} 
+              tickFormatter={(val) => val.toFixed(4)} 
+              axisLine={false} 
+              tickLine={false} 
+              width={75} 
+              padding={{ top: 20, bottom: 20 }}
+            />
+            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={10} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={40} />
+            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={10} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={40} hide={hiddenLines.has('abv')} />
+            <YAxis yAxisId="atten" orientation="right" domain={[0, 100]} stroke="#2196F3" fontSize={10} tick={{ fill: '#2196F3' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={45} hide={hiddenLines.has('attenuation')} />
+            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} stroke="#E91E63" fontSize={10} tick={{ fill: '#E91E63' }} tickFormatter={(val) => val} axisLine={false} tickLine={false} width={35} hide={hiddenLines.has('velocity')} />
 
             {chartPhases.map((p, i) => {
               const isActive = activePhaseId && p.id === activePhaseId;
               const fill = isActive ? 'rgba(76, 175, 80, 0.15)' : (p.color || (i % 2 === 0 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.01)"));
               return (
                 <ReferenceArea key={`area-${i}`} yAxisId="gravity" x1={p.start} x2={p.end} fill={fill} stroke="none">
-                  <Label value={p.name} position="top" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.3)"} fontSize={isActive ? 10 : 8} fontWeight="bold" offset={10} />
+                  <Label value={p.name} position="insideTop" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.6)"} fontSize={isActive ? 11 : 9} fontWeight="bold" offset={20} />
                 </ReferenceArea>
               );
             })}

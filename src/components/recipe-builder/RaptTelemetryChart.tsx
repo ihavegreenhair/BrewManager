@@ -232,7 +232,17 @@ export const RaptTelemetryChart: React.FC<Props> = ({
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 40, right: 30, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
-            <XAxis dataKey="unix" type="number" domain={['dataMin', 'dataMax']} stroke="var(--text-muted)" fontSize={10} tickFormatter={(unix) => new Date(unix).toLocaleDateString([], { month: 'short', day: 'numeric' })} minTickGap={60} axisLine={false} tickLine={false} />
+            <XAxis 
+              dataKey="unix" 
+              type="number" 
+              domain={['dataMin', 'dataMax']} 
+              stroke="var(--text-muted)" 
+              fontSize={9} 
+              tickFormatter={(unix) => new Date(unix).toLocaleDateString([], { month: 'short', day: 'numeric' })} 
+              minTickGap={80} 
+              axisLine={false} 
+              tickLine={false} 
+            />
             <YAxis yAxisId="gravity" domain={['auto', 'auto']} stroke="var(--accent-primary)" fontSize={10} tick={{ fill: 'var(--accent-primary)' }} tickFormatter={(val) => val.toFixed(4)} axisLine={false} tickLine={false} width={55} />
             <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={10} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={30} />
             <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={10} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={30} hide={hiddenLines.has('abv')} />
@@ -244,7 +254,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               const fill = isActive ? 'rgba(76, 175, 80, 0.15)' : (p.color || (i % 2 === 0 ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.01)"));
               return (
                 <ReferenceArea key={`area-${i}`} yAxisId="gravity" x1={p.start} x2={p.end} fill={fill} stroke="none">
-                  <Label value={p.name} position="top" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.5)"} fontSize={isActive ? 11 : 9} fontWeight="bold" offset={15} />
+                  <Label value={p.name} position="top" fill={isActive ? "#4CAF50" : "rgba(255,255,255,0.3)"} fontSize={isActive ? 10 : 8} fontWeight="bold" offset={10} />
                 </ReferenceArea>
               );
             })}

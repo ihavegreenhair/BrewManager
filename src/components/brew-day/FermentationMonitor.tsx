@@ -145,28 +145,52 @@ export const FermentationMonitor: React.FC<Props> = React.memo(({
           ))}
         </div>
 
-        {/* Floating Manual/Logging inputs adjacent to metrics on desktop */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: showManualEntry || showLoggingSettings ? '100%' : 'auto', maxWidth: '400px' }}>
-          {showLoggingSettings && (
-            <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--bg-main)', padding: '0.5rem', border: '1px solid var(--border-color)' }}>
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Calendar size={14} color="var(--text-muted)" />
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <label style={{ fontSize: '0.55rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 'bold' }}>Log Start</label>
-                  <input type="datetime-local" value={toLocalISO(session.raptLogStart)} onChange={(e) => onUpdateSession({ raptLogStart: new Date(e.target.value).toISOString() })} style={{ background: 'none', border: 'none', color: 'white', fontSize: '0.75rem', cursor: 'pointer', outline: 'none', width: '100%' }} />
+        {/* Modal for Logging Settings */}
+        {showLoggingSettings && (
+          <div className={styles.modalOverlay} onClick={() => setShowLoggingSettings(false)}>
+            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+              <div className={styles.modalHeader}>
+                <h3 style={{ margin: 0, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Settings size={18} /> Logging Configuration
+                </h3>
+                <button onClick={() => setShowLoggingSettings(false)} className={styles.syncButton} style={{ border: 'none' }}>×</button>
+              </div>
+              <div className={styles.modalBody}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', margin: 0 }}>
+                  Adjust the start and end timestamps for RAPT data collection. This affects which data points are included in the graph.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div className={styles.actualInputGroup}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <Calendar size={12} /> Log Start
+                    </label>
+                    <input 
+                      type="datetime-local" 
+                      value={toLocalISO(session.raptLogStart)} 
+                      onChange={(e) => onUpdateSession({ raptLogStart: new Date(e.target.value).toISOString() })} 
+                    />
+                  </div>
+                  <div className={styles.actualInputGroup}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      <Timer size={12} /> Log End
+                    </label>
+                    <input 
+                      type="datetime-local" 
+                      value={toLocalISO(session.raptLogEnd)} 
+                      onChange={(e) => onUpdateSession({ raptLogEnd: new Date(e.target.value).toISOString() })} 
+                    />
+                  </div>
                 </div>
               </div>
-              <div style={{ width: '1px', background: 'var(--border-color)' }}></div>
-              <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <Timer size={14} color="var(--text-muted)" />
-                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <label style={{ fontSize: '0.55rem', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 'bold' }}>Log End</label>
-                  <input type="datetime-local" value={toLocalISO(session.raptLogEnd)} onChange={(e) => onUpdateSession({ raptLogEnd: new Date(e.target.value).toISOString() })} style={{ background: 'none', border: 'none', color: 'white', fontSize: '0.75rem', cursor: 'pointer', outline: 'none', width: '100%' }} />
-                </div>
+              <div className={styles.modalFooter}>
+                <button onClick={() => setShowLoggingSettings(false)} className="primary" style={{ padding: '0.5rem 1.5rem' }}>CLOSE</button>
               </div>
             </div>
-          )}
+          </div>
+        )}
 
+        {/* Floating Manual/Logging inputs adjacent to metrics on desktop */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: showManualEntry ? '100%' : 'auto', maxWidth: '400px' }}>
           {showManualEntry && (
             <div style={{ background: 'var(--bg-main)', padding: '0.75rem', border: '1px solid var(--border-color)', display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr auto', gap: '0.5rem', alignItems: 'end' }}>
               <div className={styles.actualInputGroup}>

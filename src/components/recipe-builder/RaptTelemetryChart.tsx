@@ -234,36 +234,36 @@ export const RaptTelemetryChart: React.FC<Props> = ({
       </div>
       <div style={{ height: typeof height === 'number' ? `${height}px` : height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 40, right: 40, left: 20, bottom: 20 }}>
+          <LineChart data={chartData} margin={{ top: 20, right: 60, left: 100, bottom: 40 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.02)" vertical={false} />
             <XAxis 
               dataKey="unix" 
               type="number" 
               domain={['dataMin', 'dataMax']} 
               stroke="var(--text-muted)" 
-              fontSize={9} 
+              fontSize={10} 
               tickFormatter={(unix) => new Date(unix).toLocaleDateString([], { month: 'short', day: 'numeric' })} 
               minTickGap={100} 
               axisLine={false} 
-              tickLine={false} 
-              tick={{ dy: 10 }}
+              tickLine={false}
+              dy={15}
             />
             <YAxis 
               yAxisId="gravity" 
               domain={['auto', 'auto']} 
               stroke="var(--accent-primary)" 
-              fontSize={10} 
+              fontSize={9} 
               tick={{ fill: 'var(--accent-primary)', fontWeight: 'bold' }} 
               tickFormatter={(val) => val.toFixed(4)} 
               axisLine={false} 
               tickLine={false} 
-              width={80} 
-              padding={{ top: 20, bottom: 20 }}
+              width={90} 
+              padding={{ top: 40, bottom: 40 }}
             />
-            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={10} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={40} />
-            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={10} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={40} hide={hiddenLines.has('abv')} />
-            <YAxis yAxisId="atten" orientation="right" domain={[0, 100]} stroke="#2196F3" fontSize={10} tick={{ fill: '#2196F3' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={45} hide={hiddenLines.has('attenuation')} />
-            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} stroke="#E91E63" fontSize={10} tick={{ fill: '#E91E63' }} tickFormatter={(val) => val} axisLine={false} tickLine={false} width={35} hide={hiddenLines.has('velocity')} />
+            <YAxis yAxisId="temp" orientation="right" domain={['auto', 'auto']} stroke="#ff7300" fontSize={9} tick={{ fill: '#ff7300' }} tickFormatter={(val) => `${val.toFixed(0)}°`} axisLine={false} tickLine={false} width={40} />
+            <YAxis yAxisId="percent" orientation="right" domain={[0, 'auto']} stroke="#4CAF50" fontSize={9} tick={{ fill: '#4CAF50' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={40} hide={hiddenLines.has('abv')} />
+            <YAxis yAxisId="atten" orientation="right" domain={[0, 100]} stroke="#2196F3" fontSize={9} tick={{ fill: '#2196F3' }} tickFormatter={(val) => `${val}%`} axisLine={false} tickLine={false} width={45} hide={hiddenLines.has('attenuation')} />
+            <YAxis yAxisId="vel" orientation="right" domain={[0, 'auto']} stroke="#E91E63" fontSize={9} tick={{ fill: '#E91E63' }} tickFormatter={(val) => val} axisLine={false} tickLine={false} width={35} hide={hiddenLines.has('velocity')} />
 
             {chartPhases.map((p, i) => {
               const isActive = activePhaseId && p.id === activePhaseId;
@@ -295,7 +295,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
 
             {stallRange && (
               <ReferenceArea yAxisId="gravity" x1={stallRange.start} x2={stallRange.end} fill="rgba(244, 67, 54, 0.05)" stroke="#f44336" strokeDasharray="3 3">
-                <Label value="STALL DETECTED" position="center" fill="#f44336" fontSize={10} fontWeight="bold" />
+                <Label value="STALL DETECTED" position="insideBottom" fill="#f44336" fontSize={10} fontWeight="bold" offset={10} />
               </ReferenceArea>
             )}
 
@@ -309,7 +309,7 @@ export const RaptTelemetryChart: React.FC<Props> = ({
               return [<span><strong>{isG ? val.toFixed(4) : `${val.toFixed(1)}°C`}</strong>{original !== undefined && name === 'Gravity' && (<span style={{ opacity: 0.4, fontSize: '0.7rem', marginLeft: '6px' }}>({original.toFixed(4)})</span>)}</span>, name];
             }) as any} />
             
-            <Legend formatter={renderLegendText} onClick={toggleLine} iconType="circle" wrapperStyle={{ fontSize: '0.7rem', paddingTop: '25px', cursor: 'pointer' }} />
+            <Legend formatter={renderLegendText} onClick={toggleLine} iconType="circle" wrapperStyle={{ fontSize: '0.8rem', paddingTop: '40px', cursor: 'pointer' }} />
             
             <Line yAxisId="gravity" type="monotone" dataKey="gravity" name="Gravity" stroke="var(--accent-primary)" strokeWidth={3} dot={false} activeDot={{ r: 5 }} hide={hiddenLines.has('gravity')} isAnimationActive={false} />
             <Line yAxisId="gravity" type="monotone" dataKey="targetGravity" name="Target Gravity" stroke="var(--accent-primary)" strokeWidth={2} strokeDasharray="5 5" opacity={0.4} dot={false} hide={hiddenLines.has('targetGravity')} isAnimationActive={false} />

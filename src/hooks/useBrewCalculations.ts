@@ -28,6 +28,7 @@ export interface BrewInsights {
   abv: number;
   attenuation: number;
   currentSG: number;
+  og: number;
   ppd: string;
   temp?: number;
   ppdTrend: 'up' | 'down' | 'flat';
@@ -61,134 +62,6 @@ export const useBrewCalculations = (session: Session | undefined) => {
       return { durationDays: ((now - start) / 86400000).toFixed(1), isComplete: false };
     }
   }, [session?.raptLogStart, session?.raptPillData]);
-
-  const insights = useMemo(() => {
-    if (!session) return null;
-
-    const data = session.raptPillData;
-    const lastPoint = data?.[data.length - 1];
-    let currentSG = lastPoint?.gravity || 1.000;
-    if (currentSG > 10) currentSG = currentSG / 1000;
-
-    const og = session.actuals.og || session.recipeSnapshot.targetOG;
-    const abv = calculateABV(og, currentSG);
-    const attenuation = og > 1 ? ((og - currentSG) / (og - 1)) * 100 : 0;
-    const rawPpd = lastPoint?.gravityVelocity || 0;
-
-    let ppdTrend: 'up' | 'down' | 'flat' = 'flat';
-    let tempTrend: 'up' | 'down' | 'flat' = 'flat';
-
-    if (data && data.length > 1) {
-      const sixHoursAgo = new Date(lastPoint!.timestamp).getTime() - (6 * 60 * 60 * 1000);
-      let comparePoint = [...data].reverse().find(p => new Date(p.timestamp).getTime() <= sixHoursAgo);
-      if (!comparePoint) comparePoint = data[data.length - 2];
-
-      if (comparePoint) {
-        const prevPpd = Math.abs(comparePoint.gravityVelocity || 0);
-        const currPpd = Math.abs(rawPpd);
-        if (currPpd > prevPpd + 0.5) ppdTrend = 'up';
-        else if (currPpd < prevPpd - 0.5) ppdTrend = 'down';
-
-        const prevTemp = comparePoint.temperature || 0;
-        const currTemp = lastPoint!.temperature || 0;
-        if (currTemp > prevTemp + 0.5) tempTrend = 'up';
-        else if (currTemp < prevTemp - 0.5) tempTrend = 'down';
-      }
-    }
-
-    return {
-      abv,
-      attenuation: Number(attenuation.toFixed(1)),
-      currentSG: Number(currentSG.toFixed(4)),
-      ppd: Math.abs(rawPpd).toFixed(1),
-      temp: lastPoint?.temperature,
-      ppdTrend,
-      tempTrend
-    };
-  }, [session?.raptLogStart, session?.raptPillData, session?.actuals.og, session?.recipeSnapshot.targetOG]);
-
-  const timelineMilestones = useMemo((): TimelineMilestone[] => {
-    const logStart = session?.raptLogStart ? new Date(session.raptLogStart).getTime() : new Date().getTime();
-    const milestones: TimelineMilestone[] = [];
-    const now = new Date().getTime();
-
-    const lagEnd = lagPhaseInfo?.end || logStart;
-    const currentSG = insights?.currentSG || 1.050;
-    const og = session?.actuals.og || session?.recipeSnapshot.targetOG || 1.050;
-    const targetFG = session?.recipeSnapshot.fermenters[0]?.targetFG || 1.010;
-
-    // 1. Lag Phase Progress
-    let lagProgress = 0;
-    if (lagPhaseInfo?.isComplete) lagProgress = 100;
-    else if (session?.raptLogStart) {
-      const elapsed = now - logStart;
-      lagProgress = Math.min(99, (elapsed / (24 * 60 * 60 * 1000)) * 100);
-    }
-
-    milestones.push({
-      type: 'lag',
-      id: 'lag-phase',
-      name: 'Lag Phase',
-      days: lagPhaseInfo?.durationDays || 0,
-      date: new Date(logStart),
-      isComplete: lagPhaseInfo?.isComplete || false,
-      progress: Math.round(lagProgress)
-    });
-
-    let currentMs = lagEnd;
-    fermentationSteps.forEach((step, idx) => {
-      const isCrash = step.stepTemp < 5;
-      const correspondingEvent = session?.events.find(e => e.type === 'fermentation' && (e.metadata?.stepDetails?.id === step.id || e.metadata?.mashDetails?.id === step.id));
-      const isComplete = correspondingEvent?.completed || false;
-      const durationMs = step.stepTime * 86400000;
-      const phaseEndMs = currentMs + durationMs;
-
-      let progress = 0;
-      if (isComplete) {
-        progress = 100;
-      } else if (now >= currentMs && now < phaseEndMs) {
-        if (idx === 0) {
-          const totalDrop = og - targetFG;
-          const currentDrop = og - currentSG;
-          progress = (totalDrop > 0) ? (currentDrop / totalDrop) * 100 : 0;
-        } else {
-          progress = ((now - currentMs) / durationMs) * 100;
-        }
-      } else if (now >= phaseEndMs) {
-        progress = 100;
-      }
-
-      milestones.push({
-        type: isCrash ? 'crash' : 'phase',
-        id: step.id,
-        name: step.name,
-        days: step.stepTime,
-        temp: step.stepTemp,
-        date: new Date(currentMs),
-        isComplete,
-        progress: Math.round(Math.max(0, Math.min(100, progress)))
-      });
-      currentMs += durationMs;
-    });
-
-    dryHops.forEach(hop => {
-      const correspondingEvent = session?.events.find(e => e.type === 'hop' && e.metadata?.hopDetails?.id === hop.id);
-      const hopDateMs = lagEnd + (hop.time * 86400000);
-
-      milestones.push({
-        type: 'hop',
-        id: hop.id,
-        name: `Dry Hop: ${hop.name}`,
-        days: hop.time,
-        weight: hop.weight,
-        date: new Date(hopDateMs),
-        isComplete: correspondingEvent?.completed || false,
-        progress: now >= hopDateMs ? 100 : 0
-      });
-    });
-
-    return milestones.sort((a, b) => a.date.getTime() - b.date.getTime());
-  }, [session?.raptLogStart, session?.events, fermentationSteps, dryHops, lagPhaseInfo, insights?.currentSG, session?.actuals.og, session?.recipeSnapshot.targetOG, session?.recipeSnapshot.fermenters]);
 
   const updatedTargets = useMemo(() => {
     if (!session) return null;
@@ -275,8 +148,6 @@ export const useBrewCalculations = (session: Session | undefined) => {
 
     // --- AUTO-TELEMETRY DETECTION LOGIC ---
     if (session.raptPillData && session.raptPillData.length > 0) {
-      // 1. Auto-OG: Find the absolute maximum gravity in the first 24 hours, aggressively filtering out splash/drop anomalies.
-      // This prevents the detector from settling on a slightly-attenuated number (e.g. 1.042) if the Pill takes a while to stabilize near true OG (1.044).
       if (!mergedActuals.og) {
         const firstPillTime = new Date(session.raptPillData[0].timestamp).getTime();
         const first24h = session.raptPillData.filter(
@@ -284,7 +155,7 @@ export const useBrewCalculations = (session: Session | undefined) => {
         );
         
         let detectedOG = 0;
-        const ceilingLimit = (recipe.targetOG || 1.050) + 0.015; // Extremely tight 15-point ceiling to kill mechanical drop-in spikes
+        const ceilingLimit = (recipe.targetOG || 1.050) + 0.015;
         
         first24h.forEach(p => {
           const corrected = correctGravityForTemperature(p.gravity, p.temperature);
@@ -298,7 +169,6 @@ export const useBrewCalculations = (session: Session | undefined) => {
         }
       }
 
-      // 2. Auto-FG: If trailing kinetic velocity indicates a fermentation stall, lock in the minimum gravity.
       if (!mergedActuals.fg && session.raptPillData.length >= 2) {
         const lookbackCount = Math.min(session.raptPillData.length, 48);
         const recentPoints = session.raptPillData.slice(-lookbackCount);
@@ -367,9 +237,139 @@ export const useBrewCalculations = (session: Session | undefined) => {
     };
   }, [session?.events, session?.actuals, session?.recipeSnapshot, session?.raptPillData]);
 
+  const insights = useMemo(() => {
+    if (!session) return null;
+
+    const data = session.raptPillData;
+    const lastPoint = data?.[data.length - 1];
+    let currentSG = lastPoint?.gravity || 1.000;
+    if (currentSG > 10) currentSG = currentSG / 1000;
+
+    // Use the consolidated OG from updatedTargets if available
+    const og = updatedTargets?.mergedActuals.og || session.actuals.og || session.recipeSnapshot.targetOG;
+    const abv = calculateABV(og, currentSG);
+    const attenuation = og > 1 ? ((og - currentSG) / (og - 1)) * 100 : 0;
+    const rawPpd = lastPoint?.gravityVelocity || 0;
+
+    let ppdTrend: 'up' | 'down' | 'flat' = 'flat';
+    let tempTrend: 'up' | 'down' | 'flat' = 'flat';
+
+    if (data && data.length > 1) {
+      const sixHoursAgo = new Date(lastPoint!.timestamp).getTime() - (6 * 60 * 60 * 1000);
+      let comparePoint = [...data].reverse().find(p => new Date(p.timestamp).getTime() <= sixHoursAgo);
+      if (!comparePoint) comparePoint = data[data.length - 2];
+
+      if (comparePoint) {
+        const prevPpd = Math.abs(comparePoint.gravityVelocity || 0);
+        const currPpd = Math.abs(rawPpd);
+        if (currPpd > prevPpd + 0.5) ppdTrend = 'up';
+        else if (currPpd < prevPpd - 0.5) ppdTrend = 'down';
+
+        const prevTemp = comparePoint.temperature || 0;
+        const currTemp = lastPoint!.temperature || 0;
+        if (currTemp > prevTemp + 0.5) tempTrend = 'up';
+        else if (currTemp < prevTemp - 0.5) tempTrend = 'down';
+      }
+    }
+
+    return {
+      abv,
+      attenuation: Number(attenuation.toFixed(1)),
+      currentSG: Number(currentSG.toFixed(4)),
+      og,
+      ppd: Math.abs(rawPpd).toFixed(1),
+      temp: lastPoint?.temperature,
+      ppdTrend,
+      tempTrend
+    };
+  }, [session, updatedTargets?.mergedActuals.og]);
+
+  const timelineMilestones = useMemo((): TimelineMilestone[] => {
+    const logStart = session?.raptLogStart ? new Date(session.raptLogStart).getTime() : new Date().getTime();
+    const milestones: TimelineMilestone[] = [];
+    const now = new Date().getTime();
+
+    const lagEnd = lagPhaseInfo?.end || logStart;
+    const currentSG = insights?.currentSG || 1.050;
+    const og = updatedTargets?.mergedActuals.og || session?.actuals.og || session?.recipeSnapshot.targetOG || 1.050;
+    const targetFG = session?.recipeSnapshot.fermenters[0]?.targetFG || 1.010;
+
+    // 1. Lag Phase Progress
+    let lagProgress = 0;
+    if (lagPhaseInfo?.isComplete) lagProgress = 100;
+    else if (session?.raptLogStart) {
+      const elapsed = now - logStart;
+      lagProgress = Math.min(99, (elapsed / (24 * 60 * 60 * 1000)) * 100);
+    }
+
+    milestones.push({
+      type: 'lag',
+      id: 'lag-phase',
+      name: 'Lag Phase',
+      days: lagPhaseInfo?.durationDays || 0,
+      date: new Date(logStart),
+      isComplete: lagPhaseInfo?.isComplete || false,
+      progress: Math.round(lagProgress)
+    });
+
+    let currentMs = lagEnd;
+    fermentationSteps.forEach((step, idx) => {
+      const isCrash = step.stepTemp < 5;
+      const correspondingEvent = session?.events.find(e => e.type === 'fermentation' && (e.metadata?.stepDetails?.id === step.id || e.metadata?.mashDetails?.id === step.id));
+      const isComplete = correspondingEvent?.completed || false;
+      const durationMs = step.stepTime * 86400000;
+      const phaseEndMs = currentMs + durationMs;
+
+      let progress = 0;
+      if (isComplete) {
+        progress = 100;
+      } else if (now >= currentMs && now < phaseEndMs) {
+        if (idx === 0) {
+          const totalDrop = og - targetFG;
+          const currentDrop = og - currentSG;
+          progress = (totalDrop > 0) ? (currentDrop / totalDrop) * 100 : 0;
+        } else {
+          progress = ((now - currentMs) / durationMs) * 100;
+        }
+      } else if (now >= phaseEndMs) {
+        progress = 100;
+      }
+
+      milestones.push({
+        type: isCrash ? 'crash' : 'phase',
+        id: step.id,
+        name: step.name,
+        days: step.stepTime,
+        temp: step.stepTemp,
+        date: new Date(currentMs),
+        isComplete,
+        progress: Math.round(Math.max(0, Math.min(100, progress)))
+      });
+      currentMs += durationMs;
+    });
+
+    dryHops.forEach(hop => {
+      const correspondingEvent = session?.events.find(e => e.type === 'hop' && e.metadata?.hopDetails?.id === hop.id);
+      const hopDateMs = lagEnd + (hop.time * 86400000);
+
+      milestones.push({
+        type: 'hop',
+        id: hop.id,
+        name: `Dry Hop: ${hop.name}`,
+        days: hop.time,
+        weight: hop.weight,
+        date: new Date(hopDateMs),
+        isComplete: correspondingEvent?.completed || false,
+        progress: now >= hopDateMs ? 100 : 0
+      });
+    });
+
+    return milestones.sort((a, b) => a.date.getTime() - b.date.getTime());
+  }, [session?.raptLogStart, session?.events, fermentationSteps, dryHops, lagPhaseInfo, insights?.currentSG, session?.actuals.og, session?.recipeSnapshot.targetOG, session?.recipeSnapshot.fermenters, updatedTargets?.mergedActuals.og]);
+
   const projectedData = useMemo(() => {
     if (!session?.raptLogStart || !session.recipeSnapshot) return null;
-    const og = session.actuals.og || session.recipeSnapshot.targetOG;
+    const og = updatedTargets?.mergedActuals.og || session.actuals.og || session.recipeSnapshot.targetOG;
     const fg = session.recipeSnapshot.fermenters[0]?.targetFG || 1.010;
     const startTime = new Date(session.raptLogStart).getTime();
 
@@ -383,7 +383,7 @@ export const useBrewCalculations = (session: Session | undefined) => {
       session.raptPillData || [],
       yeastAttenuation
     );
-  }, [session, fermentationSteps]);
+  }, [session, fermentationSteps, updatedTargets?.mergedActuals.og]);
 
   return {
     fermentationSteps,
